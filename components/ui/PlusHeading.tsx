@@ -1,6 +1,11 @@
 import { cn } from "@/lib/cn";
 
-/** Little roundabout glyph that replaces the reference's "+" eyebrow icon. */
+/** Small square marker (■) used next to statements and labels. */
+export function SquareMark({ className }: { className?: string }) {
+  return <span aria-hidden="true" className={cn("inline-block size-[0.55em] shrink-0 bg-current", className)} />;
+}
+
+/** Kept for places that still use the roundabout glyph (e.g. form confirmations). */
 export function RingGlyph({ className }: { className?: string }) {
   return (
     <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true" className={className}>
@@ -11,8 +16,8 @@ export function RingGlyph({ className }: { className?: string }) {
 }
 
 /**
- * Eyebrow label. `below` stacks the glyph under the text (the reference's
- * "plus-heading-below"); otherwise the glyph sits before the text.
+ * Eyebrow label in brackets: "[ OUR MISSION ]". `below` adds a square marker
+ * underneath (for labels that sit above a big statement).
  */
 export function PlusHeading({
   children,
@@ -30,15 +35,18 @@ export function PlusHeading({
   return (
     <Tag
       className={cn(
-        "font-ui flex gap-[0.9em]",
-        below ? "flex-col-reverse" : "items-center",
+        "font-ui mb-[2em] flex gap-[0.9em] tracking-[0.06em]",
+        below ? "flex-col" : "items-center",
         center && "items-center text-center",
-        "mb-[2em]",
         className,
       )}
     >
-      <RingGlyph className={cn("shrink-0", below && !center && "self-start")} />
-      <span>{children}</span>
+      <span>
+        <span aria-hidden="true">[&nbsp;</span>
+        {children}
+        <span aria-hidden="true">&nbsp;]</span>
+      </span>
+      {below && <SquareMark className={cn("text-[11px]", !center && "self-start")} />}
     </Tag>
   );
 }

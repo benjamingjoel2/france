@@ -7,8 +7,8 @@ export const brandHex: Record<BrandColour, string> = {
   roadsign: "#1D4E9E",
   vineyard: "#4E6B35",
   "vineyard-300": "#A9BC8B",
-  charcoal: "#25252A",
-  night: "#141418",
+  charcoal: "#2A221D",
+  night: "#1A1411",
 };
 
 /** Text colour that reads well on the given brand colour. */

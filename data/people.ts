@@ -49,7 +49,7 @@ export const people: Person[] = [
     ],
     favouriteExit: "The D703 between Beynac and La Roque-Gageac, with the river on your right",
     languages: ["French", "English", "Wolof", "Spanish"],
-    image: photo("people:3", 0),
+    image: photo("people:8", 0),
     placeholder: true,
   },
 
@@ -96,7 +96,7 @@ export const people: Person[] = [
     ],
     favouriteExit: "The Corniche Basque between Socoa and Hendaye, any time the swell is up",
     languages: ["French", "Basque", "Spanish", "English"],
-    image: photo("people:6", 0),
+    image: photo("people:7", 0),
     placeholder: true,
   },
   {
@@ -111,7 +111,7 @@ export const people: Person[] = [
     ],
     favouriteExit: "The little road up to Domme, then the view back down the valley",
     languages: ["French", "English", "Occitan (a bit)"],
-    image: photo("people:7", 0),
+    image: photo("people:6", 0),
     placeholder: true,
   },
 
@@ -128,7 +128,7 @@ export const people: Person[] = [
     ],
     favouriteExit: "Any exit marked 'Toutes directions' when I'm not in a hurry",
     languages: ["French", "English", "German"],
-    image: photo("people:8", 0),
+    image: photo("people:3", 0),
     placeholder: true,
   },
   {

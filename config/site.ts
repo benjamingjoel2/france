@@ -17,9 +17,9 @@ export const site = {
   locale: "en_GB",
 
   colours: {
-    cream: "#F5EFE2",
-    charcoal: "#25252A",
-    night: "#141418",
+    cream: "#F7EFE0",
+    charcoal: "#2A221D",
+    night: "#1A1411",
     lavender: "#8E7CC3",
     sunflower: "#F4C21C",
     roadsign: "#1D4E9E",

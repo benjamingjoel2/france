@@ -5,13 +5,13 @@
    Mirrors the reference's proportions; colours and fonts are our own.
 ------------------------------------------------------------------- */
 @theme {
-  --color-cream: #f5efe2;
-  --color-charcoal: #25252a;
-  --color-night: #141418;
-  --color-charcoal-5: #2f2f35;
-  --color-charcoal-10: #3b3b42;
-  --color-mist: #b9b5c4;
-  --color-dim: #9a98a3;
+  --color-cream: #f7efe0;
+  --color-charcoal: #2a221d;
+  --color-night: #1a1411;
+  --color-charcoal-5: #352b25;
+  --color-charcoal-10: #42362e;
+  --color-mist: #d4c6ae;
+  --color-dim: #a89a86;
   --color-ash: #6e6c77;
   --color-lavender: #8e7cc3;
   --color-lavender-300: #c9bee6;
@@ -155,8 +155,8 @@
 }
 
 /* Hairlines */
-@utility hairline-dark { border-color: rgb(245 239 226 / 0.15); }
-@utility hairline-light { border-color: rgb(37 37 42 / 0.15); }
+@utility hairline-dark { border-color: rgb(247 239 224 / 0.15); }
+@utility hairline-light { border-color: rgb(42 34 29 / 0.15); }
 
 /* Rich text */
 @utility richtext {
