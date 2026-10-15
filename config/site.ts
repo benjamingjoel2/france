@@ -10,7 +10,10 @@ export const site = {
   tagline: "Take the long way round.",
   description:
     "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist on WhatsApp the whole way.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rond-point.example",
+  // Set NEXT_PUBLIC_SITE_URL once the real domain exists; on Vercel the production URL is used automatically.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://rond-point.example"),
   locale: "en_GB",
 
   colours: {
