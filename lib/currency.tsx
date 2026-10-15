@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useMemo } from "react";
+import { useStored } from "./useStored";
 import { site, type CurrencyCode } from "@/config/site";
 
 const STORAGE_KEY = "rp-currency";
@@ -31,25 +32,10 @@ export function formatMoney(eur: number, currency: CurrencyCode, round = 10) {
 }
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
-  const [currency, setCurrencyState] = useState<CurrencyCode>(site.currencies.base);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY) as CurrencyCode | null;
-      if (saved && site.currencies.supported.includes(saved)) setCurrencyState(saved);
-    } catch {
-      /* storage unavailable: keep EUR */
-    }
-  }, []);
-
-  const setCurrency = useCallback((c: CurrencyCode) => {
-    setCurrencyState(c);
-    try {
-      localStorage.setItem(STORAGE_KEY, c);
-    } catch {
-      /* ignore */
-    }
-  }, []);
+  const [stored, store] = useStored(STORAGE_KEY);
+  const currency: CurrencyCode =
+    stored && site.currencies.supported.includes(stored as CurrencyCode) ? (stored as CurrencyCode) : site.currencies.base;
+  const setCurrency = useCallback((c: CurrencyCode) => store(c), [store]);
 
   const value = useMemo<Ctx>(
     () => ({

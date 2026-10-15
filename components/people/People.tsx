@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import type { Img } from "@/data/types";
 import { site } from "@/config/site";
 import { imgUrl } from "@/lib/media";
@@ -29,8 +29,7 @@ const nameFonts = ["font-wide", "font-cond", "font-display", "font-cond", "font-
 export function PersonModal({ person, onClose }: { person: PersonLite | null; onClose: () => void }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const closeRef = useRef(onClose);
-  closeRef.current = onClose;
+  const onEscape = useEffectEvent(() => onClose());
   const open = !!person;
   useEffect(() => {
     if (!open) return;
@@ -39,7 +38,7 @@ export function PersonModal({ person, onClose }: { person: PersonLite | null; on
     document.documentElement.style.overflow = "hidden";
     ref.current?.querySelector<HTMLElement>("button")?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeRef.current();
+      if (e.key === "Escape") onEscape();
       if (e.key === "Tab") {
         e.preventDefault();
         ref.current?.querySelector<HTMLElement>("button")?.focus();
@@ -130,6 +129,8 @@ export function PeopleGrid({ people, deepLink = true }: { people: PersonLite[]; 
   useEffect(() => {
     if (!deepLink) return;
     const p = new URLSearchParams(window.location.search).get("p");
+    // Deep link (?p=slug) can only be read after hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (p && people.some((x) => x.slug === p)) setOpenSlug(p);
   }, [deepLink, people]);
 

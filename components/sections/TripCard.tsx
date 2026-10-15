@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CardTrip } from "@/lib/cards";
 import { paces, tripTypes } from "@/data/taxonomy";
 import { imgUrl } from "@/lib/media";
@@ -42,16 +42,20 @@ export function TripCard({ trip, regionName, tone = "light", sizes, priority, cl
   const { poster } = trip;
   const framed = poster.variant === "framed";
 
+  // Play once the <video> exists (it is only mounted on first hover); pause on leave.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (hover && canVideo) v.play().catch(() => {});
+    else v.pause();
+  }, [hover, canVideo, videoSrc]);
+
   function enter() {
     setHover(true);
-    if (canVideo && trip.hoverVideo) {
-      if (!videoSrc) setVideoSrc(trip.hoverVideo.src);
-      videoRef.current?.play().catch(() => {});
-    }
+    if (canVideo && trip.hoverVideo && !videoSrc) setVideoSrc(trip.hoverVideo.src);
   }
   function leave() {
     setHover(false);
-    videoRef.current?.pause();
   }
 
   const showVideo = hover && canVideo && videoReady;
@@ -99,21 +103,20 @@ export function TripCard({ trip, regionName, tone = "light", sizes, priority, cl
           {videoSrc && (
             <video
               ref={videoRef}
-              src={videoSrc}
               muted
               loop
               playsInline
               preload="none"
               aria-hidden="true"
-              onCanPlay={() => {
-                setVideoReady(true);
-                if (hover) videoRef.current?.play().catch(() => {});
-              }}
+              onPlaying={() => setVideoReady(true)}
               className={cn(
                 "absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-[var(--ease-rp)]",
                 showVideo ? "opacity-100" : "opacity-0",
               )}
-            />
+            >
+              <source src={videoSrc.replace(/\.mp4$/, ".webm")} type="video/webm" />
+              <source src={videoSrc} type="video/mp4" />
+            </video>
           )}
         </div>
 

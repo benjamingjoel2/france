@@ -31,12 +31,14 @@ function tripImages(
   heroKeys: string[],
   hoverKeys: string[],
   galleryKeys: string[],
+  /** Override the poster card image (e.g. when two trips share a region). */
+  cardKeys: string[] = [],
 ): Pick<RoadTrip, "heroImage" | "cardImage" | "hoverImage" | "gallery"> {
   const r = `region:${region}`;
   const gallery: Img[] = galleryKeys.map((k, i) => photo([k, r], i % 3));
   return {
     heroImage: photo([...heroKeys, r], 0),
-    cardImage: photo([`${r}:portrait`, r], 0),
+    cardImage: photo([...cardKeys, `${r}:portrait`, r], 0),
     hoverImage: photo([...hoverKeys, r], 1),
     gallery,
   };
@@ -251,6 +253,7 @@ export const roadTrips: RoadTrip[] = [
       ["theme:gorges-verdon"],
       ["theme:route-napoleon", "theme:road-winding"],
       ["theme:gorges-verdon", "theme:route-napoleon", "theme:road-winding", "region:french-alps", "region:cote-d-azur"],
+      ["theme:gorges-verdon"],
     ),
     hoverVideo: { src: "/video/gorges-du-verdon-route-napoleon.mp4" },
     lede:

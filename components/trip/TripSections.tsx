@@ -200,7 +200,7 @@ export function TripRoute({ trip }: { trip: RoadTrip }) {
             {trip.itinerary
               .filter((d) => d.km > 0)
               .map((d) => (
-                <li key={d.day} className="font-ui flex justify-between gap-4 border-t hairline-dark py-3 font-light">
+                <li key={d.day} className="font-ui flex flex-col justify-between gap-1 border-t hairline-dark py-3 font-light sm:flex-row sm:gap-4">
                   <span>
                     <span className="text-mist">Day {d.day}</span> {d.from} → {d.to}
                   </span>

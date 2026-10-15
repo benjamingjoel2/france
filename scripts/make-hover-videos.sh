@@ -12,5 +12,7 @@ npx tsx scripts/list-hover-sources.ts | while IFS=$'\t' read -r slug src; do
   ffmpeg -nostdin -loglevel error -y -loop 1 -i "$TMP/$slug.jpg" -vf \
     "scale=1120:1600,zoompan=z='1+0.12*pow(sin(on/125*PI),2)':x='iw/2-(iw/zoom/2)+20*sin(on/125*2*PI)':y='ih/2-(ih/zoom/2)':d=125:s=560x800:fps=25,format=yuv420p" \
     -frames:v 125 -c:v libx264 -preset slow -crf 30 -movflags +faststart -an "$out"
-  echo "made $out ($(du -k "$out" | cut -f1) KB)"
+  # Open-codec WebM twin for browsers without H.264 (e.g. some Chromium builds).
+  ffmpeg -nostdin -loglevel error -y -i "$out" -c:v libvpx-vp9 -b:v 0 -crf 40 -row-mt 1 -an "${out%.mp4}.webm"
+  echo "made $out ($(du -k "$out" | cut -f1) KB) + webm ($(du -k "${out%.mp4}.webm" | cut -f1) KB)"
 done

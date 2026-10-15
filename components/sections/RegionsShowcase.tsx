@@ -111,7 +111,7 @@ export function RegionsShowcase({ regions }: { regions: RegionLite[] }) {
   const activeRegion = regions.find((r) => r.slug === active);
 
   return (
-    <section className="relative bg-charcoal py-[var(--spacing-sec)] text-cream">
+    <section className="relative overflow-x-clip bg-charcoal py-[var(--spacing-sec)] text-cream">
       <div className="px-gutter text-center">
         <PlusHeading below center className="mx-auto">
           Our regions

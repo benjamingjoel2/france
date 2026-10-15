@@ -49,6 +49,7 @@ export function Planner({
   const [maxStep, setMaxStep] = useState(0);
   const [errors, setErrors] = useState<Errors>({});
   const [loaded, setLoaded] = useState(false);
+  const [minDate, setMinDate] = useState<string | undefined>(undefined);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [done, setDone] = useState<{ name: string } | null>(null);
@@ -89,9 +90,12 @@ export function Planner({
         next.contact.notes = `I'm interested in the "${trip.title}" road trip.${next.contact.notes ? "\n" + next.contact.notes : ""}`;
       }
     }
+    // Restoring saved progress and URL prefill can only happen after hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDraft(next);
     setStep(savedStep);
     setMaxStep(savedMax);
+    setMinDate(new Date(Date.now() + 86400000).toISOString().slice(0, 10));
     setLoaded(true);
   }, [exits, trips]);
 
@@ -211,7 +215,6 @@ export function Planner({
   const err = (k: string) => errors[k];
   const childErr = Object.entries(errors).find(([k]) => k.startsWith("childAges"))?.[1];
   const id = (k: string) => `${stepKeys[step]}-${k}`;
-  const minDate = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
 
   return (
     <div className="grid gap-[var(--spacing-sec-lg)] lg:grid-cols-12">

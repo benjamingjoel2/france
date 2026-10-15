@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useStored } from "@/lib/useStored";
 import { z } from "zod";
 import type { Img } from "@/data/types";
 import { whatsappHref } from "@/config/site";
@@ -116,18 +117,10 @@ function Dashboard({ name, trip, onLogout }: { name: string; trip: DemoTrip; onL
 
 export function AccountArea({ trip }: { trip: DemoTrip }) {
   const [tab, setTab] = useState<"login" | "new">("login");
-  const [session, setSession] = useState<{ name: string } | null>(null);
+  const [rawSession, storeSession] = useStored(SESSION_KEY, "session");
+  const session = rawSession ? (JSON.parse(rawSession) as { name: string }) : null;
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem(SESSION_KEY);
-      if (raw) setSession(JSON.parse(raw));
-    } catch {
-      /* ignore */
-    }
-  }, []);
 
   function login(e: React.FormEvent) {
     e.preventDefault();
@@ -140,21 +133,11 @@ export function AccountArea({ trip }: { trip: DemoTrip }) {
     }
     // TODO: authenticate against the real backend.
     const s = { name: form.email.split("@")[0].replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) };
-    try {
-      sessionStorage.setItem(SESSION_KEY, JSON.stringify(s));
-    } catch {
-      /* ignore */
-    }
-    setSession(s);
+    storeSession(JSON.stringify(s));
   }
 
   function logout() {
-    try {
-      sessionStorage.removeItem(SESSION_KEY);
-    } catch {
-      /* ignore */
-    }
-    setSession(null);
+    storeSession(null);
     setForm({ email: "", password: "" });
   }
 

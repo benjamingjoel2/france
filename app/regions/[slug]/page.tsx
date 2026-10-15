@@ -118,9 +118,9 @@ export default async function RegionPage({ params }: PageProps<"/regions/[slug]"
             {moments.length > 0 && (
               <ul className="mt-6 border-b hairline-dark">
                 {moments.map((m) => (
-                  <li key={m.id} className="font-ui flex justify-between gap-4 border-t hairline-dark py-3 font-light">
+                  <li key={m.id} className="font-ui flex flex-col justify-between gap-1 border-t hairline-dark py-3 font-light sm:flex-row sm:gap-4">
                     <span>{m.title}</span>
-                    <span className="shrink-0 text-mist normal-case">{m.window} · verify yearly</span>
+                    <span className="text-mist normal-case sm:shrink-0">{m.window} · verify yearly</span>
                   </li>
                 ))}
               </ul>

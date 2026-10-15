@@ -34,10 +34,19 @@ function MenuIcon({ open }: { open: boolean }) {
 }
 
 export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
-  const [open, setOpen] = useState(false);
+  // The menu remembers which page it was opened on, so navigating closes it.
+  const [openOn, setOpenOn] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState(0);
   const pathname = usePathname();
+  const open = openOn === pathname;
+  const setOpen = useCallback((v: boolean | ((o: boolean) => boolean)) => {
+    setOpenOn((cur) => {
+      const was = cur !== null;
+      const next = typeof v === "function" ? v(was) : v;
+      return next ? pathname : null;
+    });
+  }, [pathname]);
   const reduce = useReducedMotion();
   const scopeRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -50,15 +59,10 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the menu on navigation.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   const close = useCallback(() => {
     setOpen(false);
     toggleRef.current?.focus();
-  }, []);
+  }, [setOpen]);
 
   // Scroll lock, Escape to close, focus trap within header + menu.
   useEffect(() => {
@@ -173,6 +177,7 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
                         <Link
                           href={item.href}
                           aria-current={current ? "page" : undefined}
+                          onClick={() => setOpen(false)}
                           onMouseEnter={() => setActive(i)}
                           onFocus={() => setActive(i)}
                           className={cn(
