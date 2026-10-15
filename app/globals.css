@@ -11,8 +11,8 @@
   --color-charcoal-5: #2f2f35;
   --color-charcoal-10: #3b3b42;
   --color-mist: #b9b5c4;
-  --color-dim: #7c7a85;
-  --color-ash: #54525c;
+  --color-dim: #9a98a3;
+  --color-ash: #6e6c77;
   --color-lavender: #8e7cc3;
   --color-lavender-300: #c9bee6;
   --color-sunflower: #f4c21c;
@@ -58,6 +58,14 @@
   --ease-rp: cubic-bezier(0.645, 0.045, 0.355, 1);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  @keyframes rise {
+    from { transform: translateY(105%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(var(--fade-y, 40px)); }
+    to { opacity: 1; transform: none; }
+  }
   @keyframes draw {
     to { stroke-dashoffset: 0; }
   }

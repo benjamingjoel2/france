@@ -109,7 +109,7 @@ export function TripFlavour({ trip }: { trip: RoadTrip }) {
             return (
               <li
                 key={m}
-                className={cn("font-ui flex h-12 items-center justify-center text-[11px]", best ? "text-charcoal" : "bg-charcoal-5 text-dim")}
+                className={cn("font-ui flex h-12 items-center justify-center text-[11px]", best ? "font-medium text-night" : "bg-charcoal-5 text-mist")}
                 style={best ? { background: colour } : undefined}
               >
                 {m}

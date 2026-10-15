@@ -44,14 +44,24 @@ export function SplitWords({
             const idx = i++;
             return (
               <span key={wi} className="inline-block overflow-hidden pb-[0.06em] -mb-[0.06em] align-bottom">
-                <motion.span
-                  className="inline-block will-change-transform"
-                  initial={reduce ? { opacity: 0 } : { y: "105%" }}
-                  animate={show ? (reduce ? { opacity: 1 } : { y: "0%" }) : undefined}
-                  transition={{ duration: reduce ? 0.3 : 0.8, ease: [0.645, 0.045, 0.355, 1], delay: delay + idx * stagger }}
-                >
-                  {word}
-                </motion.span>
+                {immediate ? (
+                  // On-load headlines animate with CSS so they paint before hydration (better LCP).
+                  <span
+                    className="inline-block animate-[rise_0.8s_cubic-bezier(0.645,0.045,0.355,1)_both]"
+                    style={{ animationDelay: `${delay + idx * stagger}s` }}
+                  >
+                    {word}
+                  </span>
+                ) : (
+                  <motion.span
+                    className="inline-block will-change-transform"
+                    initial={reduce ? { opacity: 0 } : { y: "105%" }}
+                    animate={show ? (reduce ? { opacity: 1 } : { y: "0%" }) : undefined}
+                    transition={{ duration: reduce ? 0.3 : 0.8, ease: [0.645, 0.045, 0.355, 1], delay: delay + idx * stagger }}
+                  >
+                    {word}
+                  </motion.span>
+                )}
                 {wi < arr.length - 1 ? " " : null}
               </span>
             );

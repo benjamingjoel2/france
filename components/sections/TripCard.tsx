@@ -166,7 +166,7 @@ export function TripCard({ trip, regionName, tone = "light", sizes, priority, cl
         <li className="flex items-center gap-2">
           <PaceGlyph pace={trip.pace} />
           {paces[trip.pace].label}
-          <span className="text-current/60 normal-case">· ~{trip.avgDailyDriveHours}h/day</span>
+          <span className="text-current/80 normal-case">· ~{trip.avgDailyDriveHours}h/day</span>
         </li>
         <li aria-hidden="true">•</li>
         <li>

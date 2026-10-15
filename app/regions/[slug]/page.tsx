@@ -94,7 +94,7 @@ export default async function RegionPage({ params }: PageProps<"/regions/[slug]"
                   <li
                     key={m}
                     title={monthNames[i]}
-                    className={cn("font-ui flex h-12 items-center justify-center text-[11px]", best ? "text-charcoal" : quiet ? "bg-charcoal-5 text-ash" : "bg-charcoal-10 text-mist")}
+                    className={cn("font-ui flex h-12 items-center justify-center text-[11px]", best ? "font-medium text-night" : quiet ? "bg-charcoal-5 text-dim" : "bg-charcoal-10 text-mist")}
                     style={best ? { background: colour } : undefined}
                   >
                     {m}

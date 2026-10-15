@@ -126,7 +126,7 @@ export function ReviewsSlider({ reviews, eyebrow = "Client reviews" }: { reviews
                   <span>
                     {r.name}, {r.country} <span aria-hidden="true">-</span> {r.tripName}
                   </span>
-                  <span className="flex gap-0.5 text-sunflower" aria-label={`${r.rating} out of 5 stars`}>
+                  <span role="img" className="flex gap-0.5 text-sunflower" aria-label={`${r.rating} out of 5 stars`}>
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Icon key={i} name="star" size={19} className={cn(i >= r.rating && "text-charcoal/15")} />
                     ))}

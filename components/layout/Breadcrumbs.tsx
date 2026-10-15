@@ -37,7 +37,7 @@ export function Breadcrumbs({ items, overlay = false }: { items: Crumb[]; overla
                 {c.label}
               </Link>
             ) : (
-              <span aria-current="page" className="opacity-50">
+              <span aria-current="page" className="opacity-75">
                 {c.label}
               </span>
             )}
