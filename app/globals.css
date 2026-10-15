@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Rond-Point design tokens
+   Mirrors the reference's proportions; colours and fonts are our own.
+------------------------------------------------------------------- */
+@theme {
+  --color-cream: #f5efe2;
+  --color-charcoal: #25252a;
+  --color-night: #141418;
+  --color-charcoal-5: #2f2f35;
+  --color-charcoal-10: #3b3b42;
+  --color-mist: #b9b5c4;
+  --color-dim: #7c7a85;
+  --color-ash: #54525c;
+  --color-lavender: #8e7cc3;
+  --color-lavender-300: #c9bee6;
+  --color-sunflower: #f4c21c;
+  --color-roadsign: #1d4e9e;
+  --color-vineyard: #4e6b35;
+  --color-vineyard-300: #a9bc8b;
+  --color-brick: #c0584f;
+
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+  --font-sans: var(--font-dm-mono), ui-monospace, monospace;
+  --font-archivo: var(--font-archivo-var), "Arial Black", sans-serif;
+
+  /* Fluid type scale: value at 1440px / 390px matches the reference */
+  --text-xs: 11.5px;
+  --text-sm: clamp(11.5px, 0.04vw + 11.3px, 13px);
+  --text-ui: clamp(12.25px, 0.09vw + 11.9px, 15px);
+  --text-base: clamp(14px, 0.1vw + 13.6px, 17px);
+  --text-base--line-height: 1.6;
+  --text-md: clamp(16.5px, 0.31vw + 15.3px, 28px);
+  --text-lg: clamp(19.3px, 0.66vw + 16.7px, 38px);
+  --text-xl: clamp(22.7px, 1.17vw + 18.1px, 52px);
+  --text-2xl: clamp(26.7px, 1.93vw + 19.2px, 70px);
+  --text-3xl: clamp(31.4px, 3.1vw + 19.3px, 96px);
+  --text-4xl: clamp(36.8px, 4.82vw + 18px, 134px);
+
+  /* Section rhythm */
+  --spacing-gutter: max(1rem, 3vw);
+  --spacing-sec: clamp(53px, 3.9vw + 37.8px, 140px);
+  --spacing-sec-xl: clamp(45px, 2.34vw + 36.3px, 104px);
+  --spacing-sec-lg: clamp(36px, 1.5vw + 30px, 78px);
+  --spacing-sec-md: clamp(20px, 0.6vw + 17.5px, 38px);
+  --spacing-header: 75px;
+  --spacing-grid-gap: max(1.5vw, 0.5rem);
+
+  --ease-rp: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  :root {
+    --header-h: 56px;
+    color-scheme: light;
+  }
+  @media (min-width: 1024px) {
+    :root { --header-h: 75px; }
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-charcoal);
+    font-family: var(--font-mono);
+    font-weight: 300;
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+  ::selection { background: var(--color-sunflower); color: var(--color-charcoal); }
+  :focus-visible {
+    outline: 2px solid var(--color-sunflower);
+    outline-offset: 3px;
+  }
+  button { cursor: pointer; }
+  img, video { max-width: 100%; }
+}
+
+/* ------------------------------------------------------------------
+   Type families (one Archivo variable file, three personalities)
+------------------------------------------------------------------- */
+@utility font-display {
+  font-family: var(--font-archivo);
+  font-weight: 900;
+  font-stretch: 100%;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.82;
+}
+@utility font-cond {
+  font-family: var(--font-archivo);
+  font-weight: 600;
+  font-stretch: 62%;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+}
+@utility font-wide {
+  font-family: var(--font-archivo);
+  font-weight: 900;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.82;
+}
+@utility font-ui {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+@utility px-gutter {
+  padding-left: var(--spacing-gutter);
+  padding-right: var(--spacing-gutter);
+}
+@utility mx-gutter {
+  margin-left: var(--spacing-gutter);
+  margin-right: var(--spacing-gutter);
+}
+
+/* Hairlines */
+@utility hairline-dark { border-color: rgb(245 239 226 / 0.15); }
+@utility hairline-light { border-color: rgb(37 37 42 / 0.15); }
+
+/* Rich text */
+@utility richtext {
+  & p { margin-bottom: 1.25em; line-height: 1.62; }
+  & p:last-child { margin-bottom: 0; }
+  & a { font-weight: 400; text-decoration: underline; text-underline-offset: 3px; }
+  & strong { font-weight: 500; }
+  & ul { margin: 0 0 1.25em; }
+  & li { position: relative; padding: 0.55em 0 0.55em 2em; border-bottom: 1px dashed currentColor; border-color: color-mix(in srgb, currentColor 18%, transparent); }
+  & li::before { content: ""; position: absolute; left: 0; top: 1.15em; width: 6px; height: 6px; background: currentColor; }
+}
+@utility richtext-two-col {
+  @media (min-width: 768px) {
+    column-count: 2;
+    column-gap: 5%;
+  }
+  & p { break-inside: avoid-column; }
+}
+
+/* Animated link underline (wipes in from left) */
+@utility link-wipe {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s var(--ease-rp);
+  &:hover { background-size: 0% 1px; background-position: 100% 100%; }
+}
+@utility link-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s var(--ease-rp);
+  &:hover, &[aria-current="page"], &[data-active="true"] { background-size: 100% 1px; }
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 0.025em currentColor;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* Vertical edge label on poster cards */
+@utility writing-vertical {
+  writing-mode: vertical-rl;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
