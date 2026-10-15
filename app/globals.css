@@ -66,6 +66,9 @@
     from { opacity: 0; transform: translateY(var(--fade-y, 40px)); }
     to { opacity: 1; transform: none; }
   }
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
   @keyframes draw {
     to { stroke-dashoffset: 0; }
   }
@@ -213,4 +216,37 @@
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ------------------------------------------------------------------
+   Concept palettes (preview routes under /concepts). Tailwind colour
+   utilities read these variables, so the whole page, header and footer
+   included, re-tints when a concept is on screen.
+------------------------------------------------------------------- */
+html:has([data-concept="golden"]) {
+  --color-charcoal: #2a221d;
+  --color-night: #1a1411;
+  --color-charcoal-5: #352b25;
+  --color-charcoal-10: #42362e;
+  --color-cream: #f7efe0;
+  --color-mist: #d4c6ae;
+  --color-dim: #a89a86;
+}
+html:has([data-concept="lavender"]) {
+  --color-charcoal: #272235;
+  --color-night: #18141f;
+  --color-charcoal-5: #312b42;
+  --color-charcoal-10: #3d3651;
+  --color-cream: #f6f1ea;
+  --color-mist: #cbc0e6;
+  --color-dim: #a39cbb;
+}
+html:has([data-concept="riviera"]) {
+  --color-charcoal: #142849;
+  --color-night: #0c1a33;
+  --color-charcoal-5: #1b335b;
+  --color-charcoal-10: #243f6e;
+  --color-cream: #f7f1e5;
+  --color-mist: #bccae3;
+  --color-dim: #94a5c4;
 }
