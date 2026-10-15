@@ -67,7 +67,8 @@ export default function HomePage() {
 
       {/* 1. Featured road trip hero */}
       <HomeHero
-        image={heroTrip?.heroImage ?? photo("hero:lavender")}
+        image={hero.image ?? heroTrip?.heroImage ?? photo("hero:lavender")}
+        focus={hero.image?.focus}
         eyebrow={hero.eyebrow}
         headline={hero.headline}
         cta={hero.cta}

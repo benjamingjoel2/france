@@ -14,8 +14,11 @@ export function HomeHero({
   headline,
   cta,
   href,
+  focus,
 }: {
   image: Img;
+  /** CSS object-position for the photo, e.g. "68% 50%". */
+  focus?: string;
   eyebrow: string;
   headline: readonly string[];
   cta: string;
@@ -24,7 +27,15 @@ export function HomeHero({
   return (
     <section className="relative flex min-h-[560px] h-[100svh] items-end overflow-hidden bg-night px-gutter text-cream">
       <Parallax className="absolute inset-0" strength={0.25}>
-        <Image src={imgUrl(image, 2400)} alt={image.alt} fill priority sizes="100vw" className="object-cover opacity-85" />
+        <Image
+          src={imgUrl(image, 2400)}
+          alt={image.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-85"
+          style={focus ? { objectPosition: focus } : undefined}
+        />
       </Parallax>
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-night/55 to-transparent" />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-night/80 via-night/35 to-transparent" />

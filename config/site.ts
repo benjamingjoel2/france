@@ -111,6 +111,15 @@ export const site = {
     headline: ["Lavender", "all the way."],
     cta: "In Provence next summer",
     slug: "provence-lavender-hilltop-villages",
+    /** Homepage hero photo (local file, client-supplied). */
+    image: {
+      src: "/img/hero-cyclist.webp",
+      alt: "A road cyclist in a pink jersey speeding past a sunlit wall",
+      w: 1170,
+      h: 780,
+      /** Keeps the rider in frame when the photo is cropped on narrow screens. */
+      focus: "68% 50%",
+    },
   },
 
   features: {
