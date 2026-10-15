@@ -31,6 +31,14 @@
   --text-ui: clamp(12.25px, 0.09vw + 11.9px, 15px);
   --text-base: clamp(14px, 0.1vw + 13.6px, 17px);
   --text-base--line-height: 1.6;
+  --text-sm--line-height: 1.5;
+  --text-ui--line-height: 1.5;
+  --text-md--line-height: 1;
+  --text-lg--line-height: 0.92;
+  --text-xl--line-height: 1;
+  --text-2xl--line-height: 0.9;
+  --text-3xl--line-height: 0.8;
+  --text-4xl--line-height: 0.8;
   --text-md: clamp(16.5px, 0.31vw + 15.3px, 28px);
   --text-lg: clamp(19.3px, 0.66vw + 16.7px, 38px);
   --text-xl: clamp(22.7px, 1.17vw + 18.1px, 52px);
@@ -50,6 +58,9 @@
   --ease-rp: cubic-bezier(0.645, 0.045, 0.355, 1);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
