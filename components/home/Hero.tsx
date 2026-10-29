@@ -4,9 +4,8 @@ import type { Img } from "@/data/types";
 import { imgUrl } from "@/lib/media";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { PlusHeading, SquareMark } from "@/components/ui/PlusHeading";
-import { Reveal } from "@/components/motion/Reveal";
 import { Parallax } from "@/components/motion/Parallax";
-import { Squiggle } from "@/components/concepts/Pieces";
+import { Squiggle } from "@/components/home/Pieces";
 import { LiveClock } from "./LiveClock";
 
 const rise = "inline-block animate-[rise_0.9s_cubic-bezier(0.645,0.045,0.355,1)_both]";
@@ -45,9 +44,7 @@ export function Hero({
 
       <div className="relative z-10 grid w-full gap-10 px-gutter pb-[var(--spacing-sec-xl)] lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-7 xl:col-span-8">
-          <Reveal immediate y={16}>
-            <PlusHeading>Bonne route</PlusHeading>
-          </Reveal>
+          <PlusHeading>Bonne route</PlusHeading>
           <h1 className="font-display text-[clamp(52px,8.4vw,150px)] leading-[0.8]">
             <Line delay={0.1}>Take the</Line>
             <Line delay={0.2}>
@@ -57,7 +54,7 @@ export function Hero({
           </h1>
         </div>
 
-        <Reveal immediate delay={0.6} y={20} className="flex flex-col gap-6 lg:col-span-5 xl:col-span-4">
+        <div className="flex flex-col gap-6 lg:col-span-5 xl:col-span-4">
           <LiveClock />
           <p className="flex gap-3 text-[15px] leading-[1.55]">
             <SquareMark className="mt-[0.45em] text-[11px]" />
@@ -80,7 +77,7 @@ export function Hero({
               <span className="font-ui mt-1 block text-[11.5px] text-mist">{trip.meta} →</span>
             </span>
           </Link>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

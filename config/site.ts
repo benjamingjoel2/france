@@ -10,10 +10,8 @@ export const site = {
   tagline: "Take the long way round.",
   description:
     "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist on WhatsApp the whole way.",
-  // Set NEXT_PUBLIC_SITE_URL once the real domain exists; on Vercel the production URL is used automatically.
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://rond-point.example"),
+  // Canonical domain (a subdomain of tourground.com, DNS on Vercel). NEXT_PUBLIC_SITE_URL overrides it.
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rond-point.tourground.com",
   locale: "en_GB",
 
   colours: {
@@ -41,10 +39,10 @@ export const site = {
     phoneIntl: "[+44 0000 000000]",
     phoneIntlHref: "tel:+440000000000",
     phoneIntlNote: "(UK)",
-    email: "[hello@rond-point.example]",
-    emailHref: "mailto:hello@rond-point.example",
-    pressEmail: "[press@rond-point.example]",
-    pressEmailHref: "mailto:press@rond-point.example",
+    email: "hello@rond-point.tourground.com",
+    emailHref: "mailto:hello@rond-point.tourground.com",
+    pressEmail: "press@rond-point.tourground.com",
+    pressEmailHref: "mailto:press@rond-point.tourground.com",
     /** Digits only, international format, no "+". */
     whatsapp: "[NUMBER]",
     hours: "Mon–Sat, 9:00–19:00 (Paris time)",
@@ -55,7 +53,7 @@ export const site = {
     { label: "Facebook", href: "https://facebook.com/", icon: "facebook" },
     { label: "YouTube", href: "https://youtube.com/", icon: "youtube" },
     { label: "Pinterest", href: "https://pinterest.com/", icon: "pinterest" },
-    { label: "Email", href: "mailto:hello@rond-point.example", icon: "mail" },
+    { label: "Email", href: "mailto:hello@rond-point.tourground.com", icon: "mail" },
   ] as const,
 
   /** Full-screen menu. `imageKey` points into the placeholder photo pool. */

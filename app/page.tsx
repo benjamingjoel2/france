@@ -12,7 +12,7 @@ import { SectionIntro } from "@/components/sections/SectionIntro";
 import { LinkRows } from "@/components/sections/LinkRows";
 import { RegionsShowcase } from "@/components/sections/RegionsShowcase";
 import { ReviewsSlider } from "@/components/sections/ReviewsSlider";
-import { CountUpStats, HowItWorks } from "@/components/concepts/Pieces";
+import { CountUpStats, HowItWorks } from "@/components/home/Pieces";
 import { Hero } from "@/components/home/Hero";
 import { TourIndex, type IndexTrip } from "@/components/home/TourIndex";
 import { AboutStatement, FounderSection, HomeFaq, ImagePair, RequestInfo } from "@/components/home/Sections";

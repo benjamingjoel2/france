@@ -36,7 +36,7 @@ Everything below is a deliberate placeholder or needs verifying.
 - [ ] Phone numbers, email addresses and the WhatsApp `[NUMBER]` (digits only)
 - [ ] Stats in the ticker (`[12]` years, `[40+]` trips, `[14]` regions)
 - [ ] Currency rates: replace the static rates with a live feed (TODO in config)
-- [ ] Set `NEXT_PUBLIC_SITE_URL` once the real domain is live
+- [x] Domain: rond-point.tourground.com (set in `config/site.ts`; `NEXT_PUBLIC_SITE_URL` overrides it)
 
 **Content flagged as placeholder**
 - [ ] Testimonials (shown with a "Sample review: placeholder" tag), people (names and photos), stays and experiences (invented names, no real partners)

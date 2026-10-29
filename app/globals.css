@@ -219,34 +219,59 @@
 }
 
 /* ------------------------------------------------------------------
-   Concept palettes (preview routes under /concepts). Tailwind colour
-   utilities read these variables, so the whole page, header and footer
-   included, re-tints when a concept is on screen.
+   Scroll-driven reveals (Reveal, ImageReveal, SplitWords, Parallax).
+   Pure CSS: content is visible from the first paint and needs no
+   JavaScript. Browsers without scroll timelines simply skip the motion.
 ------------------------------------------------------------------- */
-html:has([data-concept="golden"]) {
-  --color-charcoal: #2a221d;
-  --color-night: #1a1411;
-  --color-charcoal-5: #352b25;
-  --color-charcoal-10: #42362e;
-  --color-cream: #f7efe0;
-  --color-mist: #d4c6ae;
-  --color-dim: #a89a86;
+@keyframes sd-fade-up {
+  from { opacity: 0; transform: translateY(var(--sd-y, 40px)); }
 }
-html:has([data-concept="lavender"]) {
-  --color-charcoal: #272235;
-  --color-night: #18141f;
-  --color-charcoal-5: #312b42;
-  --color-charcoal-10: #3d3651;
-  --color-cream: #f6f1ea;
-  --color-mist: #cbc0e6;
-  --color-dim: #a39cbb;
+@keyframes sd-rise {
+  from { transform: translateY(105%); }
 }
-html:has([data-concept="riviera"]) {
-  --color-charcoal: #142849;
-  --color-night: #0c1a33;
-  --color-charcoal-5: #1b335b;
-  --color-charcoal-10: #243f6e;
-  --color-cream: #f7f1e5;
-  --color-mist: #bccae3;
-  --color-dim: #94a5c4;
+@keyframes sd-clip {
+  from { clip-path: inset(0 0 100% 0); }
+}
+@keyframes sd-zoom {
+  from { scale: 1.3; }
+}
+@keyframes sd-parallax {
+  to { transform: translateY(var(--sd-shift, 20%)); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sd-reveal {
+      animation: sd-fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--sd-d, 0) * 1%) cover calc(22% + var(--sd-d, 0) * 1%);
+    }
+    .sd-clip {
+      view-timeline-name: --sd-img;
+      animation: sd-clip linear both;
+      animation-timeline: --sd-img;
+      animation-range: entry 0% cover 35%;
+    }
+    .sd-clip > .sd-zoom {
+      animation: sd-zoom linear both;
+      animation-timeline: --sd-img;
+      animation-range: entry 0% cover 50%;
+    }
+    .sd-words {
+      view-timeline-name: --sd-words;
+    }
+    .sd-words .sd-word {
+      animation: sd-rise linear both;
+      animation-timeline: --sd-words;
+      animation-range: entry calc(var(--sd-i, 0) * 1%) cover calc(20% + var(--sd-i, 0) * 1%);
+    }
+    .sd-parallax {
+      view-timeline-name: --sd-plx;
+    }
+    .sd-parallax > .sd-parallax-inner {
+      animation: sd-parallax linear both;
+      animation-timeline: --sd-plx;
+      animation-range: exit;
+    }
+  }
 }
