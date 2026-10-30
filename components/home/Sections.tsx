@@ -58,35 +58,6 @@ export function ImagePair({ images }: { images: [Img, Img] }) {
   );
 }
 
-/** Dark founder section: name, short letter, contact link, portrait. */
-export function FounderSection({ name, role, bio, image }: { name: string; role: string; bio: string[]; image: Img }) {
-  return (
-    <section className="bg-charcoal text-cream">
-      <div className="grid lg:grid-cols-2">
-        <div className="flex flex-col justify-between gap-12 px-gutter py-[var(--spacing-sec)]">
-          <div>
-            <PlusHeading below>Our founder</PlusHeading>
-            <SplitWords as="h2" text={name} className="font-display text-3xl" />
-            <p className="font-ui mt-4 text-mist">{role} · placeholder profile</p>
-          </div>
-          <Reveal>
-            <div className="richtext max-w-[34em] text-[15px]">
-              {bio.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-            <ArrowLink href="/contact" className="mt-8">
-              Write to {name.split(" ")[0]}
-            </ArrowLink>
-          </Reveal>
-        </div>
-        <ImageReveal className="min-h-[520px] lg:min-h-full">
-          <Image src={imgUrl(image, 1400)} alt={image.alt} fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
-        </ImageReveal>
-      </div>
-    </section>
-  );
-}
 
 /** "[ FAQ ] Common questions" on the homepage. */
 export function HomeFaq({ faqs }: { faqs: Faq[] }) {

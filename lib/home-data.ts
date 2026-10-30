@@ -10,7 +10,6 @@ import {
   sortedPosts,
   toMiniTrip,
   toRegionLite,
-  toReviews,
   tripsInRegion,
 } from "./queries";
 
@@ -40,7 +39,6 @@ export function homeData() {
     cards: ordered.map((t) => ({ ...toCardTrip(t), regionName: regionNameFor(t) })),
     posts: sortedPosts().slice(0, 4),
     regions: regions.map(toRegionLite),
-    reviews: toReviews(),
     stats: site.stats,
   };
 }

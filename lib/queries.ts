@@ -5,15 +5,13 @@ import { stays } from "@/data/stays";
 import { experiences } from "@/data/experiences";
 import { calendarMoments } from "@/data/calendar";
 import { people } from "@/data/people";
-import { testimonials } from "@/data/testimonials";
 import { faqs } from "@/data/faqs";
 import { posts } from "@/data/posts";
 import type { Faq, Region, RoadTrip, TripType } from "@/data/types";
 import type { RegionLite } from "@/components/sections/RegionsShowcase";
-import type { ReviewLite } from "@/components/sections/ReviewsSlider";
 import type { MiniTrip } from "@/components/sections/RoundaboutSelector";
 
-export { regions, roadTrips, stays, experiences, calendarMoments, people, testimonials, posts };
+export { regions, roadTrips, stays, experiences, calendarMoments, people, posts };
 
 const bySlug = <T extends { slug: string }>(list: T[]) => new Map(list.map((x) => [x.slug, x]));
 const regionMap = bySlug(regions);
@@ -82,16 +80,3 @@ export function toRegionLite(r: Region): RegionLite {
   };
 }
 
-export function toReviews(list = testimonials): ReviewLite[] {
-  return list.map((t) => ({
-    id: t.id,
-    title: t.title,
-    body: t.body,
-    name: t.name,
-    country: t.country,
-    tripName: getTrip(t.tripSlug)?.shortTitle ?? "",
-    rating: t.rating,
-    image: t.image,
-    placeholder: t.placeholder,
-  }));
-}

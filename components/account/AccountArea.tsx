@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useStored } from "@/lib/useStored";
 import { z } from "zod";
 import type { Img } from "@/data/types";
-import { whatsappHref } from "@/config/site";
+import { site } from "@/config/site";
 import { imgUrl } from "@/lib/media";
 import { cn } from "@/lib/cn";
 import { Button, ButtonLink } from "@/components/ui/Button";
@@ -63,8 +63,8 @@ function Dashboard({ name, trip, onLogout }: { name: string; trip: DemoTrip; onL
               <ButtonLink href={`/road-trips/${trip.slug}`} variant="cream" size="sm">
                 View itinerary
               </ButtonLink>
-              <ButtonLink href={whatsappHref(`Bonjour! A question about my trip: ${trip.title}`)} variant="stroke-light" size="sm" iconLeft="whatsapp">
-                WhatsApp your specialist
+              <ButtonLink href={`${site.contact.emailHref}?subject=${encodeURIComponent(`A question about my trip: ${trip.title}`)}`} variant="stroke-light" size="sm" iconLeft="mail">
+                Email your specialist
               </ButtonLink>
             </div>
           </div>

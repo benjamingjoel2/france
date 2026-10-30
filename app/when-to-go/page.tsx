@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { calendarMoments, getRegion, getTrip, regions, toReviews } from "@/lib/queries";
+import { calendarMoments, getRegion, getTrip, regions } from "@/lib/queries";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionIntro } from "@/components/sections/SectionIntro";
 import { CalendarListing, type MomentLite } from "@/components/sections/CalendarListing";
-import { ReviewsSlider } from "@/components/sections/ReviewsSlider";
 
 export const metadata: Metadata = {
   title: "When to go: France month by month",
@@ -53,7 +52,6 @@ export default function WhenToGoPage() {
           <CalendarListing moments={moments} regions={regions.map((r) => ({ value: r.slug, label: r.name }))} />
         </div>
       </div>
-      <ReviewsSlider reviews={toReviews()} />
     </>
   );
 }

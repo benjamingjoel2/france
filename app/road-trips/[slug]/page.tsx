@@ -8,29 +8,23 @@ import { Price } from "@/lib/currency";
 import {
   getExperiences,
   getFaqs,
-  getPeople,
   getRegion,
   getStays,
   getTrip,
   regionNameFor,
   roadTrips,
-  testimonials,
-  toReviews,
 } from "@/lib/queries";
-import { toPersonLite } from "@/lib/people";
 import { ArticleHero } from "@/components/sections/ArticleHero";
 import { Gallery } from "@/components/sections/Gallery";
 import { Carousel } from "@/components/ui/Carousel";
 import { TripCard } from "@/components/sections/TripCard";
 import { toCardTrip } from "@/lib/cards";
-import { ReviewsSlider } from "@/components/sections/ReviewsSlider";
 import { SplitWords } from "@/components/motion/SplitWords";
 import { StickyTripBar } from "@/components/trip/StickyTripBar";
 import { TripFlavour, TripHighlights, TripOverview, TripRoute } from "@/components/trip/TripSections";
 import { Itinerary } from "@/components/trip/Itinerary";
 import { PlanTabs, type PlanTab } from "@/components/trip/PlanTabs";
 import { CustomiseBlock } from "@/components/trip/CustomiseBlock";
-import { PeopleSplit } from "@/components/people/People";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export function generateStaticParams() {
@@ -57,8 +51,6 @@ const SECTIONS = [
   { id: "route", label: "Route" },
   { id: "itinerary", label: "Day by day" },
   { id: "plan", label: "Plan your trip" },
-  { id: "specialist", label: "Your specialist" },
-  { id: "reviews", label: "Reviews" },
 ];
 
 export default async function RoadTripPage({ params }: PageProps<"/road-trips/[slug]">) {
@@ -70,9 +62,7 @@ export default async function RoadTripPage({ params }: PageProps<"/road-trips/[s
   const regionNames = regionsOf.map((r) => r.name);
   const stays = getStays(trip.stayIds);
   const experiences = getExperiences(trip.experienceIds);
-  const team = getPeople([trip.specialistId, ...trip.hostIds]).map(toPersonLite);
   const faqs = getFaqs(trip.faqIds);
-  const reviews = testimonials.filter((t) => t.tripSlug === trip.slug);
   const related = roadTrips
     .filter((t) => t.slug !== trip.slug)
     .sort((a, b) => {
@@ -221,17 +211,6 @@ export default async function RoadTripPage({ params }: PageProps<"/road-trips/[s
       <Itinerary days={trip.itinerary} stays={stays} experiences={experiences} tripSlug={trip.slug} />
       <PlanTabs tabs={tabs} />
       <CustomiseBlock tripTitle={trip.title} />
-      {team.length > 0 && (
-        <PeopleSplit
-          heading={["Your", "specialist"]}
-          text="One person designs your loop, books every stay and answers on WhatsApp from the first roundabout to the last, with local hosts on the ground for the insider bits."
-          people={team}
-        />
-      )}
-
-      <div id="reviews" className="scroll-mt-[var(--header-h)]">
-        <ReviewsSlider reviews={toReviews(reviews.length ? reviews : testimonials)} eyebrow={reviews.length ? "Reviews of this trip" : "Client reviews"} />
-      </div>
 
       <section className="bg-cream pb-[var(--spacing-sec)] text-charcoal">
         <div className="mx-gutter border-t hairline-light pt-[var(--spacing-sec)] text-center">
