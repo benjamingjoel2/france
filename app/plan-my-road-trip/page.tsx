@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { site, whatsappHref } from "@/config/site";
+import { site } from "@/config/site";
 import { regions, roadTrips } from "@/lib/queries";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionIntro } from "@/components/sections/SectionIntro";
@@ -27,10 +27,6 @@ export default function PlanPage() {
             <p>
               Tell us when, where and how you like to travel. A specialist will reply within [24 hours] with a first draft
               of your loop. Prefer to talk?{" "}
-              <a href={whatsappHref()} className="link-wipe text-cream">
-                WhatsApp us
-              </a>{" "}
-              or{" "}
               <Link href="/contact" className="link-wipe text-cream">
                 say hello
               </Link>

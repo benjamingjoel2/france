@@ -1,22 +1,22 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, DM_Mono } from "next/font/google";
+import { preconnect } from "react-dom";
 import "./globals.css";
 import { site } from "@/config/site";
 import { photo } from "@/lib/media";
 import { CurrencyProvider } from "@/lib/currency";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { Footer } from "@/components/layout/Footer";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 const archivo = Archivo({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   axes: ["wdth"],
   variable: "--font-archivo-var",
   display: "swap",
 });
 
 const dmMono = DM_Mono({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["300", "400", "500"],
   variable: "--font-dm-mono",
   display: "swap",
@@ -48,6 +48,8 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // Photos come straight from Unsplash's CDN: open the connection while the HTML is still arriving.
+  preconnect("https://images.unsplash.com");
   const menuImages = site.nav.map((n) => photo(n.imageKey));
   return (
     <html lang="en-GB" className={`${archivo.variable} ${dmMono.variable}`}>
@@ -62,7 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteChrome menuImages={menuImages} />
           <main id="main">{children}</main>
           <Footer />
-          <WhatsAppButton />
         </CurrencyProvider>
       </body>
     </html>

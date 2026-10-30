@@ -1,19 +1,18 @@
-"use client";
-
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { Fragment } from "react";
+import { cn } from "@/lib/cn";
 
 type Tag = "h1" | "h2" | "h3" | "p" | "span" | "div";
 
 /**
- * Headline that rises in word by word when it scrolls into view
- * (our take on the reference's split-text reveal).
+ * Headline that rises in word by word. `immediate` plays on load (CSS keyframes);
+ * otherwise each word is tied to the heading's position on screen with a CSS view
+ * timeline. The text is always in the HTML and readable without JavaScript.
  * Pass `lines` to force line breaks; each line is split into words.
  */
 export function SplitWords({
   text,
   lines,
-  as = "h2",
+  as: Component = "h2",
   className,
   delay = 0,
   immediate = false,
@@ -28,42 +27,40 @@ export function SplitWords({
   immediate?: boolean;
   stagger?: number;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -20% 0px" });
-  const reduce = useReducedMotion();
-  const show = immediate || inView;
-  const Component = motion[as];
   const rows = lines ?? [text ?? ""];
+  // Scroll-range offset per word, in % of the timeline; capped so long statements still finish.
+  const step = Math.min(stagger * 40, 2);
   let i = 0;
 
   return (
-    <Component ref={ref as never} className={className}>
+    <Component className={cn(!immediate && "sd-words", className)}>
       {rows.map((line, li) => (
         <span key={li} className="block">
           {line.split(" ").map((word, wi, arr) => {
             const idx = i++;
             return (
-              <span key={wi} className="inline-block overflow-hidden pb-[0.06em] -mb-[0.06em] align-bottom">
-                {immediate ? (
-                  // On-load headlines animate with CSS so they paint before hydration (better LCP).
-                  <span
-                    className="inline-block animate-[rise_0.8s_cubic-bezier(0.645,0.045,0.355,1)_both]"
-                    style={{ animationDelay: `${delay + idx * stagger}s` }}
-                  >
-                    {word}
-                  </span>
-                ) : (
-                  <motion.span
-                    className="inline-block will-change-transform"
-                    initial={reduce ? { opacity: 0 } : { y: "105%" }}
-                    animate={show ? (reduce ? { opacity: 1 } : { y: "0%" }) : undefined}
-                    transition={{ duration: reduce ? 0.3 : 0.8, ease: [0.645, 0.045, 0.355, 1], delay: delay + idx * stagger }}
-                  >
-                    {word}
-                  </motion.span>
-                )}
-                {wi < arr.length - 1 ? " " : null}
-              </span>
+              <Fragment key={wi}>
+                <span className="inline-block overflow-hidden pb-[0.06em] -mb-[0.06em] align-bottom">
+                  {immediate ? (
+                    <span
+                      className="inline-block animate-[rise_0.8s_cubic-bezier(0.645,0.045,0.355,1)_both]"
+                      style={{ animationDelay: `${delay + idx * stagger}s` }}
+                    >
+                      {word}
+                    </span>
+                  ) : (
+                    <span
+                      className="sd-word inline-block"
+                      style={{
+                        ["--sd-i" as string]: Math.min(Math.round((idx * step + delay * 30) * 10) / 10, 30),
+                      }}
+                    >
+                      {word}
+                    </span>
+                  )}
+                </span>
+                {wi < arr.length - 1 ? " " : null}
+              </Fragment>
             );
           })}
         </span>

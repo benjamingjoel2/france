@@ -9,9 +9,7 @@ export function ShareBar({ url, title }: { url: string; title: string }) {
   const [copied, setCopied] = useState(false);
   const enc = encodeURIComponent;
   const links: { label: string; icon: IconName; href: string }[] = [
-    { label: "Share on WhatsApp", icon: "whatsapp", href: `https://wa.me/?text=${enc(`${title} ${url}`)}` },
     { label: "Share by email", icon: "mail", href: `mailto:?subject=${enc(title)}&body=${enc(url)}` },
-    { label: "Share on Facebook", icon: "facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}` },
   ];
   const box =
     "group relative flex size-[37px] items-center justify-center overflow-hidden border border-charcoal/20 text-charcoal md:size-[45px]";

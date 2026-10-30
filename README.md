@@ -18,7 +18,7 @@ npm run lint && npm run typecheck
 | What | Where |
 |---|---|
 | Brand name, colours, contact details, navigation, currencies and rates, stats, featured trip, feature flags (ETIAS notice) | `config/site.ts` |
-| All content (regions, road trips, stays, experiences, calendar moments, people, testimonials, FAQs, journal posts, driving rules) | `data/*.ts`, typed by `data/types.ts`. Ready to move to a CMS |
+| All content (regions, road trips, stays, experiences, calendar moments, journal authors, FAQs, journal posts, driving rules, legal pages) | `data/*.ts`, typed by `data/types.ts`. Ready to move to a CMS |
 | Placeholder photo pool (Unsplash, verified free licence) | `data/photos.ts`, picked with `photo("region:provence", i)` from `lib/media.ts` |
 | Hover clips for trip cards (generated placeholders) | `public/video/*.{webm,mp4}`. Rebuild with `scripts/make-hover-videos.sh` |
 | Design tokens (colours, fluid type scale, spacing) | `app/globals.css` |
@@ -31,17 +31,15 @@ npm run lint && npm run typecheck
 Everything below is a deliberate placeholder or needs verifying.
 
 **Business details** (`config/site.ts`)
-- [ ] `[COMPANY NAME]`, registration number and registered office
-- [ ] Atout France registration `[IM NUMBER]` and financial guarantee `[GUARANTEE PROVIDER]`
-- [ ] Phone numbers, email addresses and the WhatsApp `[NUMBER]` (digits only)
+- [ ] Confirm the business address (WeWork La Fayette, 33 rue La Fayette, 75009 Paris) and `rondpoint@tourground.com`. By the owner's rule the site shows no phone, WhatsApp, social links, licence numbers, team bios or testimonials.
 - [ ] Stats in the ticker (`[12]` years, `[40+]` trips, `[14]` regions)
 - [ ] Currency rates: replace the static rates with a live feed (TODO in config)
-- [ ] Set `NEXT_PUBLIC_SITE_URL` once the real domain is live
+- [x] Domain: rondpoint.tourground.com (set in `config/site.ts`; `NEXT_PUBLIC_SITE_URL` overrides it)
 
 **Content flagged as placeholder**
-- [ ] Testimonials (shown with a "Sample review: placeholder" tag), people (names and photos), stays and experiences (invented names, no real partners)
+- [ ] Journal author names, stays and experiences (invented names, no real partners; see `IMAGES-NEEDED.md`)
 - [ ] Deposit %, balance timing and the cancellation scale in FAQs, trip pages and `/terms`
-- [ ] `/privacy` and `/terms` need legal review (marked `[LEGAL REVIEW REQUIRED]`)
+- [ ] `/privacy`, `/terms` (Booking terms) and `/cookies` are complete drafts (`data/legal.ts`, `lib/legal.ts`): have a lawyer review them
 - [ ] Brand film on `/why-rond-point` and the interactive route map on trip pages (TODO placeholders)
 - [ ] Sample route book PDF (`public/downloads/route-book-sample.pdf`)
 

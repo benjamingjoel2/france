@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/self-drive",
     "/drive-and-e-bike",
     "/when-to-go",
-    "/our-specialists",
     "/why-rond-point",
     "/driving-in-france",
     "/journal",
@@ -18,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/faq",
     "/privacy",
     "/terms",
+    "/cookies",
   ];
   return [
     ...statics.map((p) => ({ url: `${site.url}${p}`, lastModified: now, priority: p === "" ? 1 : 0.7 })),

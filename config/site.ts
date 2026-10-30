@@ -10,10 +10,8 @@ export const site = {
   tagline: "Take the long way round.",
   description:
     "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist on WhatsApp the whole way.",
-  // Set NEXT_PUBLIC_SITE_URL once the real domain exists; on Vercel the production URL is used automatically.
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://rond-point.example"),
+  // Canonical domain (a subdomain of tourground.com, DNS on Vercel). NEXT_PUBLIC_SITE_URL overrides it.
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rondpoint.tourground.com",
   locale: "en_GB",
 
   colours: {
@@ -26,44 +24,23 @@ export const site = {
     vineyard: "#4E6B35",
   },
 
-  company: {
-    legalName: "[COMPANY NAME]",
-    registration: "[COMPANY REGISTRATION NUMBER]",
-    registeredOffice: ["[REGISTERED OFFICE ADDRESS LINE 1]", "[POSTCODE] [CITY], France"],
-    atoutFrance: "[IM NUMBER]",
-    guaranteeProvider: "[GUARANTEE PROVIDER]",
-  },
-
   contact: {
-    phone: "[+33 0 00 00 00 00]",
-    phoneHref: "tel:+33000000000",
-    phoneNote: "(France)",
-    phoneIntl: "[+44 0000 000000]",
-    phoneIntlHref: "tel:+440000000000",
-    phoneIntlNote: "(UK)",
-    email: "[hello@rond-point.example]",
-    emailHref: "mailto:hello@rond-point.example",
-    pressEmail: "[press@rond-point.example]",
-    pressEmailHref: "mailto:press@rond-point.example",
-    /** Digits only, international format, no "+". */
-    whatsapp: "[NUMBER]",
+    email: "rondpoint@tourground.com",
+    emailHref: "mailto:rondpoint@tourground.com",
     hours: "Mon–Sat, 9:00–19:00 (Paris time)",
   },
 
-  social: [
-    { label: "Instagram", href: "https://instagram.com/", icon: "instagram" },
-    { label: "Facebook", href: "https://facebook.com/", icon: "facebook" },
-    { label: "YouTube", href: "https://youtube.com/", icon: "youtube" },
-    { label: "Pinterest", href: "https://pinterest.com/", icon: "pinterest" },
-    { label: "Email", href: "mailto:hello@rond-point.example", icon: "mail" },
-  ] as const,
+  /** Business address: WeWork La Fayette (premium coworking in central Paris, owner-approved arrangement). */
+  address: {
+    lines: ["WeWork La Fayette", "33 rue La Fayette", "75009 Paris", "France"],
+    postal: { streetAddress: "33 rue La Fayette", postalCode: "75009", addressLocality: "Paris", addressCountry: "FR" },
+  },
 
   /** Full-screen menu. `imageKey` points into the placeholder photo pool. */
   nav: [
     { label: "Self-drive", href: "/self-drive", imageKey: ["theme:road-winding", "theme:car-countryside"] },
     { label: "Drive & e-bike", href: "/drive-and-e-bike", imageKey: ["theme:ebike"] },
     { label: "When to go", href: "/when-to-go", imageKey: ["theme:sunflowers", "hero:calendar"] },
-    { label: "Our specialists", href: "/our-specialists", imageKey: ["people:1", "theme:market"] },
     { label: "Journal", href: "/journal", imageKey: ["theme:map-roadtrip"] },
     { label: "Why Rond-Point", href: "/why-rond-point", imageKey: ["hero:why", "theme:cafe-terrace"] },
     { label: "Contact", href: "/contact", imageKey: ["hero:plan", "theme:roundabout-village"] },
@@ -82,7 +59,8 @@ export const site = {
 
   legal: [
     { label: "Privacy policy", href: "/privacy" },
-    { label: "Terms & conditions", href: "/terms" },
+    { label: "Booking terms", href: "/terms" },
+    { label: "Cookie policy", href: "/cookies" },
   ],
 
   planCta: { label: "Plan my road trip", short: "Plan", href: "/plan-my-road-trip" },
@@ -134,8 +112,3 @@ export const site = {
 } as const;
 
 export type Site = typeof site;
-
-export function whatsappHref(message?: string) {
-  const base = `https://wa.me/${site.contact.whatsapp.replace(/\D/g, "") || "NUMBER"}`;
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
-}

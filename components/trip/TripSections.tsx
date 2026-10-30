@@ -31,10 +31,10 @@ export function TripOverview({ trip, regionNames }: { trip: RoadTrip; regionName
     { label: "Start / end", value: trip.startEnd },
     { label: "Best months", value: trip.bestMonths.map((m) => monthShort[m - 1]).join(", ") },
     {
-      label: "From (per person)",
+      label: "Price",
       value: (
         <>
-          <Price eur={trip.fromPrice} className="text-cream" /> <span className="text-mist normal-case">· tailor-made</span>
+          From <Price eur={trip.fromPrice} className="text-cream" /> per person <span className="text-mist normal-case">· tailor-made</span>
         </>
       ),
     },

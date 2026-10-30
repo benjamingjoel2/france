@@ -185,17 +185,6 @@ export interface Person {
   placeholder: true;
 }
 
-export interface Testimonial {
-  id: string;
-  title: string;
-  body: string[];
-  name: string;
-  country: string;
-  tripSlug: Slug;
-  rating: 1 | 2 | 3 | 4 | 5;
-  image: Img;
-  placeholder: true;
-}
 
 export type FaqCategory =
   | "Your trip"

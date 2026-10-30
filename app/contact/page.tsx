@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { site, whatsappHref } from "@/config/site";
+import { site } from "@/config/site";
 import { imgUrl, photo } from "@/lib/media";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ContactForm } from "@/components/forms/ContactForm";
@@ -13,7 +13,7 @@ import { Parallax } from "@/components/motion/Parallax";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Talk to a Rond-Point road trip specialist by WhatsApp, phone or email, or send us a message.",
+  description: "Talk to a Rond-Point road trip specialist by email, or send us a message.",
   alternates: { canonical: "/contact" },
 };
 
@@ -35,15 +35,6 @@ export default function ContactPage() {
             <h2 className="font-cond text-md">Talk to a specialist</h2>
             <ul className="mt-5 space-y-1">
               <li>
-                W: <a href={whatsappHref()} className="link-wipe">WhatsApp {c.whatsapp}</a>
-              </li>
-              <li>
-                T: <a href={c.phoneHref} className="link-wipe">{c.phone}</a> <span className="text-dim">{c.phoneNote}</span>
-              </li>
-              <li>
-                T: <a href={c.phoneIntlHref} className="link-wipe">{c.phoneIntl}</a> <span className="text-dim">{c.phoneIntlNote}</span>
-              </li>
-              <li>
                 E: <a href={c.emailHref} className="link-wipe">{c.email}</a>
               </li>
             </ul>
@@ -52,7 +43,7 @@ export default function ContactPage() {
             <h2 className="font-cond text-md">Press &amp; partners</h2>
             <ul className="mt-5 space-y-1">
               <li>
-                E: <a href={c.pressEmailHref} className="link-wipe">{c.pressEmail}</a>
+                E: <a href={c.emailHref} className="link-wipe">{c.email}</a>
               </li>
               <li className="text-dim">Hoteliers and local guides: we&apos;d love to hear from you.</li>
             </ul>

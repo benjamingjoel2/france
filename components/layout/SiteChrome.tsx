@@ -13,7 +13,6 @@ import { Icon } from "@/components/ui/Icon";
 import { buttonClass } from "@/components/ui/Button";
 import { Logo } from "./Logo";
 import { CurrencySwitcher } from "./CurrencySwitcher";
-import { SocialLinks } from "./SocialLinks";
 
 const EASE = [0.645, 0.045, 0.355, 1] as const;
 
@@ -208,7 +207,6 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
                     </Link>
                   ))}
                 </div>
-                <SocialLinks />
               </motion.div>
 
               <Link

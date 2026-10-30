@@ -158,7 +158,6 @@ export const faqs: Faq[] = [
     answer: [
       "Once you're happy with your tailor-made itinerary, we ask for a [25%] deposit to confirm the booking, and the balance is due [8] weeks before you travel. We accept [payment methods].",
       "Prices are quoted per person in euros. The currency switcher on the site shows approximate conversions; your final invoice is in [EUR].",
-      "Your money is protected: Rond-Point is registered with Atout France [IM NUMBER] and holds financial protection with [GUARANTEE PROVIDER].",
     ],
   },
   {

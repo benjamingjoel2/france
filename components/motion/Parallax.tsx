@@ -1,10 +1,6 @@
-"use client";
-
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { cn } from "@/lib/cn";
 
-/** Moves its children at a fraction of scroll speed while the wrapper is on screen. */
+/** Moves its children at a fraction of scroll speed as the wrapper leaves the screen (CSS only). */
 export function Parallax({
   children,
   className,
@@ -14,15 +10,12 @@ export function Parallax({
   className?: string;
   strength?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", `${strength * 100}%`]);
   return (
-    <div ref={ref} className={cn("relative overflow-hidden", className)}>
-      <motion.div className="absolute inset-0" style={reduce ? undefined : { y }}>
-        {children}
-      </motion.div>
+    <div
+      className={cn("sd-parallax relative overflow-hidden", className)}
+      style={{ ["--sd-shift" as string]: `${strength * 100}%` }}
+    >
+      <div className="sd-parallax-inner absolute inset-0">{children}</div>
     </div>
   );
 }
