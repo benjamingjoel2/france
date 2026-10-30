@@ -24,11 +24,6 @@ export function Gallery({ images, label, wide = false }: { images: Img[]; label:
         {images.map((img, i) => (
           <figure key={i} className="relative aspect-video overflow-hidden bg-charcoal-10">
             <Image src={imgUrl(img, 1800)} alt={img.alt} fill sizes="(min-width:1024px) 62vw, 88vw" className="object-cover" />
-            {img.credit && (
-              <figcaption className="font-ui absolute right-2 bottom-2 bg-night/50 px-1.5 text-[10px] text-cream/80 normal-case">
-                {img.credit}
-              </figcaption>
-            )}
           </figure>
         ))}
       </Carousel>

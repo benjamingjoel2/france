@@ -4,13 +4,14 @@ import type { Img } from "@/data/types";
 const FALLBACK: Img = {
   src: "/img/placeholder.jpg",
   alt: "Placeholder image",
-  credit: "",
   w: 1600,
   h: 1200,
 };
 
+// Credits stay in data/photos.ts for the record but are not shown (Unsplash licence, owner's rule),
+// so they are not sent to the page either.
 function toImg(p: Photo): Img {
-  return { src: p.src, alt: p.alt, credit: p.credit, w: p.w, h: p.h };
+  return { src: p.src, alt: p.alt, w: p.w, h: p.h };
 }
 
 /**

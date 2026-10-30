@@ -4,18 +4,17 @@ import { paces, tripTypes } from "@/data/taxonomy";
 import { faqs } from "@/data/faqs";
 import { photo } from "@/lib/media";
 import { homeData } from "@/lib/home-data";
-import { featuredTrips, getPerson, regionNameFor, visibleFaqs } from "@/lib/queries";
+import { featuredTrips, regionNameFor, visibleFaqs } from "@/lib/queries";
 import { Marquee } from "@/components/motion/Marquee";
 import { RoundaboutSelector } from "@/components/sections/RoundaboutSelector";
 import { FullWidthCta } from "@/components/sections/FullWidthCta";
 import { SectionIntro } from "@/components/sections/SectionIntro";
 import { LinkRows } from "@/components/sections/LinkRows";
 import { RegionsShowcase } from "@/components/sections/RegionsShowcase";
-import { ReviewsSlider } from "@/components/sections/ReviewsSlider";
 import { CountUpStats, HowItWorks } from "@/components/home/Pieces";
 import { Hero } from "@/components/home/Hero";
 import { TourIndex, type IndexTrip } from "@/components/home/TourIndex";
-import { AboutStatement, FounderSection, HomeFaq, ImagePair, RequestInfo } from "@/components/home/Sections";
+import { AboutStatement, HomeFaq, ImagePair, RequestInfo } from "@/components/home/Sections";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -46,7 +45,6 @@ export default function HomePage() {
       strip: (t.gallery.length >= 4 ? t.gallery : [t.heroImage, t.cardImage, t.hoverImage, ...t.gallery]).slice(0, 4),
       video: t.hoverVideo?.src,
     }));
-  const founder = getPerson("margaux-delaunay");
 
   return (
     <>
@@ -59,8 +57,8 @@ export default function HomePage() {
           description: site.description,
           url: site.url,
           areaServed: "France",
-          telephone: site.contact.phone,
           email: site.contact.email,
+          address: { "@type": "PostalAddress", ...site.address.postal },
         }}
       />
 
@@ -108,11 +106,7 @@ export default function HomePage() {
 
       <HowItWorks steps={STEPS} />
 
-      {founder && <FounderSection name={founder.name} role={founder.role} bio={founder.bio} image={founder.image} />}
-
       <RegionsShowcase regions={d.regions} />
-
-      <ReviewsSlider reviews={d.reviews} eyebrow="Testimonials" />
 
       <section className="bg-cream py-[var(--spacing-sec)] text-charcoal">
         <SectionIntro eyebrow="Journal" lines={["Dispatches from", "the passenger seat"]} className="pb-[var(--spacing-sec-xl)]" />

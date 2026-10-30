@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { whatsappHref } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { buttonClass } from "@/components/ui/Button";
 
@@ -30,13 +29,7 @@ export function StickyTripBar({
       { rootMargin: "-35% 0px -55% 0px" },
     );
     els.forEach((el) => io.observe(el));
-    // Lift the floating WhatsApp button above the bar.
-    const fab = document.querySelector<HTMLElement>("[data-whatsapp-fab]");
-    fab?.setAttribute("data-raised", "true");
-    return () => {
-      io.disconnect();
-      fab?.removeAttribute("data-raised");
-    };
+    return () => io.disconnect();
   }, [sections]);
 
   return (
@@ -62,9 +55,7 @@ export function StickyTripBar({
           Enquire
         </a>
         <a
-          href={whatsappHref(`Bonjour! I have a question about the "${tripTitle}" road trip.`)}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/contact?trip=${tripSlug}`}
           className={buttonClass("stroke-light", "sm", "flex-1 lg:flex-none")}
         >
           Ask a question

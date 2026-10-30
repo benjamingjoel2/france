@@ -7,7 +7,6 @@ import { photo } from "@/lib/media";
 import { CurrencyProvider } from "@/lib/currency";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { Footer } from "@/components/layout/Footer";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -65,7 +64,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteChrome menuImages={menuImages} />
           <main id="main">{children}</main>
           <Footer />
-          <WhatsAppButton />
         </CurrencyProvider>
       </body>
     </html>

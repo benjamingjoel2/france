@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { site } from "@/config/site";
 import { imgUrl, photo } from "@/lib/media";
-import { people } from "@/lib/queries";
-import { toPersonLite } from "@/lib/people";
 import { ArticleHero } from "@/components/sections/ArticleHero";
-import { PeopleGrid } from "@/components/people/People";
 import { Accordion } from "@/components/ui/Accordion";
 import { PlusHeading } from "@/components/ui/PlusHeading";
 import { Icon } from "@/components/ui/Icon";
@@ -58,17 +55,9 @@ const reasons = [
       "The right car for the roads you'll drive: compact for village lanes, convertible for the corniche, electric with the charging planned. Full insurance options, automatics on request, no surprise one-way fees on our loops.",
     ],
   },
-  {
-    id: "protection",
-    title: "Financial protection",
-    body: [
-      `${site.name} is registered with Atout France (registration ${site.company.atoutFrance}) and your payments are protected by a financial guarantee from ${site.company.guaranteeProvider}. Placeholder details: to be confirmed before launch.`,
-    ],
-  },
 ];
 
 export default function WhyPage() {
-  const team = people.filter((p) => p.kind === "team" || p.kind === "specialist").slice(0, 6).map(toPersonLite);
   const storyImgs = [photo(["theme:map-roadtrip", "theme:cafe-terrace"], 1), photo(["theme:road-winding", "region:french-alps"], 2)];
 
   return (
@@ -117,17 +106,6 @@ export default function WhyPage() {
             </ImageReveal>
           </div>
         </div>
-
-        <Reveal className="mt-[var(--spacing-sec)] px-gutter lg:mt-[var(--spacing-sec-lg)] lg:ml-[8.33%] lg:w-[33.33%]">
-          <blockquote>
-            <p className="font-cond text-lg">&ldquo;We&apos;ve never once regretted taking the long way round. Not even the time we ran out of fuel outside Gordes.&rdquo;</p>
-            <footer className="mt-4">
-              <PlusHeading as="span" className="mb-0">
-                [Founder name], co-founder
-              </PlusHeading>
-            </footer>
-          </blockquote>
-        </Reveal>
       </section>
 
       {/* Media band straddling charcoal → cream */}
@@ -144,12 +122,6 @@ export default function WhyPage() {
             Brand film placeholder · TODO: embed video
           </figcaption>
         </figure>
-      </section>
-
-      {/* Meet the team */}
-      <section className="bg-cream px-gutter pb-[var(--spacing-sec)] text-charcoal">
-        <SplitWords as="h2" lines={["Meet the", "team"]} className="font-display mb-[var(--spacing-sec-xl)] text-center text-3xl" />
-        <PeopleGrid people={team} deepLink={false} />
       </section>
 
       {/* The devil is in the détour */}

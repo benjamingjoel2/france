@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { site, whatsappHref } from "@/config/site";
+import { site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
 
 /** Trig rounded to 3 decimals so server and client render identical SVG attributes. */
@@ -65,12 +65,8 @@ export function Confirmation({ name }: { name: string }) {
             Your road trip is in the hands of a {site.name} specialist. They&apos;ll be in touch within [24 hours] with first
             ideas, questions about the details only you know, and probably a strong opinion about where to have lunch.
           </p>
-          <p>Can&apos;t wait? Say bonjour on WhatsApp.</p>
         </div>
         <div className="mt-8 flex flex-wrap gap-2">
-          <ButtonLink href={whatsappHref("Bonjour! I've just sent my road trip plan.")} variant="cream" iconLeft="whatsapp">
-            WhatsApp us
-          </ButtonLink>
           <ButtonLink href="/journal" variant="stroke-light">
             Read the journal
           </ButtonLink>
