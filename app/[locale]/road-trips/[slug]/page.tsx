@@ -102,7 +102,7 @@ export default async function RoadTripPage({ params }: PageProps<"/[locale]/road
           title: "Payment terms",
           content: (
             <p>
-              {t("[25%] deposit to confirm, balance due [8] weeks before departure. Placeholder terms: see our")}{" "}
+              {t("A deposit confirms your booking and the balance is due some weeks before departure; the exact amounts are in your proposal. Full details are in our")}{" "}
               <a href={lhref("/terms")}>{t("terms & conditions")}</a>.
             </p>
           ),
@@ -199,7 +199,7 @@ export default async function RoadTripPage({ params }: PageProps<"/[locale]/road
       <ArticleHero
         image={trip.heroImage}
         lines={tp([trip.title])}
-        eyebrow={tp(regionNames.join(" · "))}
+        eyebrow={regionNames.map((n) => tp(n)).join(" · ")}
         pin
         crumbs={tp([{ label: tripTypes[trip.type].label, href: tripTypes[trip.type].href }, { label: trip.shortTitle }])}
       />

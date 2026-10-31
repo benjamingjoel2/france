@@ -32,7 +32,7 @@ const STEPS = [
   { eyebrow: "1st exit", title: "Choose your exit", text: "Pick a region, a pace and how many days. Or keep circling and tell us what you love." },
   { eyebrow: "2nd exit", title: "We draw the loop", text: "Your specialist designs the route, books the stays and the car, and sends a first draft within [24 hours]." },
   { eyebrow: "3rd exit", title: "The route book arrives", text: "A printed book for the glovebox and an offline app: every bend, detour and lunch stop." },
-  { eyebrow: "4th exit", title: "Bonne route", text: "One specialist on WhatsApp from the first roundabout to the last. You just drive." },
+  { eyebrow: "4th exit", title: "Bonne route", text: "One specialist from the first roundabout to the last, a message away. You just drive." },
 ];
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -88,7 +88,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <div id="explore" className="scroll-mt-[var(--header-h)]">
         <AboutStatement
           label={t("About")}
-          statement={t("We design road trips for people who'd rather take the back roads. Vineyards, villages, coastlines and mountain passes, hand-picked stays and one specialist on WhatsApp, in a loop that brings you back to where you started, changed.")}
+          statement={t("We design road trips for people who'd rather take the back roads. Vineyards, villages, coastlines and mountain passes, hand-picked stays and one dedicated specialist, in a loop that brings you back to where you started, changed.")}
           href="/why-rond-point"
           linkLabel={t("Further exploration")}
         >

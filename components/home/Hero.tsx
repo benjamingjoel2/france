@@ -60,7 +60,7 @@ export function Hero({
           <p className="flex gap-3 text-[15px] leading-[1.55]">
             <SquareMark className="mt-[0.45em] text-[11px]" />
             <span>
-              {t("Tailor-made road trips through France: hand-picked stays, a route book worth keeping and one specialist on WhatsApp the whole way.")}</span>
+              {t("Tailor-made road trips through France: hand-picked stays, a route book worth keeping and one dedicated specialist the whole way.")}</span>
           </p>
           <ArrowLink href="#explore">{t("Further exploration")}</ArrowLink>
           <Link

@@ -58,7 +58,7 @@ export function ExitPicker({
           <circle cx="300" cy="300" r="96" fill="var(--color-charcoal-5)" />
         </svg>
         <p aria-hidden="true" className="font-cond absolute top-1/2 left-1/2 w-[28%] -translate-x-1/2 -translate-y-1/2 text-center text-lg text-cream">
-          {tp(value.length ? `${value.length} exit${value.length > 1 ? "s" : ""} chosen` : "Choose your exits")}
+          {value.length === 1 ? t("1 exit chosen") : value.length ? tf("{0} exits chosen", value.length) : t("Choose your exits")}
         </p>
         {exits.map((e, i) => {
           const a = angle(i);

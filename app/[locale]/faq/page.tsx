@@ -30,7 +30,7 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
     <SheetPage
       crumbs={tp([{ label: "FAQ" }])}
       lines={tp(["Frequently", "asked"])}
-      intro={<p>{t("Everything else you wanted to know before the first roundabout. Can't find it? Your specialist is a WhatsApp away.")}</p>}
+      intro={<p>{t("Everything else you wanted to know before the first roundabout. Can't find it? Your specialist is only an email away.")}</p>}
     >
       <JsonLd
         data={tp({
@@ -39,7 +39,7 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
           mainEntity: list.map((f) => ({
             "@type": "Question",
             name: f.question,
-            acceptedAnswer: { "@type": "Answer", text: f.answer.join(" ") },
+            acceptedAnswer: { "@type": "Answer", text: f.answer.map((a) => tp(a)).join(" ") },
           })),
         })}
       />

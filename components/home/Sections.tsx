@@ -74,7 +74,7 @@ export function HomeFaq({ faqs }: { faqs: Faq[] }) {
         <div className="lg:col-span-7 lg:col-start-6">
           <Accordion
             tone="light"
-            items={faqs.map((f) => ({ id: f.id, title: f.question, content: f.answer.map((p, i) => <p key={i}>{tp(p)}</p>) }))}
+            items={faqs.map((f) => ({ id: f.id, title: tp(f.question), content: f.answer.map((p, i) => <p key={i}>{tp(p)}</p>) }))}
           />
         </div>
       </div>

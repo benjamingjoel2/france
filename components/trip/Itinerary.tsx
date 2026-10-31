@@ -66,7 +66,7 @@ function DayCard({
           {experiences.length > 0 && (
             <p>
               <span className="font-ui block text-mist">{t("Experience")}</span>
-              {tp(experiences.map((e) => e.name).join(" · "))}
+              {experiences.map((e) => tp(e.name)).join(" · ")}
             </p>
           )}
         </div>

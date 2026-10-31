@@ -12,6 +12,7 @@ import {
   stepKeys,
   stepSchemas,
   type PlannerDraft,
+  CONTACT_METHODS,
 } from "@/lib/planner-schema";
 import { interests as interestLabels, ordinal, paces, tripTypes } from "@/data/taxonomy";
 import { site } from "@/config/site";
@@ -69,6 +70,11 @@ export function Planner({
       if (raw) {
         const saved = JSON.parse(raw) as { draft: PlannerDraft; step: number; maxStep: number };
         next = { ...next, ...saved.draft };
+        // Drafts saved before WhatsApp was removed may still list it as a contact method.
+        next.contact = {
+          ...next.contact,
+          contactMethods: (next.contact.contactMethods ?? []).filter((m) => (CONTACT_METHODS as readonly string[]).includes(m)),
+        };
         savedStep = Math.min(4, saved.step ?? 0);
         savedMax = Math.min(4, saved.maxStep ?? savedStep);
       }
@@ -184,7 +190,7 @@ export function Planner({
       setDone({ name: draft.contact.name.split(" ")[0] });
       window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     } catch {
-      setSubmitError("Something went wrong sending your plan. Please try again, or message us on WhatsApp.");
+      setSubmitError("Something went wrong sending your plan. Please try again, or email us.");
     } finally {
       setSubmitting(false);
     }
@@ -636,7 +642,6 @@ export function Planner({
                         }}
                         options={[
                           { value: "email", label: "Email" },
-                          { value: "whatsapp", label: "WhatsApp" },
                           { value: "telephone", label: "Telephone" },
                         ]}
                       />

@@ -1,6 +1,6 @@
 "use client";
 
-import { t, tp } from '@/lib/i18n/t';
+import { t, tf, tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import Link from '@/components/i18n/Link';
 import {
@@ -160,7 +160,7 @@ export function RoundaboutSelector({ exits, featured }: { exits: Exit[]; feature
           <Reveal>
             <PlusHeading>{t("Choose your exit")}</PlusHeading>
           </Reveal>
-          <SplitWords as="h2" lines={["Every road", "meets here"]} className="font-display text-3xl" />
+          <SplitWords as="h2" lines={tp(["Every road", "meets here"])} className="font-display text-3xl" />
           <span id={`${groupId}-h`} className="sr-only">
             {t("Choose a region to see its road trips")}</span>
         </div>
@@ -229,7 +229,7 @@ export function RoundaboutSelector({ exits, featured }: { exits: Exit[]; feature
                 <button
                   key={e.slug}
                   type="button"
-                  {...radioProps(e.slug, `${ordinal(i + 1)} exit: ${e.name}`)}
+                  {...radioProps(e.slug, tf("{0} exit: {1}", ordinal(i + 1), e.name))}
                   className={cn(
                     "absolute hidden -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-[4px] border px-2 py-1 text-center leading-none transition-colors duration-300 lg:flex",
                     on
@@ -247,7 +247,7 @@ export function RoundaboutSelector({ exits, featured }: { exits: Exit[]; feature
             {/* Central island: keep circling (desktop) */}
             <button
               type="button"
-              {...radioProps(KEEP, "Keep circling: not sure yet")}
+              {...radioProps(KEEP, t("Keep circling: not sure yet"))}
               className={cn(
                 "absolute top-1/2 left-1/2 hidden aspect-square w-[34%] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full text-center transition-colors duration-300 lg:flex",
                 selected === KEEP ? "bg-lavender text-cream" : "text-charcoal hover:bg-lavender/30",
@@ -269,7 +269,7 @@ export function RoundaboutSelector({ exits, featured }: { exits: Exit[]; feature
               <button
                 key={e.slug}
                 type="button"
-                {...radioProps(e.slug, `${ordinal(i + 1)} exit: ${e.name}`)}
+                {...radioProps(e.slug, tf("{0} exit: {1}", ordinal(i + 1), e.name))}
                 className={cn(
                   "font-ui h-9 rounded-full border px-3.5 transition-colors",
                   selected === e.slug ? "border-roadsign bg-roadsign text-white" : "border-charcoal/25",
@@ -280,7 +280,7 @@ export function RoundaboutSelector({ exits, featured }: { exits: Exit[]; feature
             ))}
             <button
               type="button"
-              {...radioProps(KEEP, "Keep circling: not sure yet")}
+              {...radioProps(KEEP, t("Keep circling: not sure yet"))}
               className={cn(
                 "font-ui h-9 rounded-full border px-3.5 transition-colors",
                 selected === KEEP ? "border-lavender bg-lavender text-cream" : "border-charcoal/25",

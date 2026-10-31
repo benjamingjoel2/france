@@ -33,10 +33,10 @@ export function legal({
   const addr = address.join(', ');
   const mail = `<a href="mailto:${email}">${email}</a>`;
   const storageList = storage.length
-    ? `<ul>${storage.map((s) => `<li><b>${s.name}</b> (${s.type}, ${s.duration}): ${s.purpose}</li>`).join('')}</ul>`
+    ? `<ul>${storage.map((s) => `<li><b>${s.name}</b> (<span>${s.type}</span>, <span>${s.duration}</span>): <span>${s.purpose}</span></li>`).join('')}</ul>`
     : '';
   const processorList = processors.length
-    ? `<ul>${processors.map((p) => `<li><b>${p.name}</b>: ${p.purpose}</li>`).join('')}</ul>`
+    ? `<ul>${processors.map((p) => `<li><b>${p.name}</b>: <span>${p.purpose}</span></li>`).join('')}</ul>`
     : '';
 
   return [

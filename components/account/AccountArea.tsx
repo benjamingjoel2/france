@@ -167,7 +167,7 @@ export function AccountArea({ trip }: { trip: DemoTrip }) {
         <form role="tabpanel" onSubmit={login} noValidate className="pt-8">
           <div className="grid gap-6 sm:grid-cols-2">
             <Field label={t("Email")} htmlFor="acc-email" required error={errors.email}>
-              <TextInput id="acc-email" type="email" autoComplete="email" placeholder="you@example.com" value={form.email} invalid={!!errors.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <TextInput id="acc-email" type="email" autoComplete="email" placeholder={t("Your email address")} value={form.email} invalid={!!errors.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </Field>
             <Field label={t("Password")} htmlFor="acc-password" required error={errors.password}>
               <TextInput id="acc-password" type="password" autoComplete="current-password" placeholder="password" value={form.password} invalid={!!errors.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />

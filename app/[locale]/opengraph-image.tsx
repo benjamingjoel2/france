@@ -2,7 +2,8 @@ import { t } from '@/lib/i18n/t';
 import { ImageResponse } from "next/og";
 import { site } from "@/config/site";
 
-export const alt = `${site.name}: ${site.tagline}`;
+// Language-neutral: this export is static, so it cannot follow the page locale.
+export const alt = site.name;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

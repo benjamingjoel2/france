@@ -116,7 +116,7 @@ export function RegionsShowcase({ regions }: { regions: RegionLite[] }) {
       <div className="px-gutter text-center">
         <PlusHeading below center className="mx-auto">
           {t("Our regions")}</PlusHeading>
-        <SplitWords as="h2" lines={["Pick a corner", "of France"]} className="font-display text-3xl" />
+        <SplitWords as="h2" lines={tp(["Pick a corner", "of France"])} className="font-display text-3xl" />
       </div>
 
       <div className="mt-[var(--spacing-sec-xl)] grid gap-[var(--spacing-sec-lg)] lg:grid-cols-12">

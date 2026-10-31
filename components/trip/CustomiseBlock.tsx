@@ -14,7 +14,7 @@ const schema = z.object({
   name: z.string().trim().min(2, "Tell us your name."),
   email: z.email("Enter a valid email address."),
   phone: z.string().trim().max(30),
-  method: z.enum(["email", "whatsapp", "telephone"], { error: "How should we reach you?" }),
+  method: z.enum(["email", "telephone"], { error: "How should we reach you?" }),
   message: z.string().trim().min(5, "Tell us a little about what you'd change."),
 });
 
@@ -72,7 +72,7 @@ export function CustomiseBlock({ tripTitle }: { tripTitle: string }) {
       body: JSON.stringify({ ...r.data, message: `[${tripTitle}] ${r.data.message}` }),
     }).catch(() => null);
     if (res?.ok) setSent(true);
-    else setErrors({ form: "Something went wrong. Please try again or WhatsApp us." });
+    else setErrors({ form: "Something went wrong. Please try again or email us." });
   }
 
   return (
@@ -148,7 +148,6 @@ export function CustomiseBlock({ tripTitle }: { tripTitle: string }) {
                       onChange={(v) => setForm({ ...form, method: v as string })}
                       options={[
                         { value: "email", label: "Email" },
-                        { value: "whatsapp", label: "WhatsApp" },
                         { value: "telephone", label: "Telephone" },
                       ]}
                     />

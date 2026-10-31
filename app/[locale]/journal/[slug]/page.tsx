@@ -2,7 +2,7 @@ import { getLocale } from '@/lib/i18n/t';
 import { INTL_LOCALES } from '@/lib/i18n/config';
 import { initLocale } from '@/lib/i18n/server';
 import { localizeMetadata } from '@/lib/i18n/metadata';
-import { t, tp } from '@/lib/i18n/t';
+import { t, tf, tp } from '@/lib/i18n/t';
 import type { Metadata } from "next";
 import Link from '@/components/i18n/Link';
 import { notFound } from "next/navigation";
@@ -87,7 +87,7 @@ export default async function PostPage({ params }: PageProps<"/[locale]/journal/
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
           <CategoryTag label={tp(post.category)} />
           <p className="font-ui text-mist">
-            {tp(date)} · {tp(post.readMinutes)} {t("min read")}{tp(author ? ` · by ${author.name}` : "")}
+            {tp(date)} · {tp(post.readMinutes)} {t("min read")}{author ? tf(" · by {0}", author.name) : null}
           </p>
         </div>
       </ArticleHero>

@@ -173,7 +173,7 @@ export default async function RegionPage({ params }: PageProps<"/[locale]/region
         <div className="mb-[var(--spacing-sec-xl)] flex flex-col gap-6 border-b hairline-dark pb-[var(--spacing-sec-lg)] md:flex-row md:items-end md:justify-between">
           <SplitWords as="h2" lines={tp(["Road trips in", region.shortName])} className="font-display text-3xl" />
           <ButtonLink href={`/plan-my-road-trip?region=${region.slug}`} variant="cream">
-            {t("Plan a ")}{tp(region.shortName)} {t("trip")}</ButtonLink>
+            {tf("Plan a {0} trip", region.shortName)}</ButtonLink>
         </div>
         {trips.length ? (
           <ul className="grid grid-cols-1 gap-x-[var(--spacing-grid-gap)] gap-y-[clamp(28px,6vw,86px)] pb-[clamp(0px,3.3vw,60px)] sm:grid-cols-2 lg:grid-cols-3">
@@ -228,7 +228,7 @@ export default async function RegionPage({ params }: PageProps<"/[locale]/region
                   tone="light"
                   items={faqs.map((f) => ({
                     id: f.id,
-                    title: f.question,
+                    title: tp(f.question),
                     content: f.answer.map((p, i) => <p key={i}>{tp(p)}</p>),
                   }))}
                 />

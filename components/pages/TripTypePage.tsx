@@ -15,7 +15,7 @@ const copy: Record<TripType, { lines: string[]; intro: string; cross: { lines: s
   "self-drive": {
     lines: ["Self-drive", "road trips"],
     intro:
-      "Your car, your playlist, our route. Every loop comes with hand-picked stays, a route book worth keeping and a specialist on WhatsApp for the moments the satnav gets ideas.",
+      "Your car, your playlist, our route. Every loop comes with hand-picked stays, a route book worth keeping and a dedicated specialist for the moments the satnav gets ideas.",
     cross: {
       lines: ["Drive &", "e-bike"],
       text: "Want to feel the hills as well as see them? Our drive & e-bike loops swap the car for pedal-assist on the prettiest days. Luggage goes ahead; you follow at 25 km/h.",

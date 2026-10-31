@@ -14,7 +14,7 @@ import { Parallax } from "@/components/motion/Parallax";
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   return localizeMetadata({
   title: "My account",
-  description: "Rond-Point client area: trip documents, route book download and your specialist on WhatsApp.",
+  description: "Rond-Point client area: trip documents, route book download and a direct line to your specialist.",
   alternates: { canonical: "/my-account" },
   robots: { index: false, follow: true },
 }, (await params).locale);

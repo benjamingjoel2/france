@@ -27,9 +27,9 @@ export function TripOverview({ trip, regionNames }: { trip: RoadTrip; regionName
     },
     { label: "Duration", value: `${trip.days} days / ${trip.nights} nights` },
     { label: "Total distance", value: `~${trip.totalKm.toLocaleString("en-GB")} km` },
-    { label: "Regions", value: regionNames.join(", ") },
+    { label: "Regions", value: regionNames.map((n) => tp(n)).join(", ") },
     { label: "Start / end", value: trip.startEnd },
-    { label: "Best months", value: trip.bestMonths.map((m) => monthShort[m - 1]).join(", ") },
+    { label: "Best months", value: trip.bestMonths.map((m) => tp(monthShort[m - 1])).join(", ") },
     {
       label: "Price",
       value: (

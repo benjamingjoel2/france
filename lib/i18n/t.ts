@@ -38,6 +38,8 @@ function state(): State {
     const use = R['use'] as (<T>(c: React.Context<T>) => T) | undefined;
     if (use) {
       try {
+        // Only reached while rendering a client component; outside render `use` throws and we fall back.
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         const s = use(LocaleContext);
         if (s) return s;
       } catch {
@@ -65,13 +67,14 @@ export function getLocale(): Locale {
 }
 
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
-const patCache = new WeakMap<Dict, [RegExp, string][]>();
+const patCache = new WeakMap<Dict, [RegExp, string, number][]>();
 function patterns(d: Dict) {
   let p = patCache.get(d);
   if (!p) {
     p = Object.keys(d)
       .filter((k) => /\{\d\}/.test(k))
-      .map((k) => [new RegExp('^' + k.replace(/[.*+?^$()|[\]\\]/g, '\\$&').replace(/\\?\{(\d)\\?\}/g, '(.+?)') + '$', 's'), d[k]] as [RegExp, string]);
+      .map((k) => [new RegExp('^' + k.replace(/[.*+?^$()|[\]\\]/g, '\\$&').replace(/\\?\{(\d)\\?\}/g, '(.+?)') + '$', 's'), d[k], k.replace(/\{\d\}/g, '').length] as [RegExp, string, number])
+      .sort((a, b) => b[2] - a[2]); // most specific pattern first
     patCache.set(d, p);
   }
   return p;
@@ -82,7 +85,9 @@ function lookup(d: Dict, s: string): string | undefined {
   if (!k) return undefined;
   const hit = d[k];
   if (hit !== undefined) return hit;
-  for (const [re, out] of patterns(d)) {
+  for (const [re, out, literal] of patterns(d)) {
+    // A short pattern such as "{0} of {1}" must not swallow a whole sentence.
+    if (literal < k.length * 0.2) continue;
     const m = k.match(re);
     if (m) return out.replace(/\{(\d)\}/g, (_, i) => {
       const v = m[+i + 1] ?? '';

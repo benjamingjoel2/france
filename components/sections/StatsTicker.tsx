@@ -4,10 +4,10 @@ import { Marquee } from "@/components/motion/Marquee";
 
 /** Black marquee band with our (placeholder) stats. */
 export function StatsTicker() {
-  const sentence = site.stats.map((s) => `${s.value} ${s.label}`).join(". ") + ". Take the long way round.";
+  const sentence = site.stats.map((s) => `${tp(s.value)} ${tp(s.label)}`).join(". ") + ". " + t("Take the long way round.");
   return (
     <section aria-label={t("Rond-Point in numbers")} className="bg-night py-[15px] text-cream">
-      <p className="sr-only">{tp(sentence)}</p>
+      <p className="sr-only">{sentence}</p>
       <Marquee
         className="font-ui text-base"
         items={tp([

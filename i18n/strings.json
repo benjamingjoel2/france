@@ -216,7 +216,7 @@
   ]
  },
  {
-  "en": "Everything else you wanted to know before the first roundabout. Can't find it? Your specialist is a WhatsApp away.",
+  "en": "Everything else you wanted to know before the first roundabout. Can't find it? Your specialist is only an email away.",
   "files": [
    "app/[locale]/faq/page.tsx"
   ]
@@ -379,7 +379,7 @@
   ]
  },
  {
-  "en": "Rond-Point client area: trip documents, route book download and your specialist on WhatsApp.",
+  "en": "Rond-Point client area: trip documents, route book download and a direct line to your specialist.",
   "files": [
    "app/[locale]/my-account/page.tsx"
   ]
@@ -432,6 +432,7 @@
    "app/[locale]/opengraph-image.tsx",
    "components/forms/ContactForm.tsx",
    "components/planner/Confirmation.tsx",
+   "components/sections/StatsTicker.tsx",
    "components/trip/CustomiseBlock.tsx",
    "config/site.ts"
   ]
@@ -511,7 +512,7 @@
   ]
  },
  {
-  "en": "One specialist on WhatsApp from the first roundabout to the last. You just drive.",
+  "en": "One specialist from the first roundabout to the last, a message away. You just drive.",
   "files": [
    "app/[locale]/page.tsx"
   ]
@@ -579,7 +580,7 @@
   ]
  },
  {
-  "en": "We design road trips for people who'd rather take the back roads. Vineyards, villages, coastlines and mountain passes, hand-picked stays and one specialist on WhatsApp, in a loop that brings you back to where you started, changed.",
+  "en": "We design road trips for people who'd rather take the back roads. Vineyards, villages, coastlines and mountain passes, hand-picked stays and one dedicated specialist, in a loop that brings you back to where you started, changed.",
   "files": [
    "app/[locale]/page.tsx"
   ]
@@ -715,7 +716,7 @@
   ]
  },
  {
-  "en": "Plan a",
+  "en": "Plan a {0} trip",
   "files": [
    "app/[locale]/regions/[slug]/page.tsx"
   ]
@@ -863,7 +864,7 @@
   ]
  },
  {
-  "en": "[25%] deposit to confirm, balance due [8] weeks before departure. Placeholder terms: see our",
+  "en": "A deposit confirms your booking and the balance is due some weeks before departure; the exact amounts are in your proposal. Full details are in our",
   "files": [
    "app/[locale]/road-trips/[slug]/page.tsx"
   ]
@@ -960,7 +961,7 @@
   ]
  },
  {
-  "en": "Tailor-made self-drive road trips through France: hand-picked stays, a beautiful route book and a specialist on WhatsApp the whole way. Filter by region, days, pace and budget.",
+  "en": "Tailor-made self-drive road trips through France: hand-picked stays, a beautiful route book and one dedicated specialist the whole way. Filter by region, days, pace and budget.",
   "files": [
    "app/[locale]/self-drive/page.tsx"
   ]
@@ -1017,7 +1018,7 @@
   ]
  },
  {
-  "en": "Rond-Point was born from a love of the back roads and a desire to do road trips better: hand-picked stays, a route book worth keeping and one specialist on WhatsApp the whole way.",
+  "en": "Rond-Point was born from a love of the back roads and a desire to do road trips better: hand-picked stays, a route book worth keeping and one dedicated specialist the whole way.",
   "files": [
    "app/[locale]/why-rond-point/page.tsx"
   ]
@@ -1059,7 +1060,7 @@
   ]
  },
  {
-  "en": "One specialist on WhatsApp",
+  "en": "One dedicated specialist",
   "files": [
    "app/[locale]/why-rond-point/page.tsx"
   ]
@@ -1346,6 +1347,13 @@
   ]
  },
  {
+  "en": "Your email address",
+  "files": [
+   "components/account/AccountArea.tsx",
+   "components/layout/Newsletter.tsx"
+  ]
+ },
+ {
   "en": "Password",
   "files": [
    "components/account/AccountArea.tsx"
@@ -1405,7 +1413,7 @@
   ]
  },
  {
-  "en": "Something went wrong. Please try again, or message us on WhatsApp.",
+  "en": "Something went wrong. Please try again, or email us.",
   "files": [
    "components/forms/ContactForm.tsx"
   ]
@@ -1440,14 +1448,6 @@
   "en": "Preferred contact method",
   "files": [
    "components/forms/ContactForm.tsx"
-  ]
- },
- {
-  "en": "WhatsApp",
-  "files": [
-   "components/forms/ContactForm.tsx",
-   "components/planner/Planner.tsx",
-   "components/trip/CustomiseBlock.tsx"
   ]
  },
  {
@@ -1490,7 +1490,7 @@
   ]
  },
  {
-  "en": "Tailor-made road trips through France: hand-picked stays, a route book worth keeping and one specialist on WhatsApp the whole way.",
+  "en": "Tailor-made road trips through France: hand-picked stays, a route book worth keeping and one dedicated specialist the whole way.",
   "files": [
    "components/home/Hero.tsx"
   ]
@@ -1539,24 +1539,6 @@
  },
  {
   "en": "end 60%",
-  "files": [
-   "components/home/Pieces.tsx"
-  ]
- },
- {
-  "en": "Bons baisers",
-  "files": [
-   "components/home/Pieces.tsx"
-  ]
- },
- {
-  "en": "de France",
-  "files": [
-   "components/home/Pieces.tsx"
-  ]
- },
- {
-  "en": "Client review · sample, placeholder",
   "files": [
    "components/home/Pieces.tsx"
   ]
@@ -1764,12 +1746,6 @@
   ]
  },
  {
-  "en": "Your email address",
-  "files": [
-   "components/layout/Newsletter.tsx"
-  ]
- },
- {
   "en": "Subscribe",
   "files": [
    "components/layout/Newsletter.tsx"
@@ -1839,7 +1815,7 @@
   ]
  },
  {
-  "en": "Your car, your playlist, our route. Every loop comes with hand-picked stays, a route book worth keeping and a specialist on WhatsApp for the moments the satnav gets ideas.",
+  "en": "Your car, your playlist, our route. Every loop comes with hand-picked stays, a route book worth keeping and a dedicated specialist for the moments the satnav gets ideas.",
   "files": [
    "components/pages/TripTypePage.tsx"
   ]
@@ -1924,7 +1900,13 @@
   ]
  },
  {
-  "en": "{0} exit{1} chosen",
+  "en": "1 exit chosen",
+  "files": [
+   "components/planner/ExitPicker.tsx"
+  ]
+ },
+ {
+  "en": "{0} exits chosen",
   "files": [
    "components/planner/ExitPicker.tsx"
   ]
@@ -1991,7 +1973,7 @@
   ]
  },
  {
-  "en": "Something went wrong sending your plan. Please try again, or message us on WhatsApp.",
+  "en": "Something went wrong sending your plan. Please try again, or email us.",
   "files": [
    "components/planner/Planner.tsx"
   ]
@@ -2590,12 +2572,6 @@
   ]
  },
  {
-  "en": ". Take the long way round.",
-  "files": [
-   "components/sections/StatsTicker.tsx"
-  ]
- },
- {
   "en": "Rond-Point in numbers",
   "files": [
    "components/sections/StatsTicker.tsx"
@@ -2692,7 +2668,7 @@
   ]
  },
  {
-  "en": "Something went wrong. Please try again or WhatsApp us.",
+  "en": "Something went wrong. Please try again or email us.",
   "files": [
    "components/trip/CustomiseBlock.tsx"
   ]
@@ -4229,7 +4205,7 @@
   ]
  },
  {
-  "en": "Every loop includes hand-picked stays (boutique hotels, châteaux, farmhouses and the odd fisherman's house), car hire with a full-insurance option, a beautifully printed route book plus an offline app version, and one dedicated specialist on WhatsApp seven days a week for the whole trip.",
+  "en": "Every loop includes hand-picked stays (boutique hotels, châteaux, farmhouses and the odd fisherman's house), car hire with a full-insurance option, a beautifully printed route book plus an offline app version, and one dedicated specialist, seven days a week, for the whole trip.",
   "files": [
    "data/faqs.ts"
   ]
@@ -4247,13 +4223,13 @@
   ]
  },
  {
-  "en": "How does the WhatsApp specialist support work?",
+  "en": "How does specialist support on the road work?",
   "files": [
    "data/faqs.ts"
   ]
  },
  {
-  "en": "The same person who designed your trip stays with you while you're on the road. Message them on WhatsApp for anything: a dinner recommendation, a change of plan, a flat tyre, a sudden craving for oysters.",
+  "en": "The same person who designed your trip stays with you while you're on the road. Message or email them for anything: a dinner recommendation, a change of plan, a flat tyre, a sudden craving for oysters.",
   "files": [
    "data/faqs.ts"
   ]
@@ -4523,13 +4499,13 @@
   ]
  },
  {
-  "en": "Once you're happy with your tailor-made itinerary, we ask for a [25%] deposit to confirm the booking, and the balance is due [8] weeks before you travel. We accept [payment methods].",
+  "en": "Once you're happy with your tailor-made itinerary, we ask for a deposit to confirm the booking, and the balance is due some weeks before you travel. The exact amounts and dates are set out in your proposal and confirmation before you book.",
   "files": [
    "data/faqs.ts"
   ]
  },
  {
-  "en": "Prices are quoted per person in euros. The currency switcher on the site shows approximate conversions; your final invoice is in [EUR].",
+  "en": "Prices are quoted per person in euros. The currency switcher on the site shows approximate conversions; your invoice is in euros.",
   "files": [
    "data/faqs.ts"
   ]
@@ -4541,7 +4517,7 @@
   ]
  },
  {
-  "en": "[PLACEHOLDER: cancellation terms to be confirmed.] If you cancel more than [8] weeks before departure, you lose your deposit; between [8] and [4] weeks, [50%] of the trip price; within [4] weeks, [100%].",
+  "en": "You can cancel at any time by writing to us. Because we pay hotels and other suppliers in advance, cancellation charges apply and increase as your departure date gets closer. The charges for your trip are set out in your proposal and confirmation before you book.",
   "files": [
    "data/faqs.ts"
   ]
@@ -4550,6 +4526,18 @@
   "en": "We strongly recommend travel insurance that covers cancellation from the day you book. Full terms are in our booking conditions.",
   "files": [
    "data/faqs.ts"
+  ]
+ },
+ {
+  "en": "<li><b>{0}</b> (<span>{1}</span>, <span>{2}</span>): <span>{3}</span></li>",
+  "files": [
+   "data/legal.ts"
+  ]
+ },
+ {
+  "en": "<li><b>{0}</b>: <span>{1}</span></li>",
+  "files": [
+   "data/legal.ts"
   ]
  },
  {
@@ -6858,7 +6846,7 @@
   ]
  },
  {
-  "en": "Rules change. Check our Driving in France guide and the official French road safety website before you travel. Your specialist is on WhatsApp for any question, roundabout-related or otherwise.",
+  "en": "Rules change. Check our Driving in France guide and the official French road safety website before you travel. Your specialist is a message away for any question, roundabout-related or otherwise.",
   "files": [
    "data/posts.ts"
   ]
@@ -6882,7 +6870,7 @@
   ]
  },
  {
-  "en": "Every Rond-Point trip is a loop by car, with hand-picked stays, a route book and a specialist on WhatsApp. But we design two kinds: classic self-drive road trips, and 'drive & e-bike' trips, where some days you leave the car at the hotel and explore on a pedal-assisted bike instead. Here's how they compare.",
+  "en": "Every Rond-Point trip is a loop by car, with hand-picked stays, a route book and a dedicated specialist. But we design two kinds: classic self-drive road trips, and 'drive & e-bike' trips, where some days you leave the car at the hotel and explore on a pedal-assisted bike instead. Here's how they compare.",
   "files": [
    "data/posts.ts"
   ]
@@ -8654,7 +8642,7 @@
   ]
  },
  {
-  "en": "One dedicated specialist on WhatsApp, 7 days a week",
+  "en": "One dedicated specialist, 7 days a week",
   "files": [
    "data/roadTrips.ts"
   ]
@@ -13128,7 +13116,7 @@
   ]
  },
  {
-  "en": "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist on WhatsApp the whole way.",
+  "en": "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist the whole way.",
   "files": [
    "config/site.ts"
   ]
@@ -13206,7 +13194,7 @@
   ]
  },
  {
-  "en": "specialist on WhatsApp the whole way",
+  "en": "dedicated specialist the whole way",
   "files": [
    "config/site.ts"
   ]

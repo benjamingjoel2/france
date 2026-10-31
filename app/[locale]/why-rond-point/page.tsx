@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return localizeMetadata({
   title: "Why Rond-Point",
   description:
-    "Rond-Point was born from a love of the back roads and a desire to do road trips better: hand-picked stays, a route book worth keeping and one specialist on WhatsApp the whole way.",
+    "Rond-Point was born from a love of the back roads and a desire to do road trips better: hand-picked stays, a route book worth keeping and one dedicated specialist the whole way.",
   alternates: { canonical: "/why-rond-point" },
 }, (await params).locale);
 }
@@ -40,8 +40,8 @@ const reasons = [
     ],
   },
   {
-    id: "whatsapp",
-    title: "One specialist on WhatsApp",
+    id: "specialist",
+    title: "One dedicated specialist",
     body: [
       "The person who designed your loop is the person who answers when you message from a lay-by. No call centre, no ticket numbers: just someone who knows exactly where you are on the route.",
     ],
@@ -139,7 +139,7 @@ export default async function WhyPage({ params }: { params: Promise<{ locale: st
             <Accordion
               tone="dark"
               titleClass="font-cond text-lg"
-              items={reasons.map((r) => ({ id: r.id, title: r.title, content: r.body.map((p, i) => <p key={i}>{tp(p)}</p>) }))}
+              items={reasons.map((r) => ({ id: r.id, title: tp(r.title), content: r.body.map((p, i) => <p key={i}>{tp(p)}</p>) }))}
             />
             <div className="mt-[var(--spacing-sec)] ml-auto w-1/2 lg:w-3/4">
               <ImageReveal className="aspect-square">
