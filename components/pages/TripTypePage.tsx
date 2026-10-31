@@ -1,3 +1,4 @@
+import { t, tp } from '@/lib/i18n/t';
 import { Suspense } from "react";
 import type { TripType } from "@/data/types";
 import { tripTypes } from "@/data/taxonomy";
@@ -14,7 +15,7 @@ const copy: Record<TripType, { lines: string[]; intro: string; cross: { lines: s
   "self-drive": {
     lines: ["Self-drive", "road trips"],
     intro:
-      "Your car, your playlist, our route. Every loop comes with hand-picked stays, a route book worth keeping and a specialist on WhatsApp for the moments the satnav gets ideas.",
+      "Your car, your playlist, our route. Every loop comes with hand-picked stays, a route book worth keeping and a dedicated specialist for the moments the satnav gets ideas.",
     cross: {
       lines: ["Drive &", "e-bike"],
       text: "Want to feel the hills as well as see them? Our drive & e-bike loops swap the car for pedal-assist on the prettiest days. Luggage goes ahead; you follow at 25 km/h.",
@@ -45,27 +46,27 @@ export function TripTypePage({ type }: { type: TripType }) {
   }));
   return (
     <div className="bg-charcoal pt-[var(--header-h)] text-cream">
-      <Breadcrumbs items={[{ label: tripTypes[type].label }]} />
+      <Breadcrumbs items={tp([{ label: tripTypes[type].label }])} />
       <section className="py-[var(--spacing-sec)]">
-        <SectionIntro as="h1" size="4xl" bottomAlign lines={c.lines} text={<p>{c.intro}</p>} />
+        <SectionIntro as="h1" size="4xl" bottomAlign lines={tp(c.lines)} text={<p>{tp(c.intro)}</p>} />
         <div className="mt-[var(--spacing-sec-xl)] px-gutter">
           <Suspense fallback={<div className="min-h-[60vh]" />}>
-            <TripListing trips={trips} regionOptions={regions.map((r) => ({ value: r.slug, label: r.name }))} />
+            <TripListing trips={tp(trips)} regionOptions={regions.map((r) => ({ value: r.slug, label: r.name }))} />
           </Suspense>
         </div>
       </section>
       <CrossSellBand
-        lines={c.cross.lines}
-        text={c.cross.text}
-        cta="Find out more"
+        lines={tp(c.cross.lines)}
+        text={tp(c.cross.text)}
+        cta={t("Find out more")}
         href={tripTypes[other].href}
         image={photo(c.cross.image, 1)}
       />
       <FullWidthCta
         image={photo(["hero:calendar", "theme:sunflowers"], 1)}
-        heading="When to go"
-        text="Lavender in early summer, grape harvest around September, Christmas markets in December. Our month-by-month calendar shows when each region is at its best."
-        cta="View the calendar"
+        heading={t("When to go")}
+        text={t("Lavender in early summer, grape harvest around September, Christmas markets in December. Our month-by-month calendar shows when each region is at its best.")}
+        cta={t("View the calendar")}
         href="/when-to-go"
       />
     </div>

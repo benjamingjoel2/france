@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { lhref, tp } from '@/lib/i18n/t';
+import Link from '@/components/i18n/Link';
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "./Icon";
@@ -59,18 +60,18 @@ export function ButtonLink({
   if (external) {
     return (
       <a
-        href={href as string}
+        href={lhref(href as string)}
         className={buttonClass(variant, size, className)}
         {...(String(href).startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         {...(rest as ComponentProps<"a">)}
       >
-        {content}
+        {tp(content)}
       </a>
     );
   }
   return (
     <Link href={href} className={buttonClass(variant, size, className)} {...rest}>
-      {content}
+      {tp(content)}
     </Link>
   );
 }

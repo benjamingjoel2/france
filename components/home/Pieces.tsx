@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import { t, tp } from '@/lib/i18n/t';
+import Link from '@/components/i18n/Link';
 import { animate, motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import type { Img } from "@/data/types";
-import { imgUrl } from "@/lib/media";
 import { cn } from "@/lib/cn";
 import { LogoMark } from "@/components/layout/Logo";
 
@@ -55,7 +53,7 @@ export function RotatingBadge({
   return (
     <Link
       href={href}
-      aria-label="Plan my road trip"
+      aria-label={t("Plan my road trip")}
       className={cn("group relative block size-[150px] rounded-full lg:size-[184px]", className)}
     >
       <svg viewBox="0 0 200 200" aria-hidden="true" className="absolute inset-0 h-full w-full animate-[spin-slow_22s_linear_infinite] motion-reduce:animate-none">
@@ -63,7 +61,7 @@ export function RotatingBadge({
           <path id="badge-ring" d="M100 100 m -78 0 a 78 78 0 1 1 156 0 a 78 78 0 1 1 -156 0" />
         </defs>
         <text fill={fg} fontSize="14.5" letterSpacing="2.4" style={{ fontFamily: "var(--font-mono)", textTransform: "uppercase" }}>
-          <textPath href="#badge-ring">{text}</textPath>
+          <textPath href="#badge-ring">{tp(text)}</textPath>
         </text>
       </svg>
       <span
@@ -94,13 +92,13 @@ function CountUp({ value }: { value: string }) {
     });
     return () => c.stop();
   }, [inView, reduce, target, hasNumber]);
-  if (!match) return <span ref={ref}>{value}</span>;
+  if (!match) return <span ref={ref}>{tp(value)}</span>;
   return (
-    <span ref={ref} aria-label={value}>
+    <span ref={ref} aria-label={tp(value)}>
       <span aria-hidden="true">
-        {match[1]}
-        {n}
-        {match[3]}
+        {tp(match[1])}
+        {tp(n)}
+        {tp(match[3])}
       </span>
     </span>
   );
@@ -133,7 +131,7 @@ export function CountUpStats({
             i > 0 && "lg:pl-6",
           )}
         >
-          <dt className="font-ui opacity-75">{s.label}</dt>
+          <dt className="font-ui opacity-75">{tp(s.label)}</dt>
           <dd className="font-display text-[clamp(52px,6vw,104px)]">
             <CountUp value={s.value} />
           </dd>
@@ -162,7 +160,7 @@ export function HowItWorks({
         <h2 className="font-display text-3xl">
           {title.map((l) => (
             <span key={l} className="block">
-              {l}
+              {tp(l)}
             </span>
           ))}
         </h2>
@@ -203,63 +201,15 @@ export function HowItWorks({
               )}
             >
               <p className="font-ui mb-4 inline-flex items-center gap-3">
-                <span className="flex size-9 items-center justify-center rounded-full bg-charcoal text-cream">{i + 1}</span>
-                {s.eyebrow}
+                <span className="flex size-9 items-center justify-center rounded-full bg-charcoal text-cream">{tp(i + 1)}</span>
+                {tp(s.eyebrow)}
               </p>
-              <h3 className="font-cond text-2xl">{s.title}</h3>
-              <p className="mt-4">{s.text}</p>
+              <h3 className="font-cond text-2xl">{tp(s.title)}</h3>
+              <p className="mt-4">{tp(s.text)}</p>
             </motion.li>
           ))}
         </ol>
       </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------ Postcard review */
-
-export function PostcardReview({
-  quote,
-  name,
-  trip,
-  image,
-}: {
-  quote: string;
-  name: string;
-  trip: string;
-  image: Img;
-}) {
-  const reduce = useReducedMotion();
-  return (
-    <section className="overflow-hidden bg-cream px-gutter py-[var(--spacing-sec)] text-charcoal">
-      <motion.figure
-        initial={{ rotate: reduce ? 0 : -4, y: reduce ? 0 : 60, opacity: 0 }}
-        whileInView={{ rotate: -1.2, y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: "0px 0px -20% 0px" }}
-        transition={{ duration: 0.9, ease: EASE }}
-        className="relative mx-auto grid max-w-[1080px] bg-[#FFFDF8] shadow-[0_30px_80px_rgba(20,20,24,0.18)] md:grid-cols-2"
-      >
-        <div className="relative min-h-[320px]">
-          <Image src={imgUrl(image, 1200)} alt={image.alt} fill sizes="(min-width:768px) 540px, 100vw" className="object-cover" />
-          <span className="font-display absolute bottom-5 left-5 text-[clamp(30px,3.4vw,52px)] text-cream [text-shadow:0_2px_24px_rgba(0,0,0,0.35)]">
-            Bons baisers
-            <br />
-            de France
-          </span>
-        </div>
-        <div className="relative flex flex-col justify-between gap-10 p-[clamp(24px,4vw,56px)] md:border-l md:border-dashed md:border-charcoal/25">
-          <div className="absolute top-6 right-6 flex size-[92px] rotate-6 items-center justify-center border-[3px] border-dotted border-roadsign p-1">
-            <span className="flex h-full w-full items-center justify-center bg-roadsign text-cream">
-              <LogoMark size={40} />
-            </span>
-          </div>
-          <p className="font-ui pr-28 text-[11.5px] opacity-70">Client review · sample, placeholder</p>
-          <blockquote className="font-cond text-[clamp(26px,2.6vw,40px)] leading-[0.98]">&ldquo;{quote}&rdquo;</blockquote>
-          <figcaption className="font-ui border-t hairline-light pt-4">
-            {name} <span className="opacity-60">— {trip}</span> <span className="text-sunflower">★★★★★</span>
-          </figcaption>
-        </div>
-      </motion.figure>
     </section>
   );
 }

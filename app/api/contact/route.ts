@@ -5,7 +5,7 @@ const Body = z.object({
   name: z.string().trim().min(2),
   email: z.email(),
   phone: z.string().trim().max(30).optional().default(""),
-  method: z.enum(["email", "whatsapp", "telephone"]),
+  method: z.enum(["email", "telephone"]),
   message: z.string().trim().min(5).max(5000),
 });
 

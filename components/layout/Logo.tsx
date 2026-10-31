@@ -1,3 +1,4 @@
+import { t } from '@/lib/i18n/t';
 import { cn } from "@/lib/cn";
 
 /** Circular roundabout mark: a ring road, a central island, four exits and one car going round. */
@@ -27,9 +28,8 @@ export function Logo({ className }: { className?: string }) {
     <span className={cn("inline-flex items-center gap-2 leading-none lg:gap-2.5", className)}>
       <LogoMark className="size-6 shrink-0 lg:size-[30px]" />
       <span className="font-wide text-[15px] tracking-[-0.01em] lg:text-[18px]">
-        Rond<span aria-hidden="true">·</span>
-        <span className="sr-only">-</span>Point
-      </span>
+        {t("Rond")}<span aria-hidden="true">·</span>
+        <span className="sr-only">-</span>{t("Point")}</span>
     </span>
   );
 }

@@ -1,7 +1,8 @@
 "use client";
 
+import { t, tf, tp } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
+import Link from '@/components/i18n/Link';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   BUDGETS,
@@ -11,6 +12,7 @@ import {
   stepKeys,
   stepSchemas,
   type PlannerDraft,
+  CONTACT_METHODS,
 } from "@/lib/planner-schema";
 import { interests as interestLabels, ordinal, paces, tripTypes } from "@/data/taxonomy";
 import { site } from "@/config/site";
@@ -68,6 +70,11 @@ export function Planner({
       if (raw) {
         const saved = JSON.parse(raw) as { draft: PlannerDraft; step: number; maxStep: number };
         next = { ...next, ...saved.draft };
+        // Drafts saved before WhatsApp was removed may still list it as a contact method.
+        next.contact = {
+          ...next.contact,
+          contactMethods: (next.contact.contactMethods ?? []).filter((m) => (CONTACT_METHODS as readonly string[]).includes(m)),
+        };
         savedStep = Math.min(4, saved.step ?? 0);
         savedMax = Math.min(4, saved.maxStep ?? savedStep);
       }
@@ -183,7 +190,7 @@ export function Planner({
       setDone({ name: draft.contact.name.split(" ")[0] });
       window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     } catch {
-      setSubmitError("Something went wrong sending your plan. Please try again, or message us on WhatsApp.");
+      setSubmitError("Something went wrong sending your plan. Please try again, or email us.");
     } finally {
       setSubmitting(false);
     }
@@ -221,7 +228,7 @@ export function Planner({
       {/* Left: statement + progress */}
       <div className="lg:col-span-5">
         <div className="lg:sticky lg:top-[calc(var(--header-h)+32px)]">
-          <p className="font-cond max-w-[14em] text-xl">Five exits to your road trip. Your specialist takes it from there.</p>
+          <p className="font-cond max-w-[14em] text-xl">{t("Five exits to your road trip. Your specialist takes it from there.")}</p>
           <PlannerProgress
             titles={STEP_TITLES}
             current={step}
@@ -230,8 +237,7 @@ export function Planner({
             className="mt-[var(--spacing-sec-lg)]"
           />
           <button type="button" onClick={startOver} className="font-ui link-grow mt-8 text-mist hover:text-cream">
-            Start over
-          </button>
+            {t("Start over")}</button>
         </div>
       </div>
 
@@ -246,16 +252,15 @@ export function Planner({
             transition={{ duration: 0.3, ease: [0.645, 0.045, 0.355, 1] }}
           >
             <p className="font-ui mb-3 inline-flex rounded-[3px] bg-roadsign px-2 py-1 text-white">
-              {ordinal(step + 1)} exit · step {step + 1} of 5
-            </p>
+              {tp(ordinal(step + 1))} {t("exit · step ")}{tp(step + 1)} {t("of 5")}</p>
             <h2 ref={headingRef} tabIndex={-1} className="font-display text-3xl outline-none">
-              {STEP_TITLES[step]}
+              {tp(STEP_TITLES[step])}
             </h2>
-            <p className="mt-4 mb-[var(--spacing-sec-md)] max-w-[34em] text-mist">{STEP_INTROS[step]}</p>
+            <p className="mt-4 mb-[var(--spacing-sec-md)] max-w-[34em] text-mist">{tp(STEP_INTROS[step])}</p>
 
             {Object.keys(errors).length > 0 && (
               <p role="alert" className="font-ui mb-6 border border-brick/60 px-4 py-3 text-brick">
-                Please check the {Object.keys(errors).length === 1 ? "highlighted field" : `${Object.keys(errors).length} highlighted fields`}.
+                {t("Please check the ")}{tp(Object.keys(errors).length === 1 ? "highlighted field" : `${Object.keys(errors).length} highlighted fields`)}.
               </p>
             )}
 
@@ -263,7 +268,7 @@ export function Planner({
               {/* ---------------- Step 1: When ---------------- */}
               {step === 0 && (
                 <>
-                  <Field label="Start date" htmlFor={id("startDate")} required error={err("startDate")}>
+                  <Field label={t("Start date")} htmlFor={id("startDate")} required error={err("startDate")}>
                     <TextInput
                       id={id("startDate")}
                       type="date"
@@ -276,7 +281,7 @@ export function Planner({
                       }}
                     />
                   </Field>
-                  <Field label="Number of days (3–30)" htmlFor={id("days")} required error={err("days")}>
+                  <Field label={t("Number of days (3–30)")} htmlFor={id("days")} required error={err("days")}>
                     <Stepper
                       id={id("days")}
                       label="days"
@@ -290,7 +295,7 @@ export function Planner({
                       }}
                     />
                   </Field>
-                  <Field as="fieldset" label="Are your dates…" required error={err("dateFlex")}>
+                  <Field as="fieldset" label={t("Are your dates…")} required error={err("dateFlex")}>
                     <div data-field="dateFlex">
                       <ChoiceChips
                         name="dateFlex"
@@ -315,7 +320,7 @@ export function Planner({
               {step === 1 && (
                 <>
                   <div data-field="regions">
-                    <Field as="fieldset" label="Choose your exits" required error={err("regions")}>
+                    <Field as="fieldset" label={t("Choose your exits")} required error={err("regions")}>
                       <ExitPicker
                         exits={exits}
                         value={s.where.regions}
@@ -345,8 +350,8 @@ export function Planner({
                       {s.where.helpMeChoose && <Icon name="check" size={13} />}
                     </span>
                     <span>
-                      <span className="font-cond block text-lg">Keep circling: help me choose</span>
-                      <span className="text-[13px] opacity-80">Tell your specialist what you love and they&apos;ll pick the exits.</span>
+                      <span className="font-cond block text-lg">{t("Keep circling: help me choose")}</span>
+                      <span className="text-[13px] opacity-80">{t("Tell your specialist what you love and they'll pick the exits.")}</span>
                     </span>
                   </button>
                 </>
@@ -355,7 +360,7 @@ export function Planner({
               {/* ---------------- Step 3: Style ---------------- */}
               {step === 2 && (
                 <>
-                  <Field as="fieldset" label="Trip type" required error={err("tripType")}>
+                  <Field as="fieldset" label={t("Trip type")} required error={err("tripType")}>
                     <div data-field="tripType">
                       <ChoiceChips
                         name="tripType"
@@ -375,7 +380,7 @@ export function Planner({
                       />
                     </div>
                   </Field>
-                  <Field as="fieldset" label="Pace" required error={err("pace")}>
+                  <Field as="fieldset" label={t("Pace")} required error={err("pace")}>
                     <div data-field="pace">
                       <ChoiceChips
                         name="pace"
@@ -395,7 +400,7 @@ export function Planner({
                       />
                     </div>
                   </Field>
-                  <Field as="fieldset" label="Interests (choose any)" required error={err("interests")}>
+                  <Field as="fieldset" label={t("Interests (choose any)")} required error={err("interests")}>
                     <div data-field="interests">
                       <ChoiceChips
                         name="interests"
@@ -413,7 +418,7 @@ export function Planner({
                       />
                     </div>
                   </Field>
-                  <Field as="fieldset" label="Car type" required error={err("carType")}>
+                  <Field as="fieldset" label={t("Car type")} required error={err("carType")}>
                     <div data-field="carType" className="space-y-4">
                       <ChoiceChips
                         name="carType"
@@ -435,16 +440,16 @@ export function Planner({
                         id={id("automatic")}
                         checked={s.style.automatic}
                         onChange={(v) => update("style", { automatic: v })}
-                        label="Automatic required (manual is the default in France)"
+                        label={t("Automatic required (manual is the default in France)")}
                       />
                     </div>
                   </Field>
-                  <Field label="Pick-up city" htmlFor={id("pickup")} required error={err("pickup")}>
+                  <Field label={t("Pick-up city")} htmlFor={id("pickup")} required error={err("pickup")}>
                     <Select
                       id={id("pickup")}
                       value={s.style.pickup}
                       invalid={!!err("pickup")}
-                      placeholder="Please select…"
+                      placeholder={t("Please select…")}
                       onChange={(e) => {
                         update("style", { pickup: e.target.value as PlannerDraft["style"]["pickup"] });
                         clear("pickup");
@@ -461,12 +466,12 @@ export function Planner({
                     />
                   </Field>
                   {s.style.pickup === "other" && (
-                    <Field label="Where would you like to pick up?" htmlFor={id("pickupOther")} required error={err("pickupOther")}>
+                    <Field label={t("Where would you like to pick up?")} htmlFor={id("pickupOther")} required error={err("pickupOther")}>
                       <TextInput
                         id={id("pickupOther")}
                         value={s.style.pickupOther}
                         invalid={!!err("pickupOther")}
-                        placeholder="e.g. Strasbourg, Geneva airport"
+                        placeholder={t("e.g. Strasbourg, Geneva airport")}
                         onChange={(e) => {
                           update("style", { pickupOther: e.target.value });
                           clear("pickupOther");
@@ -481,10 +486,10 @@ export function Planner({
               {step === 3 && (
                 <>
                   <div className="grid gap-7 sm:grid-cols-2">
-                    <Field label="Adults" htmlFor={id("adults")} required error={err("adults")}>
+                    <Field label={t("Adults")} htmlFor={id("adults")} required error={err("adults")}>
                       <Stepper id={id("adults")} label="adults" min={1} max={12} value={s.who.adults} onChange={(n) => update("who", { adults: n })} />
                     </Field>
-                    <Field label="Children (under 18)" htmlFor={id("children")} error={err("children")}>
+                    <Field label={t("Children (under 18)")} htmlFor={id("children")} error={err("children")}>
                       <Stepper
                         id={id("children")}
                         label="children"
@@ -502,19 +507,17 @@ export function Planner({
                   </div>
                   {s.who.children > 0 && (
                     <fieldset data-field="childAges" className="space-y-3 border-l-2 border-charcoal-10 pl-5">
-                      <legend className="font-ui mb-3 text-cream">Children&apos;s ages and car seats</legend>
+                      <legend className="font-ui mb-3 text-cream">{t("Children's ages and car seats")}</legend>
                       <p className="text-[13px] text-mist">
-                        French rules require an appropriate child restraint for young children. Tell us ages and we&apos;ll
-                        book the right seats with the car (verify current rules before launch).
-                      </p>
+                        {t("French rules require an appropriate child restraint for young children. Tell us ages and we'll book the right seats with the car (verify current rules before launch).")}</p>
                       {s.who.childAges.map((c, i) => (
                         <div key={i} className="grid items-center gap-3 sm:grid-cols-[1fr_auto]">
                           <Select
                             id={i === 0 ? id("childAges") : undefined}
-                            aria-label={`Child ${i + 1} age`}
+                            aria-label={tf("Child {0} age", i + 1)}
                             value={c.age >= 0 ? String(c.age) : ""}
                             invalid={!!childErr && c.age < 0}
-                            placeholder={`Child ${i + 1}: age`}
+                            placeholder={tf("Child {0}: age", i + 1)}
                             onChange={(e) => {
                               const ages = s.who.childAges.map((x, j) => (j === i ? { ...x, age: parseInt(e.target.value, 10) } : x));
                               update("who", { childAges: ages });
@@ -527,18 +530,18 @@ export function Planner({
                             onChange={(v) =>
                               update("who", { childAges: s.who.childAges.map((x, j) => (j === i ? { ...x, carSeat: v } : x)) })
                             }
-                            label="Needs a car seat"
+                            label={t("Needs a car seat")}
                           />
                         </div>
                       ))}
                       {childErr && (
                         <p role="alert" className="font-ui text-[11.5px] text-brick">
-                          {childErr}
+                          {tp(childErr)}
                         </p>
                       )}
                     </fieldset>
                   )}
-                  <Field as="fieldset" label="Stay style" required error={err("stayStyle")}>
+                  <Field as="fieldset" label={t("Stay style")} required error={err("stayStyle")}>
                     <div data-field="stayStyle">
                       <ChoiceChips
                         name="stayStyle"
@@ -558,7 +561,7 @@ export function Planner({
                       />
                     </div>
                   </Field>
-                  <Field as="fieldset" label="Budget per person (excluding flights)" required error={err("budget")}>
+                  <Field as="fieldset" label={t("Budget per person (excluding flights)")} required error={err("budget")}>
                     <div data-field="budget">
                       <ChoiceChips
                         name="budget"
@@ -579,7 +582,7 @@ export function Planner({
               {/* ---------------- Step 5: Contact ---------------- */}
               {step === 4 && (
                 <>
-                  <Field label="Your name" htmlFor={id("name")} required error={err("name")}>
+                  <Field label={t("Your name")} htmlFor={id("name")} required error={err("name")}>
                     <TextInput
                       id={id("name")}
                       autoComplete="name"
@@ -591,7 +594,7 @@ export function Planner({
                       }}
                     />
                   </Field>
-                  <Field label="Email" htmlFor={id("email")} required error={err("email")}>
+                  <Field label={t("Email")} htmlFor={id("email")} required error={err("email")}>
                     <TextInput
                       id={id("email")}
                       type="email"
@@ -604,10 +607,10 @@ export function Planner({
                       }}
                     />
                   </Field>
-                  <Field label="Phone" htmlFor={id("phone")} required error={err("phone")}>
+                  <Field label={t("Phone")} htmlFor={id("phone")} required error={err("phone")}>
                     <div className="grid grid-cols-[minmax(0,42%)_1fr] gap-2">
                       <Select
-                        aria-label="Country code"
+                        aria-label={t("Country code")}
                         value={s.contact.dialCode}
                         onChange={(e) => update("contact", { dialCode: e.target.value })}
                         options={DIAL_CODES.map((d) => ({ value: d.code, label: d.label }))}
@@ -625,7 +628,7 @@ export function Planner({
                       />
                     </div>
                   </Field>
-                  <Field as="fieldset" label="Preferred contact methods" required error={err("contactMethods")}>
+                  <Field as="fieldset" label={t("Preferred contact methods")} required error={err("contactMethods")}>
                     <div data-field="contactMethods">
                       <ChoiceChips
                         name="contactMethods"
@@ -639,17 +642,16 @@ export function Planner({
                         }}
                         options={[
                           { value: "email", label: "Email" },
-                          { value: "whatsapp", label: "WhatsApp" },
                           { value: "telephone", label: "Telephone" },
                         ]}
                       />
                     </div>
                   </Field>
-                  <Field label="Anything else? (optional)" htmlFor={id("notes")} error={err("notes")}>
+                  <Field label={t("Anything else? (optional)")} htmlFor={id("notes")} error={err("notes")}>
                     <TextArea
                       id={id("notes")}
                       value={s.contact.notes}
-                      placeholder="Special occasions, must-sees, dietary needs, the château you've always dreamt of…"
+                      placeholder={t("Special occasions, must-sees, dietary needs, the château you've always dreamt of…")}
                       onChange={(e) => update("contact", { notes: e.target.value })}
                     />
                   </Field>
@@ -663,17 +665,16 @@ export function Planner({
                       }}
                       label={
                         <>
-                          I&apos;m happy for {site.name} to contact me about my trip, as described in the{" "}
+                          {t("I'm happy for ")}{tp(site.name)} {t("to contact me about my trip, as described in the")}{" "}
                           <Link href="/privacy" className="link-wipe text-cream">
-                            privacy policy
-                          </Link>
+                            {t("privacy policy")}</Link>
                           .
                         </>
                       }
                     />
                     {err("consent") && (
                       <p role="alert" className="font-ui mt-2 text-[11.5px] text-brick">
-                        {err("consent")}
+                        {tp(err("consent"))}
                       </p>
                     )}
                   </div>
@@ -685,23 +686,22 @@ export function Planner({
 
         {submitError && (
           <p role="alert" className="font-ui mt-6 text-brick">
-            {submitError}
+            {tp(submitError)}
           </p>
         )}
 
         <div className="mt-[var(--spacing-sec-lg)] flex items-center justify-between gap-4 border-t hairline-dark pt-6">
           {step > 0 ? (
             <Button variant="stroke-light" iconLeft="arrow-left" onClick={() => goTo(step - 1)}>
-              Back
-            </Button>
+              {t("Back")}</Button>
           ) : (
             <span />
           )}
           <Button type="submit" variant="cream" icon={step < 4 ? "arrow-right" : undefined} disabled={submitting}>
-            {step < 4 ? `Next: ${STEP_TITLES[step + 1]}` : submitting ? "Sending…" : "Send my road trip"}
+            {tp(step < 4 ? `Next: ${STEP_TITLES[step + 1]}` : submitting ? "Sending…" : "Send my road trip")}
           </Button>
         </div>
-        <p className="mt-4 text-[13px] text-mist">Your answers are saved on this device as you go.</p>
+        <p className="mt-4 text-[13px] text-mist">{t("Your answers are saved on this device as you go.")}</p>
       </form>
     </div>
   );

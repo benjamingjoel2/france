@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { t, tp } from '@/lib/i18n/t';
+import Link from '@/components/i18n/Link';
 import { site } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -10,14 +11,14 @@ export function Breadcrumbs({ items, overlay = false }: { items: Crumb[]; overla
   const all: Crumb[] = [{ label: "Home", href: "/" }, ...items];
   return (
     <nav
-      aria-label="Breadcrumb"
+      aria-label={t("Breadcrumb")}
       className={cn(
         "relative z-10 hidden border-b px-[30px] py-[14px] text-cream md:block",
         overlay ? "hairline-dark" : "hairline-dark bg-charcoal",
       )}
     >
       <JsonLd
-        data={{
+        data={tp({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           itemListElement: all.map((c, i) => ({
@@ -26,7 +27,7 @@ export function Breadcrumbs({ items, overlay = false }: { items: Crumb[]; overla
             name: c.label,
             ...(c.href ? { item: new URL(c.href, site.url).toString() } : {}),
           })),
-        }}
+        })}
       />
       <ol className="font-ui flex flex-wrap items-center gap-2 text-[11.5px]">
         {all.map((c, i) => (
@@ -34,11 +35,11 @@ export function Breadcrumbs({ items, overlay = false }: { items: Crumb[]; overla
             {i > 0 && <span aria-hidden="true" className="opacity-60">›</span>}
             {c.href && i < all.length - 1 ? (
               <Link href={c.href} className="link-wipe">
-                {c.label}
+                {tp(c.label)}
               </Link>
             ) : (
               <span aria-current="page" className="opacity-75">
-                {c.label}
+                {tp(c.label)}
               </span>
             )}
           </li>

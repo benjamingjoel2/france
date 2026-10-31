@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
@@ -42,33 +43,29 @@ export function Newsletter() {
   return (
     <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,3.6fr)] lg:items-center lg:gap-8">
       <h3 id="newsletter-heading" className="font-cond text-lg">
-        Newsletter sign up
-        <span className="font-ui mt-1 block font-light tracking-normal normal-case text-mist">
-          Postcards from the back roads, once a month.
-        </span>
+        {t("Newsletter sign up")}<span className="font-ui mt-1 block font-light tracking-normal normal-case text-mist">
+          {t("Postcards from the back roads, once a month.")}</span>
       </h3>
       <form onSubmit={onSubmit} noValidate aria-labelledby="newsletter-heading" className="flex flex-col gap-3 md:flex-row md:gap-[1.5vw]">
         <label className="sr-only" htmlFor="nl-name">
-          Your name
-        </label>
-        <input id="nl-name" name="name" autoComplete="given-name" placeholder="Your name" className={input} />
+          {t("Your name")}</label>
+        <input id="nl-name" name="name" autoComplete="given-name" placeholder={t("Your name")} className={input} />
         <label className="sr-only" htmlFor="nl-email">
-          Your email address
-        </label>
+          {t("Your email address")}</label>
         <input
           id="nl-email"
           name="email"
           type="email"
           required
           autoComplete="email"
-          placeholder="Your email address"
+          placeholder={t("Your email address")}
           aria-invalid={status === "error" || undefined}
           aria-describedby="nl-status"
           className={cn(input, status === "error" && "border-brick")}
         />
         <button
           type="submit"
-          aria-label="Subscribe"
+          aria-label={t("Subscribe")}
           disabled={status === "sending"}
           className="group relative flex h-[52px] w-full shrink-0 items-center justify-center overflow-hidden border hairline-dark md:w-[58px] lg:h-[58px]"
         >
@@ -77,8 +74,8 @@ export function Newsletter() {
         </button>
       </form>
       <p id="nl-status" role="status" className="font-ui text-mist lg:col-start-2">
-        {status === "done" && "Merci! You're on the list. Check your inbox to confirm."}
-        {status === "error" && <span className="text-brick">{error}</span>}
+        {tp(status === "done" && "Merci! You're on the list. Check your inbox to confirm.")}
+        {status === "error" && <span className="text-brick">{tp(error)}</span>}
       </p>
     </div>
   );

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { tp } from '@/lib/i18n/t';
+import Link from '@/components/i18n/Link';
 import { cn } from "@/lib/cn";
 import { ArrowBox } from "@/components/ui/ArrowBox";
 import { Reveal } from "@/components/motion/Reveal";
@@ -25,12 +26,12 @@ export function LinkRows({
               tone === "light" ? "text-charcoal hover:bg-charcoal hover:text-cream" : "text-cream hover:bg-cream hover:text-charcoal",
             )}
           >
-            <span className="font-ui pt-1 text-[12px]">{String(i + 1).padStart(2, "0")}</span>
+            <span className="font-ui pt-1 text-[12px]">{tp(String(i + 1).padStart(2, "0"))}</span>
             <span>
               <span className="font-display block max-w-[22ch] text-[clamp(22.7px,1.7vw+10.5px,46px)] leading-[0.9]">
-                {item.title}
+                {tp(item.title)}
               </span>
-              {item.meta && <span className="font-ui mt-3 block opacity-60">{item.meta}</span>}
+              {item.meta && <span className="font-ui mt-3 block opacity-60">{tp(item.meta)}</span>}
             </span>
             <ArrowBox
               tone={tone}

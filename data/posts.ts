@@ -231,7 +231,7 @@ export const posts: Post[] = [
       },
       {
         type: "callout",
-        text: "Rules change. Check our Driving in France guide and the official French road safety website before you travel. Your specialist is on WhatsApp for any question, roundabout-related or otherwise.",
+        text: "Rules change. Check our Driving in France guide and the official French road safety website before you travel. Your specialist is a message away for any question, roundabout-related or otherwise.",
       },
       { type: "tripLink", slug: "alsace-wine-route" },
     ],
@@ -257,7 +257,7 @@ export const posts: Post[] = [
     blocks: [
       {
         type: "p",
-        text: "Every Rond-Point trip is a loop by car, with hand-picked stays, a route book and a specialist on WhatsApp. But we design two kinds: classic self-drive road trips, and 'drive & e-bike' trips, where some days you leave the car at the hotel and explore on a pedal-assisted bike instead. Here's how they compare.",
+        text: "Every Rond-Point trip is a loop by car, with hand-picked stays, a route book and a dedicated specialist. But we design two kinds: classic self-drive road trips, and 'drive & e-bike' trips, where some days you leave the car at the hotel and explore on a pedal-assisted bike instead. Here's how they compare.",
       },
       { type: "h2", text: "Self-drive: the classic road trip" },
       {

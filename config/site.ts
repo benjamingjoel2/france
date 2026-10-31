@@ -9,7 +9,7 @@ export const site = {
   name: "Rond-Point",
   tagline: "Take the long way round.",
   description:
-    "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist on WhatsApp the whole way.",
+    "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist the whole way.",
   // Canonical domain (a subdomain of tourground.com, DNS on Vercel). NEXT_PUBLIC_SITE_URL overrides it.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rondpoint.tourground.com",
   locale: "en_GB",
@@ -81,7 +81,7 @@ export const site = {
     { value: "[12]", label: "years on the back roads", placeholder: true },
     { value: "[40+]", label: "road trips designed", placeholder: true },
     { value: "[14]", label: "regions", placeholder: true },
-    { value: "1", label: "specialist on WhatsApp the whole way", placeholder: false },
+    { value: "1", label: "dedicated specialist the whole way", placeholder: false },
   ],
 
   featuredTrip: {

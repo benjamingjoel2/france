@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import type { Img } from "@/data/types";
 import { imgUrl } from "@/lib/media";
@@ -25,22 +26,22 @@ export function CrossSellBand({
       <div className="grid gap-[var(--spacing-grid-gap)] lg:grid-cols-12">
         <div className="flex flex-col justify-between gap-[var(--spacing-sec)] lg:col-span-7">
           <div className="border-t hairline-dark pt-[var(--spacing-sec-lg)]">
-            <SplitWords as="h2" lines={lines} className="font-display text-3xl" />
+            <SplitWords as="h2" lines={tp(lines)} className="font-display text-3xl" />
           </div>
           <div className="flex flex-col gap-6 border-b hairline-dark pb-[var(--spacing-sec-lg)] md:flex-row md:items-end md:justify-between">
             <Reveal className="max-w-[30em]">
-              <p>{text}</p>
+              <p>{tp(text)}</p>
             </Reveal>
             <Reveal delay={0.1}>
               <ButtonLink href={href} variant="cream">
-                {cta}
+                {tp(cta)}
               </ButtonLink>
             </Reveal>
           </div>
         </div>
         <div className="hidden lg:col-span-5 lg:block">
           <ImageReveal className="aspect-[3/4]">
-            <Image src={imgUrl(image, 1200)} alt={image.alt} fill sizes="38vw" className="object-cover" />
+            <Image src={imgUrl(image, 1200)} alt={tp(image.alt)} fill sizes="38vw" className="object-cover" />
           </ImageReveal>
         </div>
       </div>

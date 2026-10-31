@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { useState } from "react";
 import { z } from "zod";
 import { issuesToErrors } from "@/lib/planner-schema";
@@ -11,7 +12,7 @@ const schema = z.object({
   name: z.string().trim().min(2, "Tell us your name."),
   email: z.email("Enter a valid email address."),
   phone: z.string().trim().max(30),
-  method: z.enum(["email", "whatsapp", "telephone"], { error: "How should we reach you?" }),
+  method: z.enum(["email", "telephone"], { error: "How should we reach you?" }),
   message: z.string().trim().min(5, "Tell us a little more."),
 });
 
@@ -39,7 +40,7 @@ export function ContactForm() {
     if (res?.ok) setState("sent");
     else {
       setState("idle");
-      setErrors({ form: "Something went wrong. Please try again, or message us on WhatsApp." });
+      setErrors({ form: "Something went wrong. Please try again, or email us." });
     }
   }
 
@@ -47,8 +48,8 @@ export function ContactForm() {
     return (
       <div role="status" className="space-y-4">
         <RingGlyph className="text-sunflower" />
-        <p className="font-cond text-xl">Merci, {form.name.split(" ")[0]}! We&apos;ll be in touch shortly.</p>
-        <p className="text-mist">Take the long way round.</p>
+        <p className="font-cond text-xl">{t("Merci, ")}{tp(form.name.split(" ")[0])}{t("! We'll be in touch shortly.")}</p>
+        <p className="text-mist">{t("Take the long way round.")}</p>
       </div>
     );
 
@@ -59,16 +60,16 @@ export function ContactForm() {
 
   return (
     <form onSubmit={submit} noValidate className="space-y-6">
-      <Field label="Name" htmlFor="c-name" required error={errors.name}>
+      <Field label={t("Name")} htmlFor="c-name" required error={errors.name}>
         <TextInput id="c-name" autoComplete="name" value={form.name} invalid={!!errors.name} onChange={set("name")} />
       </Field>
-      <Field label="Email" htmlFor="c-email" required error={errors.email}>
+      <Field label={t("Email")} htmlFor="c-email" required error={errors.email}>
         <TextInput id="c-email" type="email" autoComplete="email" value={form.email} invalid={!!errors.email} onChange={set("email")} />
       </Field>
-      <Field label="Phone (optional)" htmlFor="c-phone">
+      <Field label={t("Phone (optional)")} htmlFor="c-phone">
         <TextInput id="c-phone" type="tel" autoComplete="tel" value={form.phone} onChange={set("phone")} />
       </Field>
-      <Field as="fieldset" label="Preferred contact method" required error={errors.method}>
+      <Field as="fieldset" label={t("Preferred contact method")} required error={errors.method}>
         <ChoiceChips
           name="c-method"
           columns={3}
@@ -77,17 +78,16 @@ export function ContactForm() {
           onChange={(v) => setForm({ ...form, method: v as string })}
           options={[
             { value: "email", label: "Email" },
-            { value: "whatsapp", label: "WhatsApp" },
             { value: "telephone", label: "Telephone" },
           ]}
         />
       </Field>
-      <Field label="How can we help?" htmlFor="c-message" required error={errors.message}>
+      <Field label={t("How can we help?")} htmlFor="c-message" required error={errors.message}>
         <TextArea id="c-message" value={form.message} invalid={!!errors.message} onChange={set("message")} />
       </Field>
-      {errors.form && <p className="font-ui text-brick">{errors.form}</p>}
+      {errors.form && <p className="font-ui text-brick">{tp(errors.form)}</p>}
       <Button type="submit" variant="cream" disabled={state === "sending"}>
-        {state === "sending" ? "Sending…" : "Send message"}
+        {tp(state === "sending" ? "Sending…" : "Send message")}
       </Button>
     </form>
   );

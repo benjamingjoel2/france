@@ -1,5 +1,7 @@
 "use client";
 
+import { getLocale, tf, tp } from '@/lib/i18n/t';
+import { INTL_LOCALES } from '@/lib/i18n/config';
 import { useEffect, useState } from "react";
 
 const fmtTime = new Intl.DateTimeFormat("en-GB", {
@@ -9,7 +11,7 @@ const fmtTime = new Intl.DateTimeFormat("en-GB", {
   second: "2-digit",
   hour12: false,
 });
-const fmtDay = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", weekday: "long" });
+const fmtDay = (d: Date) => new Intl.DateTimeFormat(INTL_LOCALES[getLocale()], { timeZone: "Europe/Paris", weekday: "long" }).format(d);
 const fmtDate = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Paris", day: "numeric", month: "numeric", year: "2-digit" });
 
 /** Live local time in France, e.g. "14:32:07 Gordes, Provence / Thursday, 15.10.26". */
@@ -25,13 +27,13 @@ export function LiveClock({ place = "Gordes, Provence" }: { place?: string }) {
     };
   }, []);
   return (
-    <p className="font-ui leading-[1.45]" aria-label={`Local time in ${place}`}>
+    <p className="font-ui leading-[1.45]" aria-label={tf("Local time in {0}", place)}>
       <span className="tabular-nums" suppressHydrationWarning>
-        {now ? fmtTime.format(now) : "--:--:--"}
+        {tp(now ? fmtTime.format(now) : "--:--:--")}
       </span>{" "}
-      {place}
+      {tp(place)}
       <br />
-      <span suppressHydrationWarning>{now ? `${fmtDay.format(now)}, ${fmtDate.format(now).replace(/\//g, ".")}` : " "}</span>
+      <span suppressHydrationWarning>{tp(now ? `${fmtDay(now)}, ${fmtDate.format(now).replace(/\//g, ".")}` : " ")}</span>
     </p>
   );
 }
