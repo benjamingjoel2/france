@@ -1,4 +1,5 @@
 import type { Interest, MomentTheme, Pace, StayStyle, TripType } from "./types";
+import { getLocale } from "@/lib/i18n/t";
 
 export const tripTypes: Record<TripType, { label: string; short: string; href: string; blurb: string }> = {
   "self-drive": {
@@ -80,7 +81,12 @@ export const monthNames = [
 export const monthShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] as const;
 
 /** "1st", "2nd", "3rd", "4th"… for roundabout exit labels. */
+/** Ordinal for exit numbers ("3rd exit", "3e sortie", "3. Ausfahrt", "3.ª salida") in the current language. */
 export function ordinal(n: number) {
+  const locale = getLocale();
+  if (locale === "fr") return n === 1 ? "1re" : `${n}e`;
+  if (locale === "de") return `${n}.`;
+  if (locale === "es") return `${n}.ª`;
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);

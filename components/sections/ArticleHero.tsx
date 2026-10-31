@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import type { Img } from "@/data/types";
 import { imgUrl } from "@/lib/media";
@@ -36,12 +37,12 @@ export function ArticleHero({
   return (
     <section className="relative overflow-hidden bg-charcoal pt-[var(--header-h)] text-cream">
       <Parallax className="absolute inset-0" strength={0.2}>
-        <Image src={imgUrl(image, 2400)} alt={image.alt} fill priority sizes="100vw" className="object-cover opacity-85" />
+        <Image src={imgUrl(image, 2400)} alt={tp(image.alt)} fill priority sizes="100vw" className="object-cover opacity-85" />
       </Parallax>
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[clamp(12rem,18vw,15rem)] bg-gradient-to-b from-charcoal to-transparent" />
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent" />
 
-      <Breadcrumbs items={crumbs} overlay />
+      <Breadcrumbs items={tp(crumbs)} overlay />
 
       <div
         className={cn(
@@ -56,13 +57,13 @@ export function ArticleHero({
           <Reveal immediate y={16}>
             <p className="font-ui mb-[2em] flex items-center gap-2">
               {pin && <Icon name="pin" size={15} />}
-              {eyebrow}
+              {tp(eyebrow)}
             </p>
           </Reveal>
         )}
         <SplitWords
           as="h1"
-          lines={lines}
+          lines={tp(lines)}
           immediate
           delay={0.1}
           className={cn("font-display", size === "4xl" ? "text-4xl" : "text-3xl", align === "center" && "max-w-[12em]")}

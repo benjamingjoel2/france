@@ -1,5 +1,6 @@
 "use client";
 
+import { tp } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useId, useState } from "react";
 import { cn } from "@/lib/cn";
@@ -44,7 +45,7 @@ export function Accordion({
                 onClick={() => setOpen(isOpen ? null : item.id)}
                 className="flex w-full items-center justify-between gap-6 py-[clamp(20px,2vw,30px)] text-left"
               >
-                <span className={titleClass}>{item.title}</span>
+                <span className={titleClass}>{tp(item.title)}</span>
                 <Icon
                   name="plus"
                   size={22}
@@ -64,7 +65,7 @@ export function Accordion({
                   transition={{ duration: reduce ? 0 : 0.35, ease: [0.645, 0.045, 0.355, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="richtext max-w-[60em] pb-[clamp(28px,3vw,52px)]">{item.content}</div>
+                  <div className="richtext max-w-[60em] pb-[clamp(28px,3vw,52px)]">{tp(item.content)}</div>
                 </motion.div>
               )}
             </AnimatePresence>

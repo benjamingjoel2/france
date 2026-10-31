@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { site } from "@/config/site";
@@ -56,22 +57,19 @@ export function Confirmation({ name }: { name: string }) {
         </svg>
       </div>
       <div className="lg:col-span-6 lg:col-start-7">
-        <p className="font-ui mb-3 inline-flex rounded-[3px] bg-vineyard px-2 py-1 text-cream">Route received</p>
+        <p className="font-ui mb-3 inline-flex rounded-[3px] bg-vineyard px-2 py-1 text-cream">{t("Route received")}</p>
         <h2 ref={ref} tabIndex={-1} className="font-display text-3xl outline-none">
-          Merci{name ? `, ${name}` : ""}.
+          {t("Merci")}{tp(name ? `, ${name}` : "")}.
         </h2>
         <div className="mt-6 max-w-[34em] space-y-4 text-mist">
           <p>
-            Your road trip is in the hands of a {site.name} specialist. They&apos;ll be in touch within [24 hours] with first
-            ideas, questions about the details only you know, and probably a strong opinion about where to have lunch.
-          </p>
+            {t("Your road trip is in the hands of a ")}{tp(site.name)} {t("specialist. They'll be in touch within [24 hours] with first ideas, questions about the details only you know, and probably a strong opinion about where to have lunch.")}</p>
         </div>
         <div className="mt-8 flex flex-wrap gap-2">
           <ButtonLink href="/journal" variant="stroke-light">
-            Read the journal
-          </ButtonLink>
+            {t("Read the journal")}</ButtonLink>
         </div>
-        <p className="font-display mt-[var(--spacing-sec-lg)] text-2xl text-sunflower">Take the long way round.</p>
+        <p className="font-display mt-[var(--spacing-sec-lg)] text-2xl text-sunflower">{t("Take the long way round.")}</p>
       </div>
     </div>
   );

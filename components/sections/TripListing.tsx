@@ -1,7 +1,8 @@
 "use client";
 
+import { t } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from '@/lib/i18n/navigation';
 import { useMemo } from "react";
 import type { Interest } from "@/data/types";
 import { interests as interestLabels, paces } from "@/data/taxonomy";
@@ -109,11 +110,10 @@ export function TripListing({
 
       {filtered.length === 0 ? (
         <div className="py-[var(--spacing-sec)] text-center">
-          <p className="font-display text-3xl">No exits match.</p>
-          <p className="mt-4 text-mist">Keep circling? Loosen a filter, or tell us what you&apos;re after and we&apos;ll build it.</p>
+          <p className="font-display text-3xl">{t("No exits match.")}</p>
+          <p className="mt-4 text-mist">{t("Keep circling? Loosen a filter, or tell us what you're after and we'll build it.")}</p>
           <Button variant="cream" className="mt-8" onClick={() => setValue(Object.fromEntries(KEYS.map((k) => [k, []])))}>
-            Clear all filters
-          </Button>
+            {t("Clear all filters")}</Button>
         </div>
       ) : (
         <motion.ul

@@ -5,7 +5,7 @@ import { z } from "zod";
 export const PICKUP_CITIES = ["paris", "nice", "lyon", "bordeaux", "marseille", "toulouse", "other"] as const;
 export const CAR_TYPES = ["compact", "convertible", "suv", "electric"] as const;
 export const STAY_STYLES = ["chateau", "boutique", "countryside", "mix"] as const;
-export const CONTACT_METHODS = ["email", "whatsapp", "telephone"] as const;
+export const CONTACT_METHODS = ["email", "telephone"] as const;
 export const INTERESTS = ["wine", "food", "history", "beaches", "mountains", "villages", "cities"] as const;
 /** Budget bands per person, base EUR (converted for display). */
 export const BUDGETS = [

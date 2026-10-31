@@ -1,3 +1,4 @@
+import { t } from '@/lib/i18n/t';
 import { cn } from "@/lib/cn";
 
 /** Small square marker (■) used next to statements and labels. */
@@ -42,9 +43,9 @@ export function PlusHeading({
       )}
     >
       <span>
-        <span aria-hidden="true">[&nbsp;</span>
+        <span aria-hidden="true">{t("[ ")}</span>
         {children}
-        <span aria-hidden="true">&nbsp;]</span>
+        <span aria-hidden="true">{t(" ]")}</span>
       </span>
       {below && <SquareMark className={cn("text-[11px]", !center && "self-start")} />}
     </Tag>

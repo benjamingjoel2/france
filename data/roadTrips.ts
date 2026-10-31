@@ -49,7 +49,7 @@ const PROMISE = [
   "Hand-picked stays throughout, with breakfast",
   "Car hire, with a full-insurance option",
   "Printed route book plus offline app version",
-  "One dedicated specialist on WhatsApp, 7 days a week",
+  "One dedicated specialist, 7 days a week",
   "Local tips, restaurant reservations and tickets booked for you",
 ];
 

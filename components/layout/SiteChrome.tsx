@@ -1,8 +1,9 @@
 "use client";
 
+import { t, tf, tp } from '@/lib/i18n/t';
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from '@/components/i18n/Link';
+import { usePathname } from '@/lib/i18n/navigation';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { site } from "@/config/site";
@@ -13,6 +14,7 @@ import { Icon } from "@/components/ui/Icon";
 import { buttonClass } from "@/components/ui/Button";
 import { Logo } from "./Logo";
 import { CurrencySwitcher } from "./CurrencySwitcher";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 
 const EASE = [0.645, 0.045, 0.355, 1] as const;
 
@@ -115,27 +117,28 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
               className="font-ui flex h-full items-center gap-2 px-[14px] lg:border-r lg:hairline-dark lg:px-[30px]"
             >
               <MenuIcon open={open} />
-              <span>{open ? "Close" : "Menu"}</span>
+              <span>{tp(open ? "Close" : "Menu")}</span>
             </button>
           </div>
 
           <Link
             href="/"
-            aria-label={`${site.name}: home`}
+            aria-label={tf("{0}: home", site.name)}
             className="absolute left-1/2 -translate-x-1/2 transition-opacity hover:opacity-80"
           >
             <Logo />
           </Link>
 
           <div className="flex flex-1 items-center justify-end gap-5 pr-[14px] lg:gap-7 lg:pr-[30px]">
+            <LanguageSwitcher className="hidden md:flex" />
             <CurrencySwitcher className="hidden md:inline-flex" />
             <Link href="/my-account" className="font-ui hidden items-center gap-2 lg:flex">
               <Icon name="user" size={15} />
-              <span className="link-grow">My account</span>
+              <span className="link-grow">{t("My account")}</span>
             </Link>
             <Link href={site.planCta.href} className={buttonClass("cream", "sm")}>
-              <span className="sm:hidden">{site.planCta.short}</span>
-              <span className="hidden sm:inline">{site.planCta.label}</span>
+              <span className="sm:hidden">{tp(site.planCta.short)}</span>
+              <span className="hidden sm:inline">{tp(site.planCta.label)}</span>
             </Link>
           </div>
         </div>
@@ -148,14 +151,14 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
             id="site-menu"
             role="dialog"
             aria-modal="true"
-            aria-label="Site menu"
+            aria-label={t("Site menu")}
             className="fixed inset-0 z-40 flex text-cream"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.3, delay: 0.15 } }}
           >
             {/* Left: navigation */}
             <motion.nav
-              aria-label="Main"
+              aria-label={t("Main")}
               className="relative flex w-full flex-col bg-charcoal pt-[var(--header-h)] lg:w-1/2"
               initial={reduce ? { opacity: 0 } : { clipPath: "inset(0% 0% 100% 0%)" }}
               animate={reduce ? { opacity: 1 } : { clipPath: "inset(0% 0% 0% 0%)" }}
@@ -185,7 +188,7 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
                             current && "text-outline",
                           )}
                         >
-                          {item.label}
+                          {tp(item.label)}
                         </Link>
                       </motion.li>
                     );
@@ -200,10 +203,11 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
                 transition={{ duration: 0.3, delay: 0.5 }}
               >
                 <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:hidden">
+                  <LanguageSwitcher />
                   <CurrencySwitcher />
                   {site.utilityNav.map((l) => (
                     <Link key={l.href} href={l.href} className="font-ui link-grow">
-                      {l.label}
+                      {tp(l.label)}
                     </Link>
                   ))}
                 </div>
@@ -213,8 +217,7 @@ export function SiteChrome({ menuImages }: { menuImages: Img[] }) {
                 href="/my-account"
                 className="font-ui flex h-[49px] items-center justify-center gap-2 bg-charcoal-5 lg:hidden"
               >
-                <Icon name="user" size={15} /> My account
-              </Link>
+                <Icon name="user" size={15} /> {t("My account")}</Link>
             </motion.nav>
 
             {/* Right: one photo per menu item, crossfading on hover */}

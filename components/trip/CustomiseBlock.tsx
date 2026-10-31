@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
@@ -13,7 +14,7 @@ const schema = z.object({
   name: z.string().trim().min(2, "Tell us your name."),
   email: z.email("Enter a valid email address."),
   phone: z.string().trim().max(30),
-  method: z.enum(["email", "whatsapp", "telephone"], { error: "How should we reach you?" }),
+  method: z.enum(["email", "telephone"], { error: "How should we reach you?" }),
   message: z.string().trim().min(5, "Tell us a little about what you'd change."),
 });
 
@@ -71,7 +72,7 @@ export function CustomiseBlock({ tripTitle }: { tripTitle: string }) {
       body: JSON.stringify({ ...r.data, message: `[${tripTitle}] ${r.data.message}` }),
     }).catch(() => null);
     if (res?.ok) setSent(true);
-    else setErrors({ form: "Something went wrong. Please try again or WhatsApp us." });
+    else setErrors({ form: "Something went wrong. Please try again or email us." });
   }
 
   return (
@@ -86,15 +87,12 @@ export function CustomiseBlock({ tripTitle }: { tripTitle: string }) {
         }}
       />
       <div className="relative grid gap-8 lg:grid-cols-12 lg:items-end">
-        <h2 className="font-cond text-2xl lg:col-span-4">Make it yours</h2>
+        <h2 className="font-cond text-2xl lg:col-span-4">{t("Make it yours")}</h2>
         <div className="lg:col-span-6 lg:col-start-6">
           <p className="max-w-[34em]">
-            Every Rond-Point trip is tailor-made. Swap a stay, add a night, slow the pace, trade the hatchback for a
-            convertible. Tell us what you&apos;d change and we&apos;ll redraw the loop.
-          </p>
+            {t("Every Rond-Point trip is tailor-made. Swap a stay, add a night, slow the pace, trade the hatchback for a convertible. Tell us what you'd change and we'll redraw the loop.")}</p>
           <Button variant="cream" className="mt-8" onClick={() => setOpen(true)}>
-            Get started
-          </Button>
+            {t("Get started")}</Button>
         </div>
       </div>
 
@@ -115,34 +113,33 @@ export function CustomiseBlock({ tripTitle }: { tripTitle: string }) {
             >
               <button
                 type="button"
-                aria-label="Close"
+                aria-label={t("Close")}
                 onClick={() => setOpen(false)}
                 className="flex size-12 items-center justify-center border hairline-dark transition-colors hover:bg-cream hover:text-charcoal"
               >
                 <Icon name="close" size={18} />
               </button>
               <h2 id="customise-title" className="font-display mt-10 text-xl">
-                Customise this road trip
-              </h2>
+                {t("Customise this road trip")}</h2>
               {sent ? (
                 <div className="mt-8 space-y-4" role="status">
                   <RingGlyph className="text-sunflower" />
-                  <p className="font-cond text-xl">Merci! Your specialist will be in touch shortly.</p>
-                  <p className="text-mist">Take the long way round.</p>
+                  <p className="font-cond text-xl">{t("Merci! Your specialist will be in touch shortly.")}</p>
+                  <p className="text-mist">{t("Take the long way round.")}</p>
                 </div>
               ) : (
                 <form onSubmit={submit} noValidate className="mt-8 space-y-6">
-                  <p className="text-mist">{tripTitle}</p>
-                  <Field label="Name" htmlFor="cz-name" required error={errors.name}>
+                  <p className="text-mist">{tp(tripTitle)}</p>
+                  <Field label={t("Name")} htmlFor="cz-name" required error={errors.name}>
                     <TextInput id="cz-name" autoComplete="name" invalid={!!errors.name} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                   </Field>
-                  <Field label="Email" htmlFor="cz-email" required error={errors.email}>
+                  <Field label={t("Email")} htmlFor="cz-email" required error={errors.email}>
                     <TextInput id="cz-email" type="email" autoComplete="email" invalid={!!errors.email} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
                   </Field>
-                  <Field label="Phone (optional)" htmlFor="cz-phone">
+                  <Field label={t("Phone (optional)")} htmlFor="cz-phone">
                     <TextInput id="cz-phone" type="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                   </Field>
-                  <Field as="fieldset" label="Best way to reach you" required error={errors.method}>
+                  <Field as="fieldset" label={t("Best way to reach you")} required error={errors.method}>
                     <ChoiceChips
                       name="cz-method"
                       columns={3}
@@ -151,18 +148,16 @@ export function CustomiseBlock({ tripTitle }: { tripTitle: string }) {
                       onChange={(v) => setForm({ ...form, method: v as string })}
                       options={[
                         { value: "email", label: "Email" },
-                        { value: "whatsapp", label: "WhatsApp" },
                         { value: "telephone", label: "Telephone" },
                       ]}
                     />
                   </Field>
-                  <Field label="What would you change?" htmlFor="cz-msg" required error={errors.message}>
+                  <Field label={t("What would you change?")} htmlFor="cz-msg" required error={errors.message}>
                     <TextArea id="cz-msg" invalid={!!errors.message} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
                   </Field>
-                  {errors.form && <p className="font-ui text-brick">{errors.form}</p>}
+                  {errors.form && <p className="font-ui text-brick">{tp(errors.form)}</p>}
                   <Button type="submit" variant="cream">
-                    Send to a specialist
-                  </Button>
+                    {t("Send to a specialist")}</Button>
                 </form>
               )}
             </motion.div>
