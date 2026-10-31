@@ -1,7 +1,8 @@
 "use client";
 
+import { t, tf, tp } from '@/lib/i18n/t';
 import Image from "next/image";
-import Link from "next/link";
+import Link from '@/components/i18n/Link';
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useState } from "react";
 import type { BrandColour, Img } from "@/data/types";
@@ -64,7 +65,7 @@ export function FranceMap({
                 onFocus={() => onActive?.(r.slug)}
                 onBlur={() => onActive?.(null)}
                 className="group absolute -translate-x-1/2 -translate-y-1/2"
-                aria-label={`${r.name}: road trips`}
+                aria-label={tf("{0}: road trips", r.name)}
               >
                 <span
                   className={cn(
@@ -85,7 +86,7 @@ export function FranceMap({
                     color: ["sunflower", "charcoal", "night"].includes(r.colour) || r.colour.endsWith("-300") ? "var(--color-charcoal)" : "var(--color-cream)",
                   }}
                 >
-                  {r.shortName}
+                  {tp(r.shortName)}
                 </span>
               </Link>
             </li>
@@ -114,8 +115,7 @@ export function RegionsShowcase({ regions }: { regions: RegionLite[] }) {
     <section className="relative overflow-x-clip bg-charcoal py-[var(--spacing-sec)] text-cream">
       <div className="px-gutter text-center">
         <PlusHeading below center className="mx-auto">
-          Our regions
-        </PlusHeading>
+          {t("Our regions")}</PlusHeading>
         <SplitWords as="h2" lines={["Pick a corner", "of France"]} className="font-display text-3xl" />
       </div>
 
@@ -144,18 +144,18 @@ export function RegionsShowcase({ regions }: { regions: RegionLite[] }) {
                     )}
                   >
                     <span className="flex items-baseline gap-4">
-                      <span className="font-ui w-[4.5em] shrink-0 text-[11px] text-mist">{ordinal(i + 1)} exit</span>
+                      <span className="font-ui w-[4.5em] shrink-0 text-[11px] text-mist">{tp(ordinal(i + 1))} {t("exit")}</span>
                       <span
                         className={cn(
                           "font-display text-[clamp(20px,1.6vw+8px,34px)] leading-[0.95] transition-colors duration-300",
                           active && !on && "lg:text-cream/35",
                         )}
                       >
-                        {r.name}
+                        {tp(r.name)}
                       </span>
                     </span>
                     <span className="font-ui hidden shrink-0 text-mist sm:inline">
-                      {r.tripCount === 0 ? "Tailor-made" : `${r.tripCount} ${r.tripCount === 1 ? "trip" : "trips"}`}
+                      {tp(r.tripCount === 0 ? "Tailor-made" : `${r.tripCount} ${r.tripCount === 1 ? "trip" : "trips"}`)}
                     </span>
                   </Link>
                 </li>
@@ -193,7 +193,7 @@ export function RegionsShowcase({ regions }: { regions: RegionLite[] }) {
               >
                 <Image src={imgUrl(activeRegion.image, 600)} alt="" fill sizes="260px" className="object-cover" />
                 <span className="font-ui absolute bottom-0 left-0 bg-charcoal/80 px-3 py-1.5 text-cream normal-case">
-                  {activeRegion.tagline}
+                  {tp(activeRegion.tagline)}
                 </span>
               </motion.div>
             )}

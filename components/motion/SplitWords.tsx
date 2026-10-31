@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import { Fragment } from "react";
 import { cn } from "@/lib/cn";
 
@@ -46,7 +47,7 @@ export function SplitWords({
                       className="inline-block animate-[rise_0.8s_cubic-bezier(0.645,0.045,0.355,1)_both]"
                       style={{ animationDelay: `${delay + idx * stagger}s` }}
                     >
-                      {word}
+                      {tp(word)}
                     </span>
                   ) : (
                     <span
@@ -55,11 +56,11 @@ export function SplitWords({
                         ["--sd-i" as string]: Math.min(Math.round((idx * step + delay * 30) * 10) / 10, 30),
                       }}
                     >
-                      {word}
+                      {tp(word)}
                     </span>
                   )}
                 </span>
-                {wi < arr.length - 1 ? " " : null}
+                {tp(wi < arr.length - 1 ? " " : null)}
               </Fragment>
             );
           })}

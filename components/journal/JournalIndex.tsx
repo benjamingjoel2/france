@@ -1,7 +1,8 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from '@/lib/i18n/navigation';
 import { cn } from "@/lib/cn";
 import { PostCard, type PostLite } from "./PostCards";
 
@@ -31,7 +32,7 @@ export function JournalIndex({
   return (
     <>
       <div className="mt-[var(--spacing-sec-xl)] border-t hairline-dark pt-[var(--spacing-sec-md)]">
-        <ul className="flex flex-wrap gap-2" aria-label="Filter by category">
+        <ul className="flex flex-wrap gap-2" aria-label={t("Filter by category")}>
           {["all", ...categories.map(slugify)].map((c, i) => {
             const label = i === 0 ? "All" : categories[i - 1];
             const on = active === c;
@@ -46,7 +47,7 @@ export function JournalIndex({
                     on ? "bg-cream text-charcoal" : "bg-charcoal-10 text-mist hover:text-cream",
                   )}
                 >
-                  {label}
+                  {tp(label)}
                 </button>
               </li>
             );
@@ -69,7 +70,7 @@ export function JournalIndex({
           ))}
         </AnimatePresence>
       </motion.ul>
-      {list.length === 0 && <p className="py-20 text-center text-mist">Nothing in this category yet. The kettle&apos;s on.</p>}
+      {list.length === 0 && <p className="py-20 text-center text-mist">{t("Nothing in this category yet. The kettle's on.")}</p>}
     </>
   );
 }

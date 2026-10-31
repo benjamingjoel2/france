@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { PlusHeading } from "@/components/ui/PlusHeading";
@@ -32,21 +33,21 @@ export function SectionIntro({
     <div className={cn("grid gap-8 px-gutter lg:grid-cols-12", bottomAlign ? "lg:items-end" : "lg:items-start", className)}>
       <div className="lg:col-span-8">
         {eyebrow && (
-          <Reveal immediate={as === "h1"}>
-            <PlusHeading below>{eyebrow}</PlusHeading>
+          <Reveal immediate={tp(as === "h1")}>
+            <PlusHeading below>{tp(eyebrow)}</PlusHeading>
           </Reveal>
         )}
         <SplitWords
           as={as}
-          lines={lines}
-          immediate={as === "h1"}
+          lines={tp(lines)}
+          immediate={tp(as === "h1")}
           className={cn("font-display", size === "4xl" ? "text-4xl" : "text-3xl")}
         />
       </div>
       {(text || actions) && (
-        <Reveal immediate={as === "h1"} delay={0.2} className={cn("lg:col-span-4", !bottomAlign && size === "4xl" && "lg:pt-[calc(var(--text-4xl)*1.7)]")}>
-          {text && <div className="max-w-[30em]">{text}</div>}
-          {actions && <div className="mt-6 flex flex-wrap gap-2">{actions}</div>}
+        <Reveal immediate={tp(as === "h1")} delay={0.2} className={cn("lg:col-span-4", !bottomAlign && size === "4xl" && "lg:pt-[calc(var(--text-4xl)*1.7)]")}>
+          {text && <div className="max-w-[30em]">{tp(text)}</div>}
+          {actions && <div className="mt-6 flex flex-wrap gap-2">{tp(actions)}</div>}
         </Reveal>
       )}
     </div>

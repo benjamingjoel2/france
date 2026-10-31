@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tf, tp } from '@/lib/i18n/t';
 import { ordinal } from "@/data/taxonomy";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
@@ -32,7 +33,7 @@ export function ExitPicker({
   const angle = (i: number) => ((-90 + (360 / n) * i) * Math.PI) / 180;
 
   return (
-    <div role="group" aria-label="Choose your exits" aria-describedby={describedBy} className={cn(disabled && "pointer-events-none opacity-35")}>
+    <div role="group" aria-label={t("Choose your exits")} aria-describedby={describedBy} className={cn(disabled && "pointer-events-none opacity-35")}>
       {/* Ring layout (lg+) */}
       <div className="relative mx-auto hidden aspect-square w-full max-w-[560px] lg:block">
         <svg viewBox="0 0 600 600" className="absolute inset-0 h-full w-full" aria-hidden="true">
@@ -57,7 +58,7 @@ export function ExitPicker({
           <circle cx="300" cy="300" r="96" fill="var(--color-charcoal-5)" />
         </svg>
         <p aria-hidden="true" className="font-cond absolute top-1/2 left-1/2 w-[28%] -translate-x-1/2 -translate-y-1/2 text-center text-lg text-cream">
-          {value.length ? `${value.length} exit${value.length > 1 ? "s" : ""} chosen` : "Choose your exits"}
+          {tp(value.length ? `${value.length} exit${value.length > 1 ? "s" : ""} chosen` : "Choose your exits")}
         </p>
         {exits.map((e, i) => {
           const a = angle(i);
@@ -67,7 +68,7 @@ export function ExitPicker({
               key={e.slug}
               type="button"
               aria-pressed={on}
-              aria-label={`${ordinal(i + 1)} exit: ${e.name}`}
+              aria-label={tf("{0} exit: {1}", ordinal(i + 1), e.name)}
               onClick={() => toggle(e.slug)}
               disabled={disabled}
               className={cn(
@@ -78,10 +79,10 @@ export function ExitPicker({
               )}
               style={{ left: `${50 + rc(a) * 44}%`, top: `${50 + rs(a) * 44}%` }}
             >
-              <span className="font-ui text-[9.5px] opacity-75">{ordinal(i + 1)} exit</span>
+              <span className="font-ui text-[9.5px] opacity-75">{tp(ordinal(i + 1))} {t("exit")}</span>
               <span className="font-cond flex items-center gap-1 text-[15px]">
                 {on && <Icon name="check" size={11} />}
-                {e.shortName}
+                {tp(e.shortName)}
               </span>
             </button>
           );
@@ -105,7 +106,7 @@ export function ExitPicker({
                 )}
               >
                 {on && <Icon name="check" size={12} />}
-                <span className="opacity-70">{ordinal(i + 1)}:</span> {e.shortName}
+                <span className="opacity-70">{tp(ordinal(i + 1))}:</span> {tp(e.shortName)}
               </button>
             </li>
           );

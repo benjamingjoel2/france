@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import type { SVGProps } from "react";
 
 /** Small hand-drawn icon set (24×24 grid, currentColor). */
@@ -129,7 +130,7 @@ export function Icon({
       className={className}
       {...rest}
     >
-      {paths[name]}
+      {tp(paths[name])}
     </svg>
   );
 }

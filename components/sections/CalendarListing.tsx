@@ -1,7 +1,8 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import Image from "next/image";
-import Link from "next/link";
+import Link from '@/components/i18n/Link';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import type { Img, MomentTheme } from "@/data/types";
@@ -63,14 +64,14 @@ export function CalendarListing({ moments, regions }: { moments: MomentLite[]; r
       </div>
 
       {months.length === 0 && (
-        <p className="px-gutter py-[var(--spacing-sec)] text-center text-mist">No moments match. Keep circling: loosen a filter.</p>
+        <p className="px-gutter py-[var(--spacing-sec)] text-center text-mist">{t("No moments match. Keep circling: loosen a filter.")}</p>
       )}
 
       <div className="overflow-hidden">
         {months.map((month) => (
           <section key={month} aria-labelledby={`m-${month}`} className="mt-[var(--spacing-sec-lg)]">
             <h2 id={`m-${month}`} className="font-cond px-gutter pb-[var(--spacing-sec-md)] text-lg">
-              {monthNames[month - 1]}
+              {tp(monthNames[month - 1])}
             </h2>
             <ul className="border-t hairline-dark">
               {visible
@@ -87,16 +88,15 @@ export function CalendarListing({ moments, regions }: { moments: MomentLite[]; r
                         className="group relative grid w-full gap-1 px-gutter py-[1.5em] pr-[calc(var(--spacing-gutter)+40px)] text-left transition-colors duration-300 hover:bg-charcoal-5 lg:grid-cols-12 lg:items-center lg:gap-[var(--spacing-grid-gap)]"
                       >
                         <span className="flex flex-wrap items-center gap-2 font-normal lg:col-span-5">
-                          {m.title}
-                          <span className="rounded-full bg-charcoal-10 px-2 py-0.5 text-[11px] text-mist uppercase">{momentThemes[m.theme]}</span>
+                          {tp(m.title)}
+                          <span className="rounded-full bg-charcoal-10 px-2 py-0.5 text-[11px] text-mist uppercase">{tp(momentThemes[m.theme])}</span>
                         </span>
                         <span className="flex flex-wrap items-center gap-2 lg:col-span-4">
-                          {m.window}
+                          {tp(m.window)}
                           <span className="font-ui rounded-[3px] border border-sunflower/60 px-1.5 text-[9.5px] text-sunflower">
-                            Verify yearly
-                          </span>
+                            {t("Verify yearly")}</span>
                         </span>
-                        <span className="text-mist lg:col-span-2 lg:text-cream">{m.regionName}</span>
+                        <span className="text-mist lg:col-span-2 lg:text-cream">{tp(m.regionName)}</span>
                         <Icon
                           name="arrow-right"
                           size={18}
@@ -118,22 +118,20 @@ export function CalendarListing({ moments, regions }: { moments: MomentLite[]; r
                           >
                             <div className="grid gap-8 px-gutter pt-[var(--spacing-sec-md)] pb-[var(--spacing-sec-xl)] lg:grid-cols-12 lg:items-end lg:gap-[var(--spacing-grid-gap)]">
                               <div className="relative aspect-[3/2] overflow-hidden lg:col-span-6 xl:col-span-7">
-                                <Image src={imgUrl(m.image, 1400)} alt={m.image.alt} fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover" />
+                                <Image src={imgUrl(m.image, 1400)} alt={tp(m.image.alt)} fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover" />
                               </div>
                               <div className="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9">
-                                <p>{m.description}</p>
+                                <p>{tp(m.description)}</p>
                                 <p className="mt-4 text-[13px] text-mist">
-                                  Dates are indicative and shift from year to year. We&apos;ll confirm them for your trip.
-                                </p>
+                                  {t("Dates are indicative and shift from year to year. We'll confirm them for your trip.")}</p>
                                 <div className="mt-8 flex flex-wrap gap-2">
                                   {m.trips.map((t) => (
                                     <Link key={t.slug} href={`/road-trips/${t.slug}`} className={buttonClass("cream")}>
-                                      {t.title}
+                                      {tp(t.title)}
                                     </Link>
                                   ))}
                                   <Link href={`/plan-my-road-trip?region=${m.regionSlug}`} className={buttonClass("stroke-light")}>
-                                    Plan around it
-                                  </Link>
+                                    {t("Plan around it")}</Link>
                                 </div>
                               </div>
                             </div>

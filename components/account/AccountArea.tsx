@@ -1,7 +1,8 @@
 "use client";
 
+import { lhref, t, tp } from '@/lib/i18n/t';
 import Image from "next/image";
-import Link from "next/link";
+import Link from '@/components/i18n/Link';
 import { useState } from "react";
 import { useStored } from "@/lib/useStored";
 import { z } from "zod";
@@ -39,33 +40,30 @@ function Dashboard({ name, trip, onLogout }: { name: string; trip: DemoTrip; onL
     <div className="space-y-[var(--spacing-sec-lg)]">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p className="font-ui text-mist">Client area · demo</p>
-          <h2 className="font-display mt-2 text-3xl">Bonjour, {name}</h2>
+          <p className="font-ui text-mist">{t("Client area · demo")}</p>
+          <h2 className="font-display mt-2 text-3xl">{t("Bonjour, ")}{tp(name)}</h2>
         </div>
         <Button variant="stroke-light" size="sm" onClick={onLogout}>
-          Log out
-        </Button>
+          {t("Log out")}</Button>
       </div>
 
       <div className="grid gap-[var(--spacing-grid-gap)] lg:grid-cols-12">
         {/* Trip card */}
         <div className="bg-charcoal-5 lg:col-span-7">
           <div className="relative aspect-[16/9]">
-            <Image src={imgUrl(trip.image, 1400)} alt={trip.image.alt} fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover" />
-            <span className="font-ui absolute top-4 left-4 rounded-[3px] bg-roadsign px-2 py-1 text-white">Upcoming trip</span>
+            <Image src={imgUrl(trip.image, 1400)} alt={tp(trip.image.alt)} fill sizes="(min-width:1024px) 55vw, 100vw" className="object-cover" />
+            <span className="font-ui absolute top-4 left-4 rounded-[3px] bg-roadsign px-2 py-1 text-white">{t("Upcoming trip")}</span>
           </div>
           <div className="p-[clamp(20px,3vw,40px)]">
-            <h3 className="font-cond text-xl">{trip.title}</h3>
+            <h3 className="font-cond text-xl">{tp(trip.title)}</h3>
             <p className="font-ui mt-3 text-mist">
-              [Departure date] · {trip.days} days / {trip.nights} nights · {trip.startEnd}
+              {t("[Departure date] · ")}{tp(trip.days)} {t("days / ")}{tp(trip.nights)} {t("nights · ")}{tp(trip.startEnd)}
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <ButtonLink href={`/road-trips/${trip.slug}`} variant="cream" size="sm">
-                View itinerary
-              </ButtonLink>
+                {t("View itinerary")}</ButtonLink>
               <ButtonLink href={`${site.contact.emailHref}?subject=${encodeURIComponent(`A question about my trip: ${trip.title}`)}`} variant="stroke-light" size="sm" iconLeft="mail">
-                Email your specialist
-              </ButtonLink>
+                {t("Email your specialist")}</ButtonLink>
             </div>
           </div>
         </div>
@@ -74,16 +72,13 @@ function Dashboard({ name, trip, onLogout }: { name: string; trip: DemoTrip; onL
         <div className="flex flex-col justify-between gap-8 bg-sunflower p-[clamp(20px,3vw,40px)] text-charcoal lg:col-span-5">
           <div>
             <Icon name="route" size={36} />
-            <h3 className="font-display mt-6 text-2xl">Your route book</h3>
+            <h3 className="font-display mt-6 text-2xl">{t("Your route book")}</h3>
             <p className="mt-4 max-w-[28em]">
-              Day-by-day routes, scenic detours, parking tips and where to have lunch. Print it for the glovebox, or keep it
-              offline on your phone.
-            </p>
+              {t("Day-by-day routes, scenic detours, parking tips and where to have lunch. Print it for the glovebox, or keep it offline on your phone.")}</p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <a href="/downloads/route-book-sample.pdf" download className="font-ui inline-flex h-11 items-center gap-2 rounded-full bg-charcoal px-5 text-cream transition-colors hover:bg-ash">
-              <Icon name="download" size={16} /> Download PDF (sample)
-            </a>
+            <a href={lhref("/downloads/route-book-sample.pdf")} download className="font-ui inline-flex h-11 items-center gap-2 rounded-full bg-charcoal px-5 text-cream transition-colors hover:bg-ash">
+              <Icon name="download" size={16} /> {t("Download PDF (sample)")}</a>
           </div>
         </div>
       </div>
@@ -91,25 +86,24 @@ function Dashboard({ name, trip, onLogout }: { name: string; trip: DemoTrip; onL
       {/* Documents */}
       <section aria-labelledby="docs-h">
         <h3 id="docs-h" className="font-cond text-lg">
-          Trip documents
-        </h3>
+          {t("Trip documents")}</h3>
         <ul className="mt-5 border-b hairline-dark">
           {docs.map((d) => (
             <li key={d.label} className="flex items-center justify-between gap-4 border-t hairline-dark py-4">
               <span className="flex items-center gap-3">
-                <Icon name="document" size={18} className="text-mist" /> {d.label}
+                <Icon name="document" size={18} className="text-mist" /> {tp(d.label)}
               </span>
               <span className="font-ui flex items-center gap-4 text-mist">
-                <span className="hidden sm:inline">{d.meta}</span>
-                <button type="button" disabled title="Available closer to departure" className="flex size-10 items-center justify-center border hairline-dark opacity-40">
+                <span className="hidden sm:inline">{tp(d.meta)}</span>
+                <button type="button" disabled title={t("Available closer to departure")} className="flex size-10 items-center justify-center border hairline-dark opacity-40">
                   <Icon name="download" size={15} />
-                  <span className="sr-only">Download {d.label} (not available yet)</span>
+                  <span className="sr-only">{t("Download ")}{tp(d.label)} {t("(not available yet)")}</span>
                 </button>
               </span>
             </li>
           ))}
         </ul>
-        <p className="mt-3 text-[13px] text-mist">Documents appear here about [3 weeks] before departure. TODO: connect to booking system.</p>
+        <p className="mt-3 text-[13px] text-mist">{t("Documents appear here about [3 weeks] before departure. TODO: connect to booking system.")}</p>
       </section>
     </div>
   );
@@ -154,51 +148,46 @@ export function AccountArea({ trip }: { trip: DemoTrip }) {
         tab === id ? "bg-cream text-charcoal" : "bg-charcoal-10 text-cream hover:bg-cream hover:text-charcoal",
       )}
     >
-      {label}
+      {tp(label)}
     </button>
   );
 
   return (
     <div className="mx-auto max-w-[960px]">
       <div className="text-center">
-        <h2 className="font-cond text-lg">Log in to your client area</h2>
-        <p className="mx-auto mt-3 max-w-[36em] text-mist">Your trip documents, route book and a direct line to your specialist, all in one place.</p>
+        <h2 className="font-cond text-lg">{t("Log in to your client area")}</h2>
+        <p className="mx-auto mt-3 max-w-[36em] text-mist">{t("Your trip documents, route book and a direct line to your specialist, all in one place.")}</p>
       </div>
-      <div role="tablist" aria-label="Do you have an account?" className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-[22px]">
-        {tabBtn("login", "Yes, I'm a client")}
-        {tabBtn("new", "Not yet")}
+      <div role="tablist" aria-label={t("Do you have an account?")} className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-[22px]">
+        {tp(tabBtn("login", "Yes, I'm a client"))}
+        {tp(tabBtn("new", "Not yet"))}
       </div>
 
       {tab === "login" ? (
         <form role="tabpanel" onSubmit={login} noValidate className="pt-8">
           <div className="grid gap-6 sm:grid-cols-2">
-            <Field label="Email" htmlFor="acc-email" required error={errors.email}>
+            <Field label={t("Email")} htmlFor="acc-email" required error={errors.email}>
               <TextInput id="acc-email" type="email" autoComplete="email" placeholder="you@example.com" value={form.email} invalid={!!errors.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </Field>
-            <Field label="Password" htmlFor="acc-password" required error={errors.password}>
+            <Field label={t("Password")} htmlFor="acc-password" required error={errors.password}>
               <TextInput id="acc-password" type="password" autoComplete="current-password" placeholder="password" value={form.password} invalid={!!errors.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
             </Field>
           </div>
           <Button type="submit" variant="cream" className="mt-8 w-full">
-            Log in
-          </Button>
+            {t("Log in")}</Button>
           <p className="mt-4 text-center text-[13px] text-mist">
-            Demo only: any email and an 8+ character password will open a sample dashboard. <span className="text-brick">TODO: real auth</span>
+            {t("Demo only: any email and an 8+ character password will open a sample dashboard. ")}<span className="text-brick">{t("TODO: real auth")}</span>
           </p>
         </form>
       ) : (
         <div role="tabpanel" className="pt-10 text-center">
           <p className="mx-auto max-w-[34em]">
-            Client accounts are created by your specialist once you&apos;ve booked. Not booked yet? Start with the road trip planner,
-            it takes about four minutes.
-          </p>
+            {t("Client accounts are created by your specialist once you've booked. Not booked yet? Start with the road trip planner, it takes about four minutes.")}</p>
           <div className="mt-8 flex justify-center gap-2">
             <ButtonLink href="/plan-my-road-trip" variant="cream">
-              Plan my road trip
-            </ButtonLink>
+              {t("Plan my road trip")}</ButtonLink>
             <Link href="/contact" className="font-ui link-grow self-center px-4">
-              Contact us
-            </Link>
+              {t("Contact us")}</Link>
           </div>
         </div>
       )}

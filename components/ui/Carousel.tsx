@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tf, tp } from '@/lib/i18n/t';
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Children, useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
@@ -92,7 +93,7 @@ export function Carousel({
         ref={track}
         role="region"
         aria-roledescription="carousel"
-        aria-label={label}
+        aria-label={tp(label)}
         tabIndex={0}
         className={cn(
           "no-scrollbar flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth px-gutter [scroll-padding-inline:var(--spacing-gutter)]",
@@ -106,10 +107,10 @@ export function Carousel({
             data-slide
             role="group"
             aria-roledescription="slide"
-            aria-label={`${i + 1} of ${items.length}`}
+            aria-label={tf("{0} of {1}", i + 1, items.length)}
             className={cn("relative shrink-0 snap-start", itemClassName, slideClassName?.[i])}
           >
-            {child}
+            {tp(child)}
           </div>
         ))}
         <div aria-hidden="true" className="w-px shrink-0" />
@@ -117,10 +118,10 @@ export function Carousel({
 
       <div className={cn("mt-[var(--spacing-sec-md)] flex items-center gap-[1.4vw] px-gutter", navClassName)}>
         <div className="flex">
-          <button type="button" aria-label="Previous" disabled={atStart} onClick={() => step(-1)} className={btn}>
+          <button type="button" aria-label={t("Previous")} disabled={atStart} onClick={() => step(-1)} className={btn}>
             <Icon name="chevron-left" size={16} />
           </button>
-          <button type="button" aria-label="Next" disabled={atEnd} onClick={() => step(1)} className={cn(btn, "-ml-px")}>
+          <button type="button" aria-label={t("Next")} disabled={atEnd} onClick={() => step(1)} className={cn(btn, "-ml-px")}>
             <Icon name="chevron-right" size={16} />
           </button>
         </div>

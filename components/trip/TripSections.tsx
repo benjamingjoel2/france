@@ -1,3 +1,4 @@
+import { t, tf, tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import type { Img, Month, RoadTrip } from "@/data/types";
 import { monthShort, paces, tripTypes, interests as interestLabels } from "@/data/taxonomy";
@@ -21,8 +22,7 @@ export function TripOverview({ trip, regionNames }: { trip: RoadTrip; regionName
       label: "Pace",
       value: (
         <span className="inline-flex items-center gap-2">
-          <PaceGlyph pace={trip.pace} /> {paces[trip.pace].label} · ~{trip.avgDailyDriveHours}h driving/day
-        </span>
+          <PaceGlyph pace={tp(trip.pace)} /> {tp(paces[trip.pace].label)} · ~{tp(trip.avgDailyDriveHours)}{t("h driving/day")}</span>
       ),
     },
     { label: "Duration", value: `${trip.days} days / ${trip.nights} nights` },
@@ -34,7 +34,7 @@ export function TripOverview({ trip, regionNames }: { trip: RoadTrip; regionName
       label: "Price",
       value: (
         <>
-          From <Price eur={trip.fromPrice} className="text-cream" /> per person <span className="text-mist normal-case">· tailor-made</span>
+          {t("From ")}<Price eur={tp(trip.fromPrice)} className="text-cream" /> {t("per person ")}<span className="text-mist normal-case">{t("· tailor-made")}</span>
         </>
       ),
     },
@@ -45,25 +45,25 @@ export function TripOverview({ trip, regionNames }: { trip: RoadTrip; regionName
         <dl className="grid">
           {facts.map((f) => (
             <div key={f.label} className="border-b hairline-dark py-3">
-              <dt className="font-ui text-mist">{f.label}</dt>
-              <dd className="font-ui mt-1 font-light">{f.value}</dd>
+              <dt className="font-ui text-mist">{tp(f.label)}</dt>
+              <dd className="font-ui mt-1 font-light">{tp(f.value)}</dd>
             </div>
           ))}
         </dl>
       </Reveal>
       <div className="order-2 lg:col-span-8">
-        <SplitWords as="h2" text={trip.lede} className="font-cond max-w-[25em] text-xl" stagger={0.015} />
-        <ul className="mt-6 flex flex-wrap gap-2" aria-label="Tags">
+        <SplitWords as="h2" text={tp(trip.lede)} className="font-cond max-w-[25em] text-xl" stagger={0.015} />
+        <ul className="mt-6 flex flex-wrap gap-2" aria-label={t("Tags")}>
           {[tripTypes[trip.type].short, paces[trip.pace].label, ...regionNames, ...trip.interests.map((i) => interestLabels[i])].map((t) => (
             <li key={t} className="font-ui rounded-full bg-charcoal-10 px-3 py-1 text-[11.5px] text-mist">
-              {t}
+              {tp(t)}
             </li>
           ))}
         </ul>
         <Reveal>
           <div className="richtext richtext-two-col mt-[var(--spacing-sec-md)]">
             {trip.overview.map((p, i) => (
-              <p key={i}>{p}</p>
+              <p key={i}>{tp(p)}</p>
             ))}
           </div>
         </Reveal>
@@ -85,25 +85,25 @@ export function TripFlavour({ trip }: { trip: RoadTrip }) {
   return (
     <div className="grid gap-[var(--spacing-sec-lg)] pt-[var(--spacing-sec)] lg:grid-cols-2 lg:gap-[var(--spacing-grid-gap)]">
       <div>
-        <PlusHeading className="border-t hairline-dark pt-5">Trip flavour</PlusHeading>
-        <ul className="space-y-4" aria-label="Trip flavour, scored out of 10">
+        <PlusHeading className="border-t hairline-dark pt-5">{t("Trip flavour")}</PlusHeading>
+        <ul className="space-y-4" aria-label={t("Trip flavour, scored out of 10")}>
           {rows.map((r) => (
             <li key={r.k} className="grid grid-cols-[8.5em_1fr_2.5em] items-center gap-4">
-              <span className="font-ui">{r.k}</span>
+              <span className="font-ui">{tp(r.k)}</span>
               <span className="relative h-3 bg-charcoal-10" aria-hidden="true">
                 <span className="absolute inset-y-0 left-0" style={{ width: `${r.v * 10}%`, background: colour }} />
               </span>
               <span className="font-ui text-right text-mist">
-                {r.v}
-                <span className="sr-only"> out of 10</span>
+                {tp(r.v)}
+                <span className="sr-only"> {t("out of 10")}</span>
               </span>
             </li>
           ))}
         </ul>
       </div>
       <div>
-        <PlusHeading className="border-t hairline-dark pt-5">Best months</PlusHeading>
-        <ol className="grid grid-cols-6 gap-1 sm:grid-cols-12" aria-label="Best months to go">
+        <PlusHeading className="border-t hairline-dark pt-5">{t("Best months")}</PlusHeading>
+        <ol className="grid grid-cols-6 gap-1 sm:grid-cols-12" aria-label={t("Best months to go")}>
           {monthShort.map((m, i) => {
             const best = trip.bestMonths.includes((i + 1) as Month);
             return (
@@ -112,13 +112,13 @@ export function TripFlavour({ trip }: { trip: RoadTrip }) {
                 className={cn("font-ui flex h-12 items-center justify-center text-[11px]", best ? "font-medium text-night" : "bg-charcoal-5 text-mist")}
                 style={best ? { background: colour } : undefined}
               >
-                {m}
-                {best && <span className="sr-only"> (recommended)</span>}
+                {tp(m)}
+                {best && <span className="sr-only"> {t("(recommended)")}</span>}
               </li>
             );
           })}
         </ol>
-        <p className="mt-4 text-[13px] text-mist">Seasonal highlights shift a little every year: always verify dates for the year you travel.</p>
+        <p className="mt-4 text-[13px] text-mist">{t("Seasonal highlights shift a little every year: always verify dates for the year you travel.")}</p>
       </div>
     </div>
   );
@@ -131,11 +131,11 @@ export function TripHighlights({ trip, images }: { trip: RoadTrip; images: [Img,
     <section id="highlights" className="scroll-mt-[var(--header-h)] bg-cream text-charcoal">
       <div className="px-gutter py-[var(--spacing-sec)]">
         <div className="lg:ml-[8.33%] lg:w-[41.66%] xl:w-[33.33%]">
-          <SplitWords as="h2" text="Highlights" className="font-cond mb-6 text-xl" />
+          <SplitWords as="h2" text={t("Highlights")} className="font-cond mb-6 text-xl" />
           <Reveal>
             <ul className="richtext">
               {trip.highlights.map((h) => (
-                <li key={h}>{h}</li>
+                <li key={h}>{tp(h)}</li>
               ))}
             </ul>
           </Reveal>
@@ -144,12 +144,12 @@ export function TripHighlights({ trip, images }: { trip: RoadTrip; images: [Img,
       <div className="flex items-start pb-[var(--spacing-sec)] max-lg:flex-col max-lg:gap-7">
         <div className="order-2 w-full pr-[20%] lg:order-1 lg:mt-[3.3vw] lg:w-1/2 lg:pr-0">
           <ImageReveal className="aspect-[3/2]">
-            <Image src={imgUrl(images[1], 1400)} alt={images[1].alt} fill sizes="(min-width:1024px) 50vw, 80vw" className="object-cover" />
+            <Image src={imgUrl(images[1], 1400)} alt={tp(images[1].alt)} fill sizes="(min-width:1024px) 50vw, 80vw" className="object-cover" />
           </ImageReveal>
         </div>
         <div className="order-1 w-full pl-[46%] pr-gutter lg:order-2 lg:-mt-[18vw] lg:w-1/2 lg:pl-[15vw]">
           <ImageReveal className="aspect-square">
-            <Image src={imgUrl(images[0], 900)} alt={images[0].alt} fill sizes="(min-width:1024px) 32vw, 50vw" className="object-cover grayscale" />
+            <Image src={imgUrl(images[0], 900)} alt={tp(images[0].alt)} fill sizes="(min-width:1024px) 32vw, 50vw" className="object-cover grayscale" />
           </ImageReveal>
         </div>
       </div>
@@ -190,11 +190,10 @@ export function TripRoute({ trip }: { trip: RoadTrip }) {
       <div className="grid gap-[var(--spacing-sec-lg)] lg:grid-cols-12">
         <div className="lg:col-span-5">
           <div className="border-t hairline-dark pt-[var(--spacing-sec-lg)]">
-            <SplitWords as="h2" lines={["The", "route"]} className="font-display text-3xl" />
+            <SplitWords as="h2" lines={tp(["The", "route"])} className="font-display text-3xl" />
             <p className="mt-6 max-w-[30em] text-mist">
-              {trip.startEnd}. Roughly {trip.totalKm.toLocaleString("en-GB")} km over {trip.days} days, about{" "}
-              {trip.avgDailyDriveHours} hours at the wheel on a typical driving day.
-            </p>
+              {tp(trip.startEnd)}{t(". Roughly ")}{tp(trip.totalKm.toLocaleString("en-GB"))} {t("km over ")}{tp(trip.days)} {t("days, about")}{" "}
+              {tp(trip.avgDailyDriveHours)} {t("hours at the wheel on a typical driving day.")}</p>
           </div>
           <ol className="mt-8 border-b hairline-dark">
             {trip.itinerary
@@ -202,10 +201,10 @@ export function TripRoute({ trip }: { trip: RoadTrip }) {
               .map((d) => (
                 <li key={d.day} className="font-ui flex flex-col justify-between gap-1 border-t hairline-dark py-3 font-light sm:flex-row sm:gap-4">
                   <span>
-                    <span className="text-mist">Day {d.day}</span> {d.from} → {d.to}
+                    <span className="text-mist">{t("Day ")}{tp(d.day)}</span> {tp(d.from)} → {tp(d.to)}
                   </span>
                   <span className="shrink-0 text-mist normal-case">
-                    {d.km} km · {d.driveTime}
+                    {tp(d.km)} {t("km · ")}{tp(d.driveTime)}
                   </span>
                 </li>
               ))}
@@ -213,7 +212,7 @@ export function TripRoute({ trip }: { trip: RoadTrip }) {
         </div>
         <div className="lg:col-span-7">
           <figure className="relative aspect-[600/480] w-full overflow-hidden bg-charcoal">
-            <svg viewBox="0 0 600 480" className="absolute inset-0 h-full w-full" role="img" aria-label={`Stylised loop through ${loop.join(", ")}`}>
+            <svg viewBox="0 0 600 480" className="absolute inset-0 h-full w-full" role="img" aria-label={tf("Stylised loop through {0}", loop.join(", "))}>
               <g opacity="0.25" transform="translate(410 300) scale(0.17)">
                 <path d={FRANCE_PATH} fill="var(--color-cream)" />
                 <path d={CORSICA_PATH} fill="var(--color-cream)" />
@@ -225,14 +224,13 @@ export function TripRoute({ trip }: { trip: RoadTrip }) {
                 <g key={i}>
                   <circle cx={p.x} cy={p.y} r={i === 0 ? 9 : 6} fill={i === 0 ? "var(--color-sunflower)" : "var(--color-cream)"} stroke="var(--color-charcoal)" strokeWidth="3" />
                   <text x={p.x + 12} y={p.y + 4} fill="var(--color-cream)" fontSize="14" fontFamily="var(--font-mono)">
-                    {loop[i]}
+                    {tp(loop[i])}
                   </text>
                 </g>
               ))}
             </svg>
             <figcaption className="font-ui absolute bottom-0 left-0 bg-roadsign px-3 py-1.5 text-[11px] text-white">
-              Route map placeholder · TODO: interactive map
-            </figcaption>
+              {t("Route map placeholder · TODO: interactive map")}</figcaption>
           </figure>
         </div>
       </div>

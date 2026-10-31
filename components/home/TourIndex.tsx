@@ -1,5 +1,6 @@
 "use client";
 
+import { tf, tp, t as tx } from '@/lib/i18n/t';
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -55,10 +56,10 @@ export function TourIndex({ trips }: { trips: IndexTrip[] }) {
         {/* Sticky column */}
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-[calc(var(--header-h)+32px)]">
-            <PlusHeading>Destinations</PlusHeading>
+            <PlusHeading>{tx("Destinations")}</PlusHeading>
             <h2 className="font-display text-3xl">
-              <span className="block">Featured</span>
-              <span className="block">road trips</span>
+              <span className="block">{tx("Featured")}</span>
+              <span className="block">{tx("road trips")}</span>
             </h2>
             <div className="relative mt-[var(--spacing-sec-md)] hidden aspect-[4/3] overflow-hidden bg-charcoal lg:block">
               <AnimatePresence initial={false}>
@@ -90,7 +91,7 @@ export function TourIndex({ trips }: { trips: IndexTrip[] }) {
                   <span className="font-wide absolute bottom-5 left-5 text-[clamp(26px,2.6vw,44px)] leading-[0.82] text-cream [text-shadow:0_2px_24px_rgba(0,0,0,0.35)]">
                     {t.poster.map((l) => (
                       <span key={l} className="block">
-                        {l}
+                        {tp(l)}
                       </span>
                     ))}
                   </span>
@@ -98,14 +99,14 @@ export function TourIndex({ trips }: { trips: IndexTrip[] }) {
               </AnimatePresence>
             </div>
             <div className="mt-6 hidden items-center justify-between lg:flex">
-              <ol className="font-ui flex gap-4" aria-label="Trips in this list">
+              <ol className="font-ui flex gap-4" aria-label={tx("Trips in this list")}>
                 {trips.map((x, i) => (
                   <li key={x.slug} className={cn("transition-opacity", i === active ? "opacity-100" : "opacity-35")}>
-                    {String(i + 1).padStart(2, "0")}
+                    {tp(String(i + 1).padStart(2, "0"))}
                   </li>
                 ))}
               </ol>
-              <ArrowLink href="/self-drive">Full index</ArrowLink>
+              <ArrowLink href="/self-drive">{tx("Full index")}</ArrowLink>
             </div>
           </div>
         </div>
@@ -123,17 +124,17 @@ export function TourIndex({ trips }: { trips: IndexTrip[] }) {
             >
               <p className="font-ui flex items-center gap-3">
                 <SquareMark className="text-[11px]" />
-                {x.location}
+                {tp(x.location)}
               </p>
-              <p className="font-ui mt-1 text-charcoal/70">{x.line}</p>
-              <h3 className="font-cond mt-6 text-2xl">{x.title}</h3>
-              <p className="mt-5 max-w-[36em]">{x.lede}</p>
-              <ul className="mt-8 grid grid-cols-4 gap-2" aria-label={`${x.title} photos`}>
+              <p className="font-ui mt-1 text-charcoal/70">{tp(x.line)}</p>
+              <h3 className="font-cond mt-6 text-2xl">{tp(x.title)}</h3>
+              <p className="mt-5 max-w-[36em]">{tp(x.lede)}</p>
+              <ul className="mt-8 grid grid-cols-4 gap-2" aria-label={tf("{0} photos", x.title)}>
                 {x.strip.map((img, j) => (
                   <li key={j} className="relative aspect-[3/4] overflow-hidden bg-charcoal/10">
                     <Image
                       src={imgUrl(img, 500)}
-                      alt={img.alt}
+                      alt={tp(img.alt)}
                       fill
                       sizes="(min-width:1024px) 12vw, 24vw"
                       className="object-cover transition-transform duration-500 ease-[var(--ease-rp)] hover:scale-110"
@@ -142,8 +143,7 @@ export function TourIndex({ trips }: { trips: IndexTrip[] }) {
                 ))}
               </ul>
               <ArrowLink href={`/road-trips/${x.slug}`} className="mt-8">
-                View itinerary
-              </ArrowLink>
+                {tx("View itinerary")}</ArrowLink>
             </li>
           ))}
         </ol>

@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import type { Img } from "@/data/types";
 import { imgUrl } from "@/lib/media";
@@ -10,10 +11,10 @@ import { Carousel } from "@/components/ui/Carousel";
  */
 export function Gallery({ images, label, wide = false }: { images: Img[]; label: string; wide?: boolean }) {
   return (
-    <section aria-label={label} className="relative bg-cream pb-[var(--spacing-sec-md)]">
+    <section aria-label={tp(label)} className="relative bg-cream pb-[var(--spacing-sec-md)]">
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[28vw] max-h-[360px] bg-charcoal lg:h-[18vw]" />
       <Carousel
-        label={label}
+        label={tp(label)}
         tone="light"
         className="relative"
         itemClassName={cn("w-[88%]", wide ? "lg:w-[78%]" : "lg:w-[62%]")}
@@ -23,7 +24,7 @@ export function Gallery({ images, label, wide = false }: { images: Img[]; label:
       >
         {images.map((img, i) => (
           <figure key={i} className="relative aspect-video overflow-hidden bg-charcoal-10">
-            <Image src={imgUrl(img, 1800)} alt={img.alt} fill sizes="(min-width:1024px) 62vw, 88vw" className="object-cover" />
+            <Image src={imgUrl(img, 1800)} alt={tp(img.alt)} fill sizes="(min-width:1024px) 62vw, 88vw" className="object-cover" />
           </figure>
         ))}
       </Carousel>
