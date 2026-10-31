@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { useId } from "react";
 import { site, type CurrencyCode } from "@/config/site";
 import { useCurrency } from "@/lib/currency";
@@ -13,8 +14,7 @@ export function CurrencySwitcher({ className, tone = "dark" }: { className?: str
   return (
     <div className={cn("relative inline-flex items-center", className)}>
       <label htmlFor={id} className="sr-only">
-        Currency
-      </label>
+        {t("Currency")}</label>
       <select
         id={id}
         value={currency}
@@ -26,7 +26,7 @@ export function CurrencySwitcher({ className, tone = "dark" }: { className?: str
       >
         {site.currencies.supported.map((c) => (
           <option key={c} value={c} className="bg-charcoal text-cream">
-            {c} {site.currencies.symbols[c]}
+            {tp(c)} {tp(site.currencies.symbols[c])}
           </option>
         ))}
       </select>

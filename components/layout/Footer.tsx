@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { lhref, t, tp } from '@/lib/i18n/t';
+import Link from '@/components/i18n/Link';
 import { site } from "@/config/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { SplitWords } from "@/components/motion/SplitWords";
@@ -15,13 +16,12 @@ export function Footer() {
       <div className="pt-[var(--spacing-sec)] pb-[var(--spacing-sec-xl)]">
         <SplitWords
           as="h2"
-          lines={["Let's take the", "long way round"]}
+          lines={tp(["Let's take the", "long way round"])}
           className="font-display mb-[0.5em] text-3xl"
         />
         <Reveal>
           <ButtonLink href="/contact" variant="cream">
-            Contact us
-          </ButtonLink>
+            {t("Contact us")}</ButtonLink>
         </Reveal>
       </div>
 
@@ -32,24 +32,24 @@ export function Footer() {
         <div className="mt-[var(--spacing-sec-xl)] grid gap-10 text-base md:grid-cols-2 xl:grid-cols-3">
           <div className="space-y-1">
             <p>
-              © {year} {site.name}
+              © {tp(year)} {tp(site.name)}
             </p>
-            <p>{address.lines.join(", ")}</p>
+            <p>{tp(address.lines.join(", "))}</p>
           </div>
           <ul className="space-y-1">
             <li>
-              E: <a className="link-wipe" href={contact.emailHref}>{contact.email}</a>
+              E: <a className="link-wipe" href={lhref(contact.emailHref)}>{tp(contact.email)}</a>
             </li>
           </ul>
           <div>
-            <p className="mb-1">Explore the back roads</p>
+            <p className="mb-1">{t("Explore the back roads")}</p>
             <ul className="space-y-1">
               {site.footerExplore.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="link-wipe">
-                    {l.label}:
+                    {tp(l.label)}:
                   </Link>{" "}
-                  <span className="text-dim">{l.note}</span>
+                  <span className="text-dim">{tp(l.note)}</span>
                 </li>
               ))}
             </ul>
@@ -64,19 +64,18 @@ export function Footer() {
             <li key={l.href} className="flex items-center gap-2">
               {i > 0 && <span aria-hidden="true">/</span>}
               <Link href={l.href} className="link-grow">
-                {l.label}
+                {tp(l.label)}
               </Link>
             </li>
           ))}
           <li className="flex items-center gap-2">
             <span aria-hidden="true">/</span>
             <Link href="/faq" className="link-grow">
-              FAQ
-            </Link>
+              {t("FAQ")}</Link>
           </li>
         </ul>
         <p className="flex items-center gap-2 text-mist">
-          <LogoMark size={18} /> {site.tagline}
+          <LogoMark size={18} /> {tp(site.tagline)}
         </p>
       </div>
     </footer>

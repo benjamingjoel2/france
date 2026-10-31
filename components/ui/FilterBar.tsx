@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
@@ -21,7 +22,7 @@ function CheckRow({ checked, label, onChange }: { checked: boolean; label: strin
       >
         {checked && <Icon name="check" size={10} />}
       </span>
-      {label}
+      {tp(label)}
     </label>
   );
 }
@@ -65,8 +66,8 @@ function Dropdown({
           open || count ? "bg-charcoal-10 text-cream" : "bg-charcoal-5 text-mist hover:bg-charcoal-10 hover:text-cream",
         )}
       >
-        {group.label}
-        {count > 0 && <span className="rounded-full bg-cream px-1.5 text-[10.5px] text-charcoal">{count}</span>}
+        {tp(group.label)}
+        {count > 0 && <span className="rounded-full bg-cream px-1.5 text-[10.5px] text-charcoal">{tp(count)}</span>}
         <Icon name="chevron-down" size={12} className={cn("transition-transform duration-300", open && "rotate-180")} />
       </button>
       <AnimatePresence>
@@ -74,7 +75,7 @@ function Dropdown({
           <motion.div
             id={id}
             role="group"
-            aria-label={group.label}
+            aria-label={tp(group.label)}
             initial={{ opacity: 0, y: reduce ? 0 : -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : -6 }}
@@ -82,7 +83,7 @@ function Dropdown({
             className="absolute top-[calc(100%+8px)] left-0 z-30 max-h-[340px] min-w-[220px] overflow-y-auto rounded-[4px] bg-charcoal-10 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
           >
             {group.options.map((o) => (
-              <CheckRow key={o.value} label={o.label} checked={value.includes(o.value)} onChange={() => onToggle(o.value)} />
+              <CheckRow key={o.value} label={tp(o.label)} checked={value.includes(o.value)} onChange={() => onToggle(o.value)} />
             ))}
           </motion.div>
         )}
@@ -133,7 +134,7 @@ export function FilterBar({
         <div className="flex items-center gap-4">
           {resultCount !== undefined && (
             <p className="font-ui text-mist" aria-live="polite">
-              {resultCount} {resultLabel}
+              {tp(resultCount)} {tp(resultLabel)}
             </p>
           )}
           <button
@@ -142,8 +143,7 @@ export function FilterBar({
             disabled={!active}
             className="font-ui h-10 rounded-full bg-cream px-5 text-charcoal transition-colors hover:bg-mist disabled:opacity-40"
           >
-            Clear all
-          </button>
+            {t("Clear all")}</button>
         </div>
       </div>
 
@@ -156,7 +156,7 @@ export function FilterBar({
           className="font-ui flex h-14 w-full items-center justify-between"
         >
           <span className="flex items-center gap-3">
-            <Icon name="filter" size={16} /> Filter {active > 0 && <span className="rounded-full bg-cream px-1.5 text-[10.5px] text-charcoal">{active}</span>}
+            <Icon name="filter" size={16} /> {t("Filter ")}{active > 0 && <span className="rounded-full bg-cream px-1.5 text-[10.5px] text-charcoal">{tp(active)}</span>}
           </span>
           <Icon name="chevron-right" size={14} className={cn("transition-transform duration-300", mobileOpen && "rotate-90")} />
         </button>
@@ -181,14 +181,14 @@ export function FilterBar({
                         className="font-ui flex h-14 w-full items-center justify-between"
                       >
                         <span>
-                          {g.label} {value[g.key]?.length ? `(${value[g.key].length})` : ""}
+                          {tp(g.label)} {tp(value[g.key]?.length ? `(${value[g.key].length})` : "")}
                         </span>
                         <Icon name="chevron-right" size={13} className={cn("transition-transform", open && "rotate-90")} />
                       </button>
                       {open && (
-                        <div className="-mx-5 pb-3" role="group" aria-label={g.label}>
+                        <div className="-mx-5 pb-3" role="group" aria-label={tp(g.label)}>
                           {g.options.map((o) => (
-                            <CheckRow key={o.value} label={o.label} checked={(value[g.key] ?? []).includes(o.value)} onChange={() => toggle(g.key, o.value)} />
+                            <CheckRow key={o.value} label={tp(o.label)} checked={(value[g.key] ?? []).includes(o.value)} onChange={() => toggle(g.key, o.value)} />
                           ))}
                         </div>
                       )}
@@ -198,10 +198,9 @@ export function FilterBar({
               </ul>
               <div className="flex items-center justify-between px-gutter py-4">
                 <button type="button" onClick={clear} className="font-ui link-grow">
-                  Clear all
-                </button>
+                  {t("Clear all")}</button>
                 <button type="button" onClick={() => setMobileOpen(false)} className="font-ui h-10 rounded-full bg-cream px-5 text-charcoal">
-                  Show {resultCount ?? ""} {resultLabel}
+                  {t("Show ")}{tp(resultCount ?? "")} {tp(resultLabel)}
                 </button>
               </div>
             </motion.div>

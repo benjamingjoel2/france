@@ -1,5 +1,6 @@
 "use client";
 
+import { lhref, t, tp } from '@/lib/i18n/t';
 import { useState } from "react";
 import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "@/components/ui/Icon";
@@ -16,11 +17,11 @@ export function ShareBar({ url, title }: { url: string; title: string }) {
   const fill = "absolute inset-0 origin-bottom scale-y-0 bg-charcoal transition-transform duration-300 group-hover:scale-y-100";
   return (
     <div className="flex items-center gap-4 md:flex-col md:items-center">
-      <p className="font-cond text-[15px] md:mb-4 md:[writing-mode:vertical-rl] md:rotate-180">Share this route</p>
+      <p className="font-cond text-[15px] md:mb-4 md:[writing-mode:vertical-rl] md:rotate-180">{t("Share this route")}</p>
       <ul className="flex md:flex-col">
         {links.map((l) => (
           <li key={l.label} className="-ml-px first:ml-0 md:-mt-px md:ml-0 md:first:mt-0">
-            <a href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.label} className={box} style={{ ["--icon-cut" as string]: "var(--color-cream)" }}>
+            <a href={lhref(l.href)} target="_blank" rel="noopener noreferrer" aria-label={tp(l.label)} className={box} style={{ ["--icon-cut" as string]: "var(--color-cream)" }}>
               <span className={fill} />
               <Icon name={l.icon} size={16} className="relative transition-colors delay-100 group-hover:text-cream" />
             </a>
@@ -29,7 +30,7 @@ export function ShareBar({ url, title }: { url: string; title: string }) {
         <li className="-ml-px md:-mt-px md:ml-0">
           <button
             type="button"
-            aria-label="Copy link"
+            aria-label={t("Copy link")}
             onClick={() => {
               navigator.clipboard?.writeText(url).then(() => {
                 setCopied(true);
@@ -42,7 +43,7 @@ export function ShareBar({ url, title }: { url: string; title: string }) {
             <Icon name={copied ? "check" : "link"} size={16} className={cn("relative transition-colors delay-100 group-hover:text-cream")} />
           </button>
           <span role="status" className="sr-only">
-            {copied ? "Link copied" : ""}
+            {tp(copied ? "Link copied" : "")}
           </span>
         </li>
       </ul>

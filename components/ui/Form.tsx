@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tf, tp } from '@/lib/i18n/t';
 import { forwardRef, useId } from "react";
 import { cn } from "@/lib/cn";
 import { Icon } from "./Icon";
@@ -44,20 +45,20 @@ export function Field({
         {...(LabelTag === "label" ? { htmlFor } : {})}
         className="font-ui mb-2 block text-cream"
       >
-        {label}
+        {tp(label)}
         {required && (
           <span className="text-brick" aria-hidden="true">
             {" "}
             *
           </span>
         )}
-        {required && <span className="sr-only"> (required)</span>}
+        {required && <span className="sr-only"> {t("(required)")}</span>}
       </LabelTag>
-      {hint && <p className="mb-3 -mt-1 text-[13px] text-mist">{hint}</p>}
+      {hint && <p className="mb-3 -mt-1 text-[13px] text-mist">{tp(hint)}</p>}
       {children}
       {error && (
         <p id={htmlFor ? `${htmlFor}-error` : undefined} role="alert" className="font-ui mt-2 text-[11.5px] text-brick">
-          {error}
+          {tp(error)}
         </p>
       )}
     </Tag>
@@ -115,12 +116,12 @@ export function Select({
       >
         {placeholder && (
           <option value="" disabled>
-            {placeholder}
+            {tp(placeholder)}
           </option>
         )}
         {options.map((o) => (
           <option key={o.value} value={o.value}>
-            {o.label}
+            {tp(o.label)}
           </option>
         ))}
       </select>
@@ -204,8 +205,8 @@ export function ChoiceChips<T extends string>({
               {on && <Icon name="check" size={13} />}
             </span>
             <span className="leading-tight">
-              <span className="block text-base font-normal">{o.label}</span>
-              {o.sub && <span className={cn("mt-0.5 block text-[12.5px]", on ? "text-charcoal/70" : "text-mist")}>{o.sub}</span>}
+              <span className="block text-base font-normal">{tp(o.label)}</span>
+              {o.sub && <span className={cn("mt-0.5 block text-[12.5px]", on ? "text-charcoal/70" : "text-mist")}>{tp(o.sub)}</span>}
             </span>
           </label>
         );
@@ -236,7 +237,7 @@ export function Checkbox({
       >
         {checked && <Icon name="check" size={16} />}
       </span>
-      <span className="pt-0.5 text-base text-mist group-hover:text-cream">{label}</span>
+      <span className="pt-0.5 text-base text-mist group-hover:text-cream">{tp(label)}</span>
     </label>
   );
 }
@@ -263,7 +264,7 @@ export function Stepper({
     "flex h-[52px] w-[52px] shrink-0 items-center justify-center border border-charcoal-10 bg-charcoal-5 text-cream text-xl transition-colors hover:bg-cream hover:text-charcoal disabled:opacity-30 disabled:hover:bg-charcoal-5 disabled:hover:text-cream lg:h-[67px] lg:w-[67px]";
   return (
     <div className="flex">
-      <button type="button" className={btn} aria-label={`Fewer ${label}`} disabled={value <= min} onClick={() => onChange(Math.max(min, value - 1))}>
+      <button type="button" className={btn} aria-label={tf("Fewer {0}", label)} disabled={value <= min} onClick={() => onChange(Math.max(min, value - 1))}>
         −
       </button>
       <input
@@ -280,7 +281,7 @@ export function Stepper({
         }}
         className={cn(inputClass(invalid), "-mx-px w-24 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none")}
       />
-      <button type="button" className={btn} aria-label={`More ${label}`} disabled={value >= max} onClick={() => onChange(Math.min(max, value + 1))}>
+      <button type="button" className={btn} aria-label={tf("More {0}", label)} disabled={value >= max} onClick={() => onChange(Math.min(max, value + 1))}>
         +
       </button>
     </div>

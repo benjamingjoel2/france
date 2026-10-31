@@ -1,5 +1,6 @@
 "use client";
 
+import { lhref, t, tp } from '@/lib/i18n/t';
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 import { buttonClass } from "@/components/ui/Button";
@@ -34,32 +35,30 @@ export function StickyTripBar({
 
   return (
     <div className="sticky bottom-0 z-30 flex items-center justify-between gap-6 bg-night px-[14px] py-[10px] text-cream lg:px-[30px] lg:py-[15px]">
-      <nav aria-label="On this page" className="hidden min-w-0 lg:block">
+      <nav aria-label={t("On this page")} className="hidden min-w-0 lg:block">
         <ul className="font-ui flex items-center gap-[clamp(14px,2vw,30px)] overflow-x-auto no-scrollbar">
           {sections.map((s) => (
             <li key={s.id}>
               <a
-                href={`#${s.id}`}
+                href={lhref(`#${s.id}`)}
                 data-active={active === s.id}
                 aria-current={active === s.id ? "location" : undefined}
                 className={cn("link-grow whitespace-nowrap transition-colors", active === s.id ? "text-cream" : "text-dim hover:text-cream")}
               >
-                {s.label}
+                {tp(s.label)}
               </a>
             </li>
           ))}
         </ul>
       </nav>
       <div className="flex w-full gap-2 lg:w-auto">
-        <a href={`/plan-my-road-trip?trip=${tripSlug}`} className={buttonClass("cream", "sm", "flex-1 lg:flex-none")}>
-          Enquire
-        </a>
+        <a href={lhref(`/plan-my-road-trip?trip=${tripSlug}`)} className={buttonClass("cream", "sm", "flex-1 lg:flex-none")}>
+          {t("Enquire")}</a>
         <a
-          href={`/contact?trip=${tripSlug}`}
+          href={lhref(`/contact?trip=${tripSlug}`)}
           className={buttonClass("stroke-light", "sm", "flex-1 lg:flex-none")}
         >
-          Ask a question
-        </a>
+          {t("Ask a question")}</a>
       </div>
     </div>
   );

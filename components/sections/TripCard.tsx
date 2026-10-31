@@ -1,7 +1,8 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import Image from "next/image";
-import Link from "next/link";
+import Link from '@/components/i18n/Link';
 import { useEffect, useRef, useState } from "react";
 import type { CardTrip } from "@/lib/cards";
 import { paces, tripTypes } from "@/data/taxonomy";
@@ -82,7 +83,7 @@ export function TripCard({ trip, regionName, tone = "light", sizes, priority, cl
         >
           <Image
             src={imgUrl(trip.cardImage, 1000)}
-            alt={trip.cardImage.alt}
+            alt={tp(trip.cardImage.alt)}
             fill
             priority={priority}
             sizes={sizes ?? "(min-width: 1024px) 31vw, (min-width: 640px) 48vw, 92vw"}
@@ -140,7 +141,7 @@ export function TripCard({ trip, regionName, tone = "light", sizes, priority, cl
           >
             {poster.title.map((l, i) => (
               <span key={i} className="block">
-                {l}
+                {tp(l)}
               </span>
             ))}
           </p>
@@ -154,24 +155,23 @@ export function TripCard({ trip, regionName, tone = "light", sizes, priority, cl
             framed && poster.mat && (poster.mat === "sunflower" || poster.mat.endsWith("-300")) ? "text-charcoal" : "text-cream",
           )}
         >
-          {regionName} <span className="mx-[0.4em]">|</span> {tripTypes[trip.type].short}
+          {tp(regionName)} <span className="mx-[0.4em]">|</span> {tp(tripTypes[trip.type].short)}
         </p>
       </div>
 
       <h3 className="font-cond pt-[1.15em] pb-[0.5em] text-lg">
-        <span className="sr-only">{trip.title}: </span>
-        {regionName}
+        <span className="sr-only">{tp(trip.title)}: </span>
+        {tp(regionName)}
       </h3>
       <ul className="font-ui flex flex-wrap items-center gap-x-2 gap-y-1 font-light">
         <li className="flex items-center gap-2">
           <PaceGlyph pace={trip.pace} />
-          {paces[trip.pace].label}
-          <span className="text-current/80 normal-case">· ~{trip.avgDailyDriveHours}h/day</span>
+          {tp(paces[trip.pace].label)}
+          <span className="text-current/80 normal-case">· ~{tp(trip.avgDailyDriveHours)}{t("h/day")}</span>
         </li>
         <li aria-hidden="true">•</li>
         <li>
-          {trip.days} days / {trip.nights} nights
-        </li>
+          {tp(trip.days)} {t("days / ")}{tp(trip.nights)} {t("nights")}</li>
       </ul>
     </Link>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { t, tp } from '@/lib/i18n/t';
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useId, useState } from "react";
 import { cn } from "@/lib/cn";
@@ -35,11 +36,11 @@ export function PlanTabs({ tabs, heading = ["Plan your", "trip"] }: { tabs: Plan
             <h2 className="font-display text-3xl">
               {heading.map((l) => (
                 <span key={l} className="block">
-                  {l}
+                  {tp(l)}
                 </span>
               ))}
             </h2>
-            <div role="tablist" aria-label="Plan your trip" className="mt-8 flex max-w-[30em] flex-wrap gap-2">
+            <div role="tablist" aria-label={t("Plan your trip")} className="mt-8 flex max-w-[30em] flex-wrap gap-2">
               {tabs.map((t, i) => (
                 <button
                   key={t.id}
@@ -56,7 +57,7 @@ export function PlanTabs({ tabs, heading = ["Plan your", "trip"] }: { tabs: Plan
                     active === t.id ? "bg-charcoal text-cream" : "hover:bg-charcoal/10",
                   )}
                 >
-                  {t.label}
+                  {tp(t.label)}
                 </button>
               ))}
             </div>
@@ -75,7 +76,7 @@ export function PlanTabs({ tabs, heading = ["Plan your", "trip"] }: { tabs: Plan
               transition={{ duration: 0.25 }}
             >
               <Accordion items={tab.items} tone="light" defaultOpen={tab.items[0]?.id ?? null} />
-              {tab.footer}
+              {tp(tab.footer)}
             </motion.div>
           </AnimatePresence>
         </div>

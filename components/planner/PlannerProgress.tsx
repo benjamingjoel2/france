@@ -1,5 +1,6 @@
 "use client";
 
+import { tp, t as tx } from '@/lib/i18n/t';
 import { ordinal } from "@/data/taxonomy";
 import { cn } from "@/lib/cn";
 import { Icon } from "@/components/ui/Icon";
@@ -22,9 +23,9 @@ export function PlannerProgress({
   className?: string;
 }) {
   return (
-    <nav aria-label="Planner progress" className={className}>
+    <nav aria-label={tx("Planner progress")} className={className}>
       <p className="sr-only" aria-live="polite">
-        Step {current + 1} of {titles.length}: {titles[current]}
+        {tx("Step ")}{tp(current + 1)} {tx("of ")}{tp(titles.length)}: {tp(titles[current])}
       </p>
 
       {/* Mobile bar */}
@@ -38,7 +39,7 @@ export function PlannerProgress({
               )}
             />
             <span className={cn("font-ui mt-2 block text-[10.5px]", i === current ? "text-cream" : "text-mist")}>
-              {ordinal(i + 1)}
+              {tp(ordinal(i + 1))}
             </span>
           </li>
         ))}
@@ -71,8 +72,8 @@ export function PlannerProgress({
                 >
                   {done && !active ? <Icon name="check" size={14} /> : <span className={cn("size-2 rounded-full", active ? "bg-sunflower" : "bg-transparent")} />}
                 </span>
-                <span className="font-ui w-[5.5em] shrink-0 text-mist">{ordinal(i + 1)} exit</span>
-                <span className="font-cond text-lg">{t}</span>
+                <span className="font-ui w-[5.5em] shrink-0 text-mist">{tp(ordinal(i + 1))} {tx("exit")}</span>
+                <span className="font-cond text-lg">{tp(t)}</span>
               </button>
             </li>
           );

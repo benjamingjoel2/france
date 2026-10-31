@@ -12,17 +12,17 @@ export const faqs: Faq[] = [
     category: "Your trip",
     question: "What's included in a Rond-Point road trip?",
     answer: [
-      "Every loop includes hand-picked stays (boutique hotels, châteaux, farmhouses and the odd fisherman's house), car hire with a full-insurance option, a beautifully printed route book plus an offline app version, and one dedicated specialist on WhatsApp seven days a week for the whole trip.",
+      "Every loop includes hand-picked stays (boutique hotels, châteaux, farmhouses and the odd fisherman's house), car hire with a full-insurance option, a beautifully printed route book plus an offline app version, and one dedicated specialist, seven days a week, for the whole trip.",
       "We also book the things that need booking (restaurant tables, cave tickets, tastings, e-bikes and guides) and send you local tips you won't find in a guidebook. Each trip page lists exactly what's included and what isn't.",
       "Not included: flights or trains to France, fuel, tolls, parking, most meals and personal travel insurance. We're happy to advise on any of them.",
     ],
   },
   {
-    id: "whatsapp-specialist",
+    id: "specialist-support",
     category: "Your trip",
-    question: "How does the WhatsApp specialist support work?",
+    question: "How does specialist support on the road work?",
     answer: [
-      "The same person who designed your trip stays with you while you're on the road. Message them on WhatsApp for anything: a dinner recommendation, a change of plan, a flat tyre, a sudden craving for oysters.",
+      "The same person who designed your trip stays with you while you're on the road. Message or email them for anything: a dinner recommendation, a change of plan, a flat tyre, a sudden craving for oysters.",
       "Your specialist is available seven days a week during your trip, from [8:00 to 20:00] Paris time, with an emergency line outside those hours. Replies are usually within minutes, not hours.",
     ],
   },
@@ -156,8 +156,8 @@ export const faqs: Faq[] = [
     category: "Booking & payment",
     question: "How do payment and deposits work?",
     answer: [
-      "Once you're happy with your tailor-made itinerary, we ask for a [25%] deposit to confirm the booking, and the balance is due [8] weeks before you travel. We accept [payment methods].",
-      "Prices are quoted per person in euros. The currency switcher on the site shows approximate conversions; your final invoice is in [EUR].",
+      "Once you're happy with your tailor-made itinerary, we ask for a deposit to confirm the booking, and the balance is due some weeks before you travel. The exact amounts and dates are set out in your proposal and confirmation before you book.",
+      "Prices are quoted per person in euros. The currency switcher on the site shows approximate conversions; your invoice is in euros.",
     ],
   },
   {
@@ -165,7 +165,7 @@ export const faqs: Faq[] = [
     category: "Booking & payment",
     question: "What if I need to cancel?",
     answer: [
-      "[PLACEHOLDER: cancellation terms to be confirmed.] If you cancel more than [8] weeks before departure, you lose your deposit; between [8] and [4] weeks, [50%] of the trip price; within [4] weeks, [100%].",
+      "You can cancel at any time by writing to us. Because we pay hotels and other suppliers in advance, cancellation charges apply and increase as your departure date gets closer. The charges for your trip are set out in your proposal and confirmation before you book.",
       "We strongly recommend travel insurance that covers cancellation from the day you book. Full terms are in our booking conditions.",
     ],
   },

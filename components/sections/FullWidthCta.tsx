@@ -1,3 +1,4 @@
+import { tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import type { Img } from "@/data/types";
 import { imgUrl } from "@/lib/media";
@@ -27,14 +28,14 @@ export function FullWidthCta({
       </Parallax>
       <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-night/85 to-transparent" />
       <div className="relative z-10 w-full">
-        <SplitWords as="h2" text={heading} className="font-display text-3xl" />
+        <SplitWords as="h2" text={tp(heading)} className="font-display text-3xl" />
         <div className="mt-[var(--spacing-sec-md)] flex flex-col gap-6 border-t hairline-dark pt-[var(--spacing-sec-md)] md:flex-row md:items-center md:justify-between">
           <Reveal className="max-w-[30em]">
-            <p>{text}</p>
+            <p>{tp(text)}</p>
           </Reveal>
           <Reveal delay={0.1}>
             <ButtonLink href={href} variant="cream">
-              {cta}
+              {tp(cta)}
             </ButtonLink>
           </Reveal>
         </div>
