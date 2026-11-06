@@ -3,7 +3,6 @@ import { photo } from "./media";
 import { toCardTrip } from "./cards";
 import {
   featuredTrips,
-  getTrip,
   regionNameFor,
   regions,
   roadTrips,
@@ -17,16 +16,9 @@ import {
 export function homeData() {
   const featured = featuredTrips();
   const ordered = [...featured, ...roadTrips.filter((t) => !t.featured)];
-  const heroTrip = getTrip("loire-chateaux-loop") ?? featured[0];
   return {
     hero: site.featuredTrip,
     heroImage: site.featuredTrip.image ?? photo("hero:lavender"),
-    heroTrip: {
-      slug: heroTrip.slug,
-      title: heroTrip.shortTitle,
-      meta: `${heroTrip.days} days · drive & e-bike`,
-      image: heroTrip.heroImage,
-    },
     exits: regions.map((r) => ({
       slug: r.slug,
       name: r.name,

@@ -68,11 +68,6 @@ export function Footer() {
               </Link>
             </li>
           ))}
-          <li className="flex items-center gap-2">
-            <span aria-hidden="true">/</span>
-            <Link href="/faq" className="link-grow">
-              {t("FAQ")}</Link>
-          </li>
         </ul>
         <p className="flex items-center gap-2 text-mist">
           <LogoMark size={18} /> {tp(site.tagline)}
