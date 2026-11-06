@@ -1,4 +1,4 @@
-import { t, tf, tp } from '@/lib/i18n/t';
+import { t, tp } from '@/lib/i18n/t';
 import Image from "next/image";
 import type { Img, Month, RoadTrip } from "@/data/types";
 import { monthShort, paces, tripTypes, interests as interestLabels } from "@/data/taxonomy";
@@ -11,7 +11,6 @@ import { PlusHeading } from "@/components/ui/PlusHeading";
 import { SplitWords } from "@/components/motion/SplitWords";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImageReveal } from "@/components/motion/ImageReveal";
-import { FRANCE_PATH, CORSICA_PATH } from "@/components/sections/RegionsShowcase";
 
 /* ---------------------------------------------------------------- Overview */
 
@@ -157,38 +156,13 @@ export function TripHighlights({ trip, images }: { trip: RoadTrip; images: [Img,
   );
 }
 
-/* ---------------------------------------------------------------- Route map placeholder */
+/* ---------------------------------------------------------------- Route (day-by-day drives) */
 
 export function TripRoute({ trip }: { trip: RoadTrip }) {
-  // Overnight stops in order, deduplicated (the loop returns to the start).
-  const towns: string[] = [];
-  for (const d of trip.itinerary) {
-    if (!towns.length) towns.push(d.from);
-    if (towns[towns.length - 1] !== d.to) towns.push(d.to);
-  }
-  const loop = towns.length > 1 && towns[0] === towns[towns.length - 1] ? towns.slice(0, -1) : towns;
-  const n = Math.max(loop.length, 3);
-  // Stylised loop: points on a wobbly ellipse.
-  const pts = loop.map((_, i) => {
-    const a = (i / n) * Math.PI * 2 - Math.PI / 2;
-    const r = 1 + 0.12 * Math.sin(i * 2.3);
-    return { x: 300 + Math.cos(a) * 190 * r, y: 240 + Math.sin(a) * 150 * r };
-  });
-  const d =
-    pts.length > 1
-      ? pts
-          .map((p, i) => {
-            const q = pts[(i + 1) % pts.length];
-            const cx = (p.x + q.x) / 2 + (q.y - p.y) * 0.18;
-            const cy = (p.y + q.y) / 2 - (q.x - p.x) * 0.18;
-            return `${i === 0 ? `M${p.x} ${p.y}` : ""} Q${cx} ${cy} ${q.x} ${q.y}`;
-          })
-          .join(" ")
-      : "";
   return (
     <section id="route" className="scroll-mt-[var(--header-h)] bg-charcoal-10 px-gutter py-[var(--spacing-sec-xl)] text-cream">
       <div className="grid gap-[var(--spacing-sec-lg)] lg:grid-cols-12">
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-8">
           <div className="border-t hairline-dark pt-[var(--spacing-sec-lg)]">
             <SplitWords as="h2" lines={tp(["The", "route"])} className="font-display text-3xl" />
             <p className="mt-6 max-w-[30em] text-mist">
@@ -209,29 +183,6 @@ export function TripRoute({ trip }: { trip: RoadTrip }) {
                 </li>
               ))}
           </ol>
-        </div>
-        <div className="lg:col-span-7">
-          <figure className="relative aspect-[600/480] w-full overflow-hidden bg-charcoal">
-            <svg viewBox="0 0 600 480" className="absolute inset-0 h-full w-full" role="img" aria-label={tf("Stylised loop through {0}", loop.join(", "))}>
-              <g opacity="0.25" transform="translate(410 300) scale(0.17)">
-                <path d={FRANCE_PATH} fill="var(--color-cream)" />
-                <path d={CORSICA_PATH} fill="var(--color-cream)" />
-              </g>
-              {d && (
-                <path d={d} fill="none" stroke="var(--color-sunflower)" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 0" className="[stroke-dasharray:2200] [stroke-dashoffset:2200] motion-safe:animate-[draw_2.4s_ease-in-out_forwards] motion-reduce:[stroke-dashoffset:0]" />
-              )}
-              {pts.map((p, i) => (
-                <g key={i}>
-                  <circle cx={p.x} cy={p.y} r={i === 0 ? 9 : 6} fill={i === 0 ? "var(--color-sunflower)" : "var(--color-cream)"} stroke="var(--color-charcoal)" strokeWidth="3" />
-                  <text x={p.x + 12} y={p.y + 4} fill="var(--color-cream)" fontSize="14" fontFamily="var(--font-mono)">
-                    {tp(loop[i])}
-                  </text>
-                </g>
-              ))}
-            </svg>
-            <figcaption className="font-ui absolute bottom-0 left-0 bg-roadsign px-3 py-1.5 text-[11px] text-white">
-              {t("Route map placeholder · TODO: interactive map")}</figcaption>
-          </figure>
         </div>
       </div>
     </section>
