@@ -68,7 +68,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         })}
       />
 
-      <Hero image={d.heroImage} focus={tp(d.hero.image?.focus)} />
+      <Hero image={d.heroImage} focus={tp(d.hero.image?.focus)} trip={tp(d.heroTrip)} />
 
       <section aria-label={t("Bonne route")} className="bg-sunflower py-4 text-charcoal">
         <Marquee
