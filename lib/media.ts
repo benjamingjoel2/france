@@ -3,7 +3,7 @@ import type { Img } from "@/data/types";
 
 const FALLBACK: Img = {
   src: "/img/placeholder.jpg",
-  alt: "Placeholder image",
+  alt: "",
   w: 1600,
   h: 1200,
 };
@@ -16,7 +16,7 @@ function toImg(p: Photo): Img {
 
 /**
  * Pick a photo from the placeholder pool by key ("region:provence", "theme:ebike"…).
- * Falls back through alternative keys, then to a local gradient so pages never break.
+ * Falls back through alternative keys, then to a plain neutral block so pages never break.
  */
 export function photo(key: string | readonly string[], index = 0): Img {
   const keys: readonly string[] = typeof key === "string" ? [key] : key;

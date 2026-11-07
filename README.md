@@ -40,7 +40,7 @@ Everything below is a deliberate placeholder or needs verifying.
 - [ ] Journal author names, stays and experiences (invented names, no real partners; see `IMAGES-NEEDED.md`)
 - [ ] Deposit %, balance timing and the cancellation scale in FAQs, trip pages and `/terms`
 - [ ] `/privacy`, `/terms` (Booking terms) and `/cookies` are complete drafts (`data/legal.ts`, `lib/legal.ts`): have a lawyer review them
-- [ ] Brand film on `/why-rond-point` and the interactive route map on trip pages (TODO placeholders)
+- [ ] Brand film on `/why-rond-point` (the band shows a real photo of the Col du Galibier road until footage exists) and the interactive route map on trip pages
 - [ ] Sample route book PDF (`public/downloads/route-book-sample.pdf`)
 
 **Facts to verify** (all flagged on-site)
