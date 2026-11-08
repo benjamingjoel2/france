@@ -6,3 +6,8 @@ The site names no real hotel, restaurant or café: the stays and experiences in 
 | --- | --- | --- | --- |
 | Each stay in `data/stays.ts`, once it is replaced by a real, contracted property | `/road-trips/<slug>` (Where you stay) | 4–6 high-resolution photos (exterior, a room, the setting) with written permission for use by travel partners | The property's press or sales contact |
 | Each experience in `data/experiences.ts`, once it has a real partner | `/road-trips/<slug>` (Itinerary) | 2–3 photos of the activity with permission | The partner directly |
+
+## Filled (7 Nov 2026)
+
+- [x] `/why-rond-point` media band: was a "brand film placeholder" box with a fake play button; now a real photo of the road up to the Col du Galibier (Unsplash pool, `theme:route-napoleon`). Swap for the brand film when footage exists.
+- [x] No-photo fallback (`/img/placeholder.jpg`) is now a plain neutral block.

@@ -2,7 +2,7 @@
 
 import { t, tp } from '@/lib/i18n/t';
 import Link from '@/components/i18n/Link';
-import { animate, motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { LogoMark } from "@/components/layout/Logo";
@@ -11,26 +11,16 @@ const EASE = [0.645, 0.045, 0.355, 1] as const;
 
 /* ------------------------------------------------------------ Squiggle underline */
 
-/** A hand-drawn road that draws itself under a word (on load). */
+/** A plain colour bar that slides in under a word (on load). */
 export function Squiggle({ children, colour = "var(--color-sunflower)" }: { children: React.ReactNode; colour?: string }) {
   return (
     <span className="relative inline-block">
       {children}
-      <svg
+      <span
         aria-hidden="true"
-        viewBox="0 0 300 30"
-        preserveAspectRatio="none"
-        className="absolute -bottom-[0.18em] left-0 h-[0.22em] w-full overflow-visible"
-      >
-        <path
-          d="M4 18 C 40 4, 70 28, 110 14 S 180 2, 220 16 S 280 26, 296 10"
-          fill="none"
-          stroke={colour}
-          strokeWidth="9"
-          strokeLinecap="round"
-          className="[stroke-dasharray:420] [stroke-dashoffset:420] animate-[draw_1.4s_cubic-bezier(0.645,0.045,0.355,1)_0.9s_forwards] motion-reduce:[stroke-dashoffset:0]"
-        />
-      </svg>
+        className="absolute -bottom-[0.1em] left-0 h-[0.09em] w-full origin-left scale-x-0 animate-[grow-x_1.1s_cubic-bezier(0.645,0.045,0.355,1)_0.9s_forwards] motion-reduce:scale-x-100 motion-reduce:animate-none"
+        style={{ background: colour }}
+      />
     </span>
   );
 }
@@ -141,7 +131,7 @@ export function CountUpStats({
   );
 }
 
-/* ------------------------------------------------------------ Scroll-drawn road: how it works */
+/* ------------------------------------------------------------ How it works */
 
 export function HowItWorks({
   steps,
@@ -150,10 +140,7 @@ export function HowItWorks({
   steps: { eyebrow: string; title: string; text: string }[];
   title?: string[];
 }) {
-  const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 60%"] });
-  const length = useTransform(scrollYProgress, [0, 1], [0, 1]);
   return (
     <section className="relative overflow-hidden bg-cream py-[var(--spacing-sec)] text-charcoal">
       <div className="px-gutter">
@@ -165,28 +152,7 @@ export function HowItWorks({
           ))}
         </h2>
       </div>
-      <div ref={ref} className="relative mt-[var(--spacing-sec-xl)] px-gutter">
-        {/* The road */}
-        <svg aria-hidden="true" viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 hidden h-full w-full lg:block">
-          <path
-            d="M120 0 C 120 160, 880 120, 880 260 S 120 420, 120 560 S 880 700, 880 840 S 500 980, 500 1000"
-            fill="none"
-            stroke="var(--color-charcoal)"
-            strokeOpacity="0.07"
-            strokeWidth="46"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-          />
-          <motion.path
-            d="M120 0 C 120 160, 880 120, 880 260 S 120 420, 120 560 S 880 700, 880 840 S 500 980, 500 1000"
-            fill="none"
-            stroke="var(--color-sunflower)"
-            strokeWidth="4"
-            strokeDasharray="14 12"
-            vectorEffect="non-scaling-stroke"
-            style={{ pathLength: reduce ? 1 : length }}
-          />
-        </svg>
+      <div className="relative mt-[var(--spacing-sec-xl)] px-gutter">
         <ol className="relative grid gap-12 lg:gap-0">
           {steps.map((s, i) => (
             <motion.li

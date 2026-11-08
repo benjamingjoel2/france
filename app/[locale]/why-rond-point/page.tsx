@@ -8,7 +8,6 @@ import { imgUrl, photo } from "@/lib/media";
 import { ArticleHero } from "@/components/sections/ArticleHero";
 import { Accordion } from "@/components/ui/Accordion";
 import { PlusHeading } from "@/components/ui/PlusHeading";
-import { Icon } from "@/components/ui/Icon";
 import { SplitWords } from "@/components/motion/SplitWords";
 import { Reveal } from "@/components/motion/Reveal";
 import { ImageReveal } from "@/components/motion/ImageReveal";
@@ -109,14 +108,7 @@ export default async function WhyPage({ params }: { params: Promise<{ locale: st
       <section className="relative bg-cream pb-[var(--spacing-sec)]">
         <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1/2 bg-charcoal" />
         <figure className="relative mx-gutter aspect-video overflow-hidden bg-charcoal-10 md:mx-[8.33%]">
-          <Image src={imgUrl(photo(["theme:convertible", "region:cote-d-azur"], 1), 2000)} alt={t("A convertible on a coastal road")} fill sizes="85vw" className="object-cover" />
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex size-20 items-center justify-center rounded-full bg-cream text-charcoal">
-              <Icon name="play" size={26} />
-            </span>
-          </span>
-          <figcaption className="font-ui absolute bottom-0 left-0 bg-roadsign px-3 py-1.5 text-[11px] text-white">
-            {t("Brand film placeholder · TODO: embed video")}</figcaption>
+          <Image src={imgUrl(photo("theme:route-napoleon", 0), 2000)} alt={t("The road climbing towards the Col du Galibier in the French Alps")} fill sizes="85vw" className="object-cover" />
         </figure>
       </section>
 
