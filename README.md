@@ -34,7 +34,7 @@ Everything below is a deliberate placeholder or needs verifying.
 - [ ] Confirm the business address (WeWork La Fayette, 33 rue La Fayette, 75009 Paris) and `rondpoint@tourground.com`. By the owner's rule the site shows no phone, WhatsApp, social links, licence numbers, team bios or testimonials.
 - [ ] Stats in the ticker (`[12]` years, `[40+]` trips, `[14]` regions)
 - [ ] Currency rates: replace the static rates with a live feed (TODO in config)
-- [x] Domain: rondpoint.tourground.com (set in `config/site.ts`; `NEXT_PUBLIC_SITE_URL` overrides it)
+- [x] Domain: rond-point.tourground.com (set in `config/site.ts`; `NEXT_PUBLIC_SITE_URL` overrides it)
 
 **Content flagged as placeholder**
 - [ ] Journal author names, stays and experiences (invented names, no real partners; see `IMAGES-NEEDED.md`)
