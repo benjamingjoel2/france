@@ -11,7 +11,7 @@ export const site = {
   description:
     "Tailor-made self-drive road trips through France, with hand-picked stays, a beautiful route book and one dedicated specialist the whole way.",
   // Canonical domain (a subdomain of tourground.com, DNS on Vercel). NEXT_PUBLIC_SITE_URL overrides it.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rondpoint.tourground.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rond-point.tourground.com",
   locale: "en_GB",
 
   colours: {
